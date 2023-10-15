@@ -1,4 +1,5 @@
-import { Input } from '@/components/ui/input';
+import Search from '@/components/Search';
+import { Button } from '@/components/ui/button';
 
 export default async function Header() {
   return (
@@ -9,11 +10,11 @@ export default async function Header() {
             DTT
           </a>
           <div className="flex w-72 items-center">
-            <Input className="rounded-3xl" placeholder="Seach..." />
+            <Search />
           </div>
         </div>
         <div className="flex flex-1 items-center justify-end">
-          LOGIN BUTTONS
+          <Button variant="link">Login</Button>
         </div>
       </div>
     </header>
