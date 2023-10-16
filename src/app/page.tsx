@@ -1,6 +1,8 @@
 import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import Header from '@/components/Header';
+import Article from '@/components/Article';
+import Footer from '@/components/Footer';
 
 export const runtime = 'edge';
 
@@ -11,11 +13,15 @@ export default async function Home() {
   return (
     <div className="relative flex min-h-screen flex-col">
       <Header />
-      <div className="flex-1">
-        {articles?.map((article) => (
-          <span key={article.id}>{article.title}</span>
-        ))}
+      <div className="container flex-1 md:grid md:grid-cols-[minmax(0,1fr)_220px] md:gap-6 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-10">
+        <div>
+          {articles?.map((article) => (
+            <Article article={article} key={article.id} />
+          ))}
+        </div>
+        {/*<div>right menu</div>*/}
       </div>
+      <Footer />
     </div>
   );
 }
