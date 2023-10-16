@@ -15,8 +15,8 @@ export default async function Home() {
       <Header />
       <div className="container flex-1 md:grid md:grid-cols-[minmax(0,1fr)_220px] md:gap-6 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-10">
         <div>
-          {articles?.map((article) => (
-            <Article article={article} key={article.id} />
+          {articles?.map((article, index) => (
+            <Article article={article} key={article.id} first={index === 0} />
           ))}
         </div>
         {/*<div>right menu</div>*/}
