@@ -6,10 +6,13 @@ export default async function Search() {
     <>
       <div className="relative">
         <div className="absolute left-[10px] top-[-9px]">
-          <Icon name="search" size={18}/>
+          <Icon name="search" size={18} className="text-muted-foreground" />
         </div>
       </div>
-      <Input className="rounded-3xl indent-5" placeholder="Seach..." />
+      <Input
+        className="rounded-3xl border-none bg-gray-50 indent-6 shadow-none"
+        placeholder="Seach..."
+      />
     </>
   );
 }
