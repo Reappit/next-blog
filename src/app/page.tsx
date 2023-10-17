@@ -11,17 +11,22 @@ export default async function Home() {
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
   const { data: articles = [] } = await supabase.from('article').select();
   return (
-    <div className="relative flex min-h-screen flex-col">
+    <div>
       <Header />
-      <div className="container flex-1 md:grid md:grid-cols-[minmax(0,1fr)_220px] md:gap-6 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-10">
-        <div>
-          {articles?.map((article, index) => (
-            <Article article={article} key={article.id} first={index === 0} />
-          ))}
+      <div className="m-auto max-w-[1336px] ">
+        <div className="flex flex-row justify-evenly">
+          <main className="md:min-w-[728px] md:max-w-[728px] lg:min-w-[728px] lg:max-w-[728px]">
+            {articles?.map((article, index) => (
+              <Article article={article} key={article.id} first={index === 0} />
+            ))}
+          </main>
+          <div className="min-h-[100vh] md:min-w-[368px] md:max-w-[368px] lg:min-w-[368px] lg:max-w-[368px]">
+            <div>cat1</div>
+            <div>cat2</div>
+            <div>cat3</div>
+          </div>
         </div>
-        {/*<div>right menu</div>*/}
       </div>
-      <Footer />
     </div>
   );
 }
