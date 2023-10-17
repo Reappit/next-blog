@@ -1,11 +1,16 @@
 import { Separator } from '@/components/ui/separator';
-
+import { format, parse } from 'date-fns';
 type Article = {
   title: string;
-  created_at: Date;
+  created_at: string;
   short_story: string;
   full_story: string;
 };
+
+function PublishedDate({ date }: { date: string }) {
+  return <span>{format(new Date(date), 'hh:mm, dd MMM yyyy')}</span>;
+}
+
 export default function Article({
   article: { title, created_at, short_story },
   first = false,
@@ -18,7 +23,7 @@ export default function Article({
       {!first && <Separator />}
       <div className="pt-6">
         Admin <span className="mx-1">·</span>
-        {created_at.toString()}
+        <PublishedDate date={created_at} />
       </div>
       <div className="mt-3">
         <div className="text-xl font-bold">{title}</div>

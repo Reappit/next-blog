@@ -20,10 +20,12 @@ export default async function Home() {
               <Article article={article} key={article.id} first={index === 0} />
             ))}
           </main>
-          <div className="min-h-[100vh] md:min-w-[368px] md:max-w-[368px] lg:min-w-[368px] lg:max-w-[368px]">
-            <div>cat1</div>
-            <div>cat2</div>
-            <div>cat3</div>
+          <div className="min-h-[100vh] border-l md:min-w-[368px] md:max-w-[368px] lg:min-w-[368px] lg:max-w-[368px]">
+            <div className="mt-10 pl-10">
+              <div>cat1</div>
+              <div>cat2</div>
+              <div>cat3</div>
+            </div>
           </div>
         </div>
       </div>
