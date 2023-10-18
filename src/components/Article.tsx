@@ -2,7 +2,6 @@ import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
 import { Bookmark, Heart } from 'lucide-react';
-import { type Database } from '@/lib/database.types';
 
 function PublishedDate({ date }: { date: string }) {
   return <span>{format(new Date(date), 'hh:mm, dd MMM yyyy')}</span>;
@@ -13,9 +12,7 @@ export default function Article({
   first = false,
 }: {
   first?: boolean;
-  article: Database['public']['Tables']['article']['Row'] & {
-    category: Database['public']['Tables']['category']['Row'];
-  };
+  article: Article;
 }) {
   return (
     <article className="mx-6 flex flex-col justify-center pt-6">
