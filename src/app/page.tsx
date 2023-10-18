@@ -2,16 +2,18 @@ import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import Header from '@/components/Header';
 import Article from '@/components/Article';
+import { type Database } from '@/lib/database.types';
 
 export const runtime = 'edge';
 
 export default async function Home() {
   const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  });
   const { data: articles = [] } = await supabase
     .from('article')
     .select('*, category(*)');
-  console.log(articles);
   return (
     <div>
       <Header />

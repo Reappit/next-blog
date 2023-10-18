@@ -1,5 +1,5 @@
 import './globals.css';
-import type { Metadata } from 'next';
+import { type Metadata } from 'next';
 import { JetBrains_Mono } from 'next/font/google';
 import { cn } from '@/lib/utils';
 
