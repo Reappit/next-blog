@@ -1,20 +1,24 @@
 import { Separator } from '@/components/ui/separator';
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
-import { Bookmark, Heart, MinusCircle } from 'lucide-react';
-type Article = {
+import { Bookmark, Heart } from 'lucide-react';
+
+interface Article {
   title: string;
   created_at: string;
   short_story: string;
   full_story: string;
-};
+  category: {
+    name: string;
+  };
+}
 
 function PublishedDate({ date }: { date: string }) {
   return <span>{format(new Date(date), 'hh:mm, dd MMM yyyy')}</span>;
 }
 
 export default function Article({
-  article: { title, created_at, short_story },
+  article: { title, created_at, short_story, category },
   first = false,
 }: {
   first?: boolean;
@@ -24,7 +28,7 @@ export default function Article({
     <article className="mx-6 flex flex-col justify-center pt-6">
       {!first && <Separator />}
       <div className="pt-6">
-        Admin <span className="mx-1">·</span>
+        Admin<span className="mx-1">·</span>
         <PublishedDate date={created_at} />
       </div>
       <div className="mt-3">
@@ -46,7 +50,7 @@ export default function Article({
                 variant="secondary"
                 className="mr-2 rounded-2xl px-2 py-1 font-normal"
               >
-                Category
+                {category.name}
               </Badge>
               <span className="text-sm font-normal">5 min read</span>
             </div>

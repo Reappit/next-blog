@@ -1,7 +1,7 @@
 import Icon from '@/components/Icon';
 import { Input } from '@/components/ui/input';
 
-export default async function Search() {
+export default function Search() {
   return (
     <>
       <div className="relative">

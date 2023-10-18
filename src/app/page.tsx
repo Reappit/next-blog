@@ -8,7 +8,10 @@ export const runtime = 'edge';
 export default async function Home() {
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
-  const { data: articles = [] } = await supabase.from('article').select();
+  const { data: articles = [] } = await supabase
+    .from('article')
+    .select('*, category(*)');
+  console.log(articles);
   return (
     <div>
       <Header />
