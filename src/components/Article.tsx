@@ -1,5 +1,7 @@
 import { Separator } from '@/components/ui/separator';
 import { format, parse } from 'date-fns';
+import { Badge } from '@/components/ui/badge';
+import { Bookmark, Heart, MinusCircle } from 'lucide-react';
 type Article = {
   title: string;
   created_at: string;
@@ -26,8 +28,38 @@ export default function Article({
         <PublishedDate date={created_at} />
       </div>
       <div className="mt-3">
-        <div className="text-xl font-bold">{title}</div>
-        <div className="pt-2">{short_story}</div>
+        <a href="#">
+          <h2 className="line-clamp-3 max-h-[72px] text-xl font-bold leading-6">
+            {title}
+          </h2>
+          <div className="pt-2">
+            <p className="line-clamp-3 max-h-[72px] text-lg leading-6">
+              {short_story}
+            </p>
+          </div>
+        </a>
+
+        <div className="mb-4 mt-8">
+          <div className="flex justify-between">
+            <div className="flex items-center">
+              <Badge
+                variant="secondary"
+                className="mr-2 rounded-2xl px-2 py-1 font-normal"
+              >
+                Category
+              </Badge>
+              <span className="text-sm font-normal">5 min read</span>
+            </div>
+            <div className="flex">
+              <div className="p-2">
+                <Bookmark />
+              </div>
+              <div className="p-2">
+                <Heart />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </article>
   );
