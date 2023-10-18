@@ -9,7 +9,7 @@ export default async function Header() {
           <a href="/" className="mr-6 flex items-center space-x-2">
             DTT
           </a>
-          <div className="flex w-72 items-center">
+          <div className="flex w-auto items-center sm:w-72">
             <Search />
           </div>
         </div>
