@@ -22,7 +22,7 @@ function PublishedDate({ date }: { date: string }) {
 }
 
 export default function Article({
-  article: { title, created_at, short_story, category, meta_title, uuid },
+  article: { title, created_at, short_story, category, meta_title, short_id },
   first = false,
 }: {
   first?: boolean;
@@ -36,7 +36,7 @@ export default function Article({
         <PublishedDate date={created_at} />
       </div>
       <div className="mt-3">
-        <Link href={`${category.meta_name}/${meta_title}-${uuid}`}>
+        <Link href={`${category.meta_name}/${meta_title}-${short_id}`}>
           <h2 className="line-clamp-3 max-h-[72px] text-xl font-bold leading-6">
             {title}
           </h2>

@@ -15,30 +15,33 @@ export interface Database {
           category: number;
           created_at: string;
           full_story: string | null;
+          id: number;
           meta_title: string;
+          short_id: string;
           short_story: string | null;
           title: string;
-          uuid: string;
         };
         Insert: {
           author: string;
           category: number;
           created_at?: string;
           full_story?: string | null;
+          id?: number;
           meta_title: string;
+          short_id: string;
           short_story?: string | null;
           title: string;
-          uuid?: string;
         };
         Update: {
           author?: string;
           category?: number;
           created_at?: string;
           full_story?: string | null;
+          id?: number;
           meta_title?: string;
+          short_id?: string;
           short_story?: string | null;
           title?: string;
-          uuid?: string;
         };
         Relationships: [
           {
@@ -120,7 +123,37 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      hash_encode: {
+        Args: {
+          '': number;
+        };
+        Returns: string;
+      };
+      id_decode: {
+        Args: {
+          '': string;
+        };
+        Returns: unknown;
+      };
+      id_decode_once: {
+        Args: {
+          '': string;
+        };
+        Returns: number;
+      };
+      id_encode:
+        | {
+            Args: {
+              '': number;
+            };
+            Returns: string;
+          }
+        | {
+            Args: {
+              '': number[];
+            };
+            Returns: string;
+          };
     };
     Enums: {
       [_ in never]: never;

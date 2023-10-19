@@ -1,18 +1,20 @@
 import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { useRouter } from 'next/navigation';
 
-export default async function ArticlePage() {
+export default async function ArticlePage({
+  params: { slug },
+}: {
+  params: { slug: string };
+}) {
   const cookieStore = cookies();
   const supabase = createServerComponentClient<DB>({
     cookies: () => cookieStore,
   });
-  const router = useRouter();
-  console.log(router);
+  const articleShortId = slug.split('-').at(-1) ?? '';
   const { data: article } = await supabase
     .from('article')
     .select('*, category(*)')
-    .eq('uuid', '')
+    .eq('short_id', articleShortId)
     .limit(1);
 
   return <div>{article?.[0].full_story}</div>;

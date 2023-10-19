@@ -20,7 +20,7 @@ export default async function Home() {
             {articles?.map((article, index) => (
               <Article
                 article={article}
-                key={article.uuid}
+                key={article.short_id}
                 first={index === 0}
               />
             ))}
