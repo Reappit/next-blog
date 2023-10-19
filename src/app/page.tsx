@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import Header from '@/components/Header';
 import Article from '@/components/Article';
 
 export const runtime = 'edge';
