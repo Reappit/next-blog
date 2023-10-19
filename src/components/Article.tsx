@@ -1,7 +1,8 @@
 import { Separator } from '@/components/ui/separator';
 import { format } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
-import { Bookmark, Heart } from 'lucide-react';
+import { Bookmark, ThumbsUp } from 'lucide-react';
+import Link from 'next/link';
 
 function PublishedDate({ date }: { date: string }) {
   return <span>{format(new Date(date), 'hh:mm, dd MMM yyyy')}</span>;
@@ -22,7 +23,7 @@ export default function Article({
         <PublishedDate date={created_at} />
       </div>
       <div className="mt-3">
-        <a href="#">
+        <Link href={`${category.alt_name}/${title}`}>
           <h2 className="line-clamp-3 max-h-[72px] text-xl font-bold leading-6">
             {title}
           </h2>
@@ -31,7 +32,7 @@ export default function Article({
               {short_story}
             </p>
           </div>
-        </a>
+        </Link>
 
         <div className="mb-4 mt-8">
           <div className="flex justify-between">
@@ -49,7 +50,7 @@ export default function Article({
                 <Bookmark />
               </div>
               <div className="p-2">
-                <Heart />
+                <ThumbsUp />
               </div>
             </div>
           </div>

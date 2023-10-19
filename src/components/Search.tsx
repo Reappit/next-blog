@@ -11,7 +11,7 @@ export default function Search() {
       </div>
       <Input
         className="rounded-3xl border-none bg-gray-50 indent-6 shadow-none"
-        placeholder="Seach..."
+        placeholder="Поиск..."
       />
     </>
   );

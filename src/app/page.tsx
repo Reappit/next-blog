@@ -15,7 +15,6 @@ export default async function Home() {
     .select('*, category(*)');
   return (
     <div>
-      <Header />
       <div className="m-auto max-w-[1336px] ">
         <div className="flex flex-row justify-evenly">
           <main className="md:min-w-[728px] md:max-w-[728px] lg:min-w-[728px] lg:max-w-[728px]">

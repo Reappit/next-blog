@@ -1,9 +1,10 @@
 import './globals.css';
 import { type Metadata } from 'next';
-import { JetBrains_Mono } from 'next/font/google';
+import { Mulish } from 'next/font/google';
 import { cn } from '@/lib/utils';
+import Header from '@/components/Header';
 
-const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'] });
+const mulish = Mulish({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,9 +18,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={cn(jetBrainsMono.className, 'min-h-screen bg-background')}
-      >
+      <body className={cn(mulish.className, 'min-h-screen bg-background')}>
+        <Header />
         {children}
       </body>
     </html>
