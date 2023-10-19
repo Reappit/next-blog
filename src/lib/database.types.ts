@@ -15,27 +15,30 @@ export interface Database {
           category: number;
           created_at: string;
           full_story: string | null;
-          id: number;
+          meta_title: string;
           short_story: string | null;
           title: string;
+          uuid: string;
         };
         Insert: {
           author: string;
           category: number;
           created_at?: string;
           full_story?: string | null;
-          id?: number;
+          meta_title: string;
           short_story?: string | null;
           title: string;
+          uuid?: string;
         };
         Update: {
           author?: string;
           category?: number;
           created_at?: string;
           full_story?: string | null;
-          id?: number;
+          meta_title?: string;
           short_story?: string | null;
           title?: string;
+          uuid?: string;
         };
         Relationships: [
           {
@@ -54,48 +57,42 @@ export interface Database {
       };
       category: {
         Row: {
-          alt_name: string;
           id: number;
           keyword: string | null;
-          meta_title: string | null;
+          meta_name: string;
           name: string;
-          parent_id: number;
         };
         Insert: {
-          alt_name: string;
           id?: number;
           keyword?: string | null;
-          meta_title?: string | null;
+          meta_name: string;
           name: string;
-          parent_id?: number;
         };
         Update: {
-          alt_name?: string;
           id?: number;
           keyword?: string | null;
-          meta_title?: string | null;
+          meta_name?: string;
           name?: string;
-          parent_id?: number;
         };
         Relationships: [];
       };
       tag: {
         Row: {
-          alt_name: string;
           created_at: string;
           id: number;
+          meta_name: string;
           name: string;
         };
         Insert: {
-          alt_name: string;
           created_at?: string;
           id?: number;
+          meta_name: string;
           name: string;
         };
         Update: {
-          alt_name?: string;
           created_at?: string;
           id?: number;
+          meta_name?: string;
           name?: string;
         };
         Relationships: [];

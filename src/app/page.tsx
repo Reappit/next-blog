@@ -18,7 +18,11 @@ export default async function Home() {
         <div className="flex flex-row justify-evenly">
           <main className="md:min-w-[728px] md:max-w-[728px] lg:min-w-[728px] lg:max-w-[728px]">
             {articles?.map((article, index) => (
-              <Article article={article} key={article.id} first={index === 0} />
+              <Article
+                article={article}
+                key={article.uuid}
+                first={index === 0}
+              />
             ))}
           </main>
           <div className="hidden min-h-[100vh] border-l md:min-w-[300px] md:max-w-[368px] lg:block">
