@@ -60,10 +60,10 @@ export default function Article({
             </div>
             <div className="flex">
               <div className="p-2">
-                <Bookmark />
+                <Bookmark strokeWidth={0.5} />
               </div>
               <div className="p-2">
-                <ThumbsUp />
+                <ThumbsUp strokeWidth={0.5} />
               </div>
             </div>
           </div>
