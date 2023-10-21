@@ -1,25 +1,9 @@
 import { Separator } from '@/components/ui/separator';
-import { differenceInDays, format, formatRelative } from 'date-fns';
-import { ru } from 'date-fns/locale';
+
 import { Badge } from '@/components/ui/badge';
 import { Bookmark, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
-
-function PublishedDate({ date }: { date: string }) {
-  const isMoreThan7Days = differenceInDays(new Date(date), new Date());
-  const formatedDate = format(new Date(date), 'MMM dd, yyyy', {
-    locale: ru,
-  }).replace('.', '');
-  return (
-    <span>
-      {isMoreThan7Days
-        ? formatedDate.charAt(0).toUpperCase() + formatedDate.slice(1)
-        : formatRelative(new Date(date), new Date(), {
-            locale: ru,
-          })}
-    </span>
-  );
-}
+import PublishedDate from '@/components/PublisedDate';
 
 export default function Article({
   article: { title, created_at, short_story, category, meta_title, short_id },

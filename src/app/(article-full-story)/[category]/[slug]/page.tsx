@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { UserCircle } from 'lucide-react';
+import PublishedDate from '@/components/PublisedDate';
 
 export default async function ArticlePage({
   params: { slug },
@@ -31,10 +32,12 @@ export default async function ArticlePage({
             </div>
             <div className="ml-3">
               <div>Admin</div>
-              <div>3 min read · Oct</div>
+              <div>
+                <PublishedDate date={article.created_at} />
+              </div>
             </div>
           </div>
-          <div className="mt-10 border-y-2 px-2 py-[3px]">qqq</div>
+          <div className="mt-10 border-y-[1px] px-2 py-[3px]">qqq</div>
           <div className="mt-10">{article.full_story}</div>
         </section>
       </div>
