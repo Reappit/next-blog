@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Space_Grotesk } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { PenSquare } from 'lucide-react';
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
 export default function Header() {
@@ -24,6 +25,11 @@ export default function Header() {
           </div>
         </div>
         <div className="flex flex-1 items-center justify-end">
+          <Button variant="link">
+            <Link href="/write" className="flex items-center">
+              <PenSquare className="mr-1" /> Write
+            </Link>
+          </Button>
           <Button variant="link">Логин</Button>
         </div>
       </div>
