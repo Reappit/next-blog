@@ -8,13 +8,13 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { mergeRegister } from '@lexical/utils';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
-  $getRoot,
   $getSelection,
   $isRangeSelection,
   FORMAT_TEXT_COMMAND,
   FORMAT_ELEMENT_COMMAND,
   UNDO_COMMAND,
   REDO_COMMAND,
+  type EditorState,
 } from 'lexical';
 import { cn } from '@/lib/utils';
 import { useCallback, useEffect, useState } from 'react';
@@ -25,19 +25,15 @@ import {
   AlignRightIcon,
   BoldIcon,
   ItalicIcon,
-  RotateCcw,
   RotateCcwIcon,
-  RotateCw,
   RotateCwIcon,
   Strikethrough,
   UnderlineIcon,
 } from 'lucide-react';
 
-function onChange(state) {
+function onChange(state: EditorState) {
   state.read(() => {
-    const root = $getRoot();
     const selection = $getSelection();
-
     console.log(selection);
   });
 }
@@ -76,6 +72,7 @@ export default function Write() {
               Enter some text...
             </div>
           }
+          ErrorBoundary={() => <span>Error boundary</span>}
         />
         <OnChangePlugin onChange={onChange} />
         <HistoryPlugin />
@@ -209,7 +206,7 @@ const Toolbar = () => {
           'bg-transparent px-1 transition-colors duration-100 ease-in hover:bg-gray-700',
         )}
         onClick={() => {
-          editor.dispatchCommand(UNDO_COMMAND);
+          editor.dispatchCommand(UNDO_COMMAND, undefined as void);
         }}
       >
         <RotateCcwIcon className="h-3.5 w-3.5 text-white" />
@@ -219,7 +216,7 @@ const Toolbar = () => {
           'bg-transparent px-1 transition-colors duration-100 ease-in hover:bg-gray-700',
         )}
         onClick={() => {
-          editor.dispatchCommand(REDO_COMMAND);
+          editor.dispatchCommand(REDO_COMMAND, undefined as void);
         }}
       >
         <RotateCwIcon className="h-3.5 w-3.5 text-white" />
