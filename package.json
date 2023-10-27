@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@mdxeditor/editor": "^1.5.0",
+    "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-switch": "^1.0.3",
     "@supabase/auth-helpers-nextjs": "^0.8.2",
     "@supabase/supabase-js": "^2.38.4",
     "class-variance-authority": "^0.7.0",
