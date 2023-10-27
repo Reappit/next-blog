@@ -7,8 +7,7 @@ const EditorComp = dynamic(() => import('../../components/Editor'), {
 });
 
 const markdown = `
-# Hello world!
-Check the EditorComponent.tsx file for the code .
+  # Контент!
 `;
 
 export default function Write() {

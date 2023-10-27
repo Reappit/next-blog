@@ -14,8 +14,6 @@ import {
   sandpackPlugin,
   codeMirrorPlugin,
   type SandpackConfig,
-  KitchenSinkToolbar,
-  type DirectiveDescriptor,
   imagePlugin,
   tablePlugin,
   frontmatterPlugin,
@@ -23,10 +21,9 @@ import {
   AdmonitionDirectiveDescriptor,
   diffSourcePlugin,
   markdownShortcutPlugin,
+  KitchenSinkToolbar,
 } from '@mdxeditor/editor';
-import { type MutableRefObject } from 'react';
-
-import { type LeafDirective } from 'mdast-util-directive';
+import React, { type MutableRefObject } from 'react';
 
 interface EditorProps {
   markdown: string;
@@ -34,60 +31,15 @@ interface EditorProps {
 }
 
 const defaultSnippetContent = `
-export default function App() {
-  return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
-  );
-}
-`.trim();
-
-interface YoutubeDirectiveNode extends LeafDirective {
-  name: 'youtube';
-  attributes: { id: string };
-}
-
-const YoutubeDirectiveDescriptor: DirectiveDescriptor<YoutubeDirectiveNode> = {
-  name: 'youtube',
-  type: 'leafDirective',
-  testNode(node) {
-    return node.name === 'youtube';
-  },
-  attributes: ['id'],
-  hasChildren: false,
-  Editor: ({ mdastNode, lexicalNode, parentEditor }) => {
+  export default function App() {
     return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-        }}
-      >
-        <button
-          onClick={() => {
-            parentEditor.update(() => {
-              lexicalNode.selectNext();
-              lexicalNode.remove();
-            });
-          }}
-        >
-          delete
-        </button>
-        <iframe
-          width="560"
-          height="315"
-          src={`https://www.youtube.com/embed/${mdastNode.attributes?.id}`}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        ></iframe>
+      <div>
+        <h1>Hello CodeSandbox</h1>
+        <h2>Start editing to see some magic happen!</h2>
       </div>
     );
-  },
-};
+  }
+`.trim();
 
 export const virtuosoSampleSandpackConfig: SandpackConfig = {
   defaultPreset: 'react',
@@ -124,9 +76,6 @@ export const virtuosoSampleSandpackConfig: SandpackConfig = {
         'react-virtuoso': 'latest',
         '@ngneat/falso': 'latest',
       },
-      // files: {
-      //   '/data.ts': dataCode,
-      // },
     },
   ],
 };
@@ -147,7 +96,7 @@ export const ALL_PLUGINS = [
   tablePlugin(),
   thematicBreakPlugin(),
   frontmatterPlugin(),
-  codeBlockPlugin({ defaultCodeBlockLanguage: 'txt' }),
+  codeBlockPlugin({ defaultCodeBlockLanguage: 'typescript' }),
   sandpackPlugin({ sandpackConfig: virtuosoSampleSandpackConfig }),
   codeMirrorPlugin({
     codeBlockLanguages: {
@@ -158,10 +107,7 @@ export const ALL_PLUGINS = [
     },
   }),
   directivesPlugin({
-    directiveDescriptors: [
-      YoutubeDirectiveDescriptor,
-      AdmonitionDirectiveDescriptor,
-    ],
+    directiveDescriptors: [AdmonitionDirectiveDescriptor],
   }),
   diffSourcePlugin({ viewMode: 'rich-text', diffMarkdown: 'boo' }),
   markdownShortcutPlugin(),
@@ -169,8 +115,17 @@ export const ALL_PLUGINS = [
 
 export default function Editor({ markdown, editorRef }: EditorProps) {
   return (
-    <div className="mt-10">
-      <MDXEditor ref={editorRef} markdown={markdown} plugins={ALL_PLUGINS} />
+    <div className="mt-[1.19em] flex w-full flex-col items-center">
+      <h2 className="text-4xl font-bold">Создание статьи</h2>
+      <MDXEditor
+        ref={editorRef}
+        markdown={markdown}
+        plugins={ALL_PLUGINS}
+        className="editor-root mt-[1.19em]"
+        onChange={(val) => {
+          console.log(val);
+        }}
+      />
     </div>
   );
 }

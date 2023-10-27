@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(mulish.className, 'min-h-screen bg-background')}>
         <Header />
-        {children}
+        <div className="m-auto max-w-[1336px]">{children}</div>
       </body>
     </html>
   );
