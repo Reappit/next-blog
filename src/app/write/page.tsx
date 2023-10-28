@@ -12,10 +12,8 @@ const markdown = `
 
 export default function Write() {
   return (
-    <div className="">
-      <Suspense fallback={null}>
-        <EditorComp markdown={markdown} />
-      </Suspense>
-    </div>
+    <Suspense fallback={null}>
+      <EditorComp markdown={markdown} />
+    </Suspense>
   );
 }
