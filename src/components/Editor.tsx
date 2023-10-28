@@ -23,8 +23,9 @@ import {
   markdownShortcutPlugin,
   KitchenSinkToolbar,
 } from '@mdxeditor/editor';
-import React, { type MutableRefObject } from 'react';
-import { Input } from '@/components/ui/input';
+import React, { type MutableRefObject, useEffect, useRef } from 'react';
+import { Textarea } from '@/components/ui/textarea';
+import autosize from 'autosize';
 
 interface EditorProps {
   markdown: string;
@@ -115,12 +116,20 @@ export const ALL_PLUGINS = [
 ];
 
 export default function Editor({ markdown, editorRef }: EditorProps) {
+  const textAreaRef = useRef(null);
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    autosize(textAreaRef.current as unknown as Element);
+  }, []);
+
   return (
     <div className="m-auto max-w-[700px]">
       <div className="mt-[1.19em] flex flex-col items-center">
-        <Input
+        <Textarea
           placeholder="Заголовок"
-          className="h-14 border-none text-[42px] shadow-none focus-visible:ring-0"
+          className="h-[42px] resize-none border-none text-[42px] shadow-none focus-visible:ring-0"
+          ref={textAreaRef}
         />
         <MDXEditor
           ref={editorRef}
