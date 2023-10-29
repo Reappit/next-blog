@@ -20,6 +20,7 @@ export default async function ArticlePage({
     .select('*, category(*)')
     .eq('short_id', articleShortId)
     .limit(1);
+
   const article = data?.at(0) as Article;
   return (
     <Suspense fallback={<>Loading...</>}>

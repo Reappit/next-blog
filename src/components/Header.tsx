@@ -26,8 +26,8 @@ export default function Header() {
         </div>
         <div className="flex flex-1 items-center justify-end">
           <Button variant="link">
-            <Link href="/write" className="flex items-center">
-              <PenSquare className="mr-1" strokeWidth={1} size={17} /> Write
+            <Link href="/editor" className="flex items-center">
+              <PenSquare className="mr-1" strokeWidth={0.5} size={17} /> Write
             </Link>
           </Button>
           <Button variant="link">Логин</Button>

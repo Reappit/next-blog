@@ -18,7 +18,7 @@ export interface Database {
           id: number;
           meta_title: string;
           short_id: string;
-          short_story: string | null;
+          subtitle: string | null;
           title: string;
         };
         Insert: {
@@ -29,7 +29,7 @@ export interface Database {
           id?: number;
           meta_title: string;
           short_id: string;
-          short_story?: string | null;
+          subtitle?: string | null;
           title: string;
         };
         Update: {
@@ -40,7 +40,7 @@ export interface Database {
           id?: number;
           meta_title?: string;
           short_id?: string;
-          short_story?: string | null;
+          subtitle?: string | null;
           title?: string;
         };
         Relationships: [

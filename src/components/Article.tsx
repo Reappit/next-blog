@@ -1,12 +1,12 @@
 import { Separator } from '@/components/ui/separator';
 
 import { Badge } from '@/components/ui/badge';
-import { Bookmark, ThumbsUp } from 'lucide-react';
+import { Bookmark, PenSquare, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
 import PublishedDate from '@/components/PublisedDate';
 
 export default function Article({
-  article: { title, created_at, short_story, category, meta_title, short_id },
+  article: { title, created_at, subtitle, category, meta_title, short_id },
   first = false,
 }: {
   first?: boolean;
@@ -26,7 +26,7 @@ export default function Article({
           </h2>
           <div className="pt-2">
             <p className="line-clamp-3 max-h-[72px] text-lg leading-6">
-              {short_story}
+              {subtitle}
             </p>
           </div>
         </Link>
@@ -43,6 +43,11 @@ export default function Article({
               <span className="text-sm font-normal">5 min read</span>
             </div>
             <div className="flex">
+              <div className="p-2">
+                <Link href={'/editor?id=' + short_id}>
+                  <PenSquare strokeWidth={0.5} />
+                </Link>
+              </div>
               <div className="p-2">
                 <Bookmark strokeWidth={0.5} />
               </div>

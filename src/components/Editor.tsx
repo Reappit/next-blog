@@ -28,7 +28,9 @@ import { Textarea } from '@/components/ui/textarea';
 import autosize from 'autosize';
 
 interface EditorProps {
-  markdown: string;
+  subtitle: string;
+  fullStory: string;
+  title: string;
   editorRef?: MutableRefObject<MDXEditorMethods | null>;
 }
 
@@ -115,12 +117,20 @@ export const ALL_PLUGINS = [
   markdownShortcutPlugin(),
 ];
 
-export default function Editor({ markdown, editorRef }: EditorProps) {
-  const textAreaRef = useRef(null);
+export default function Editor({
+  subtitle,
+  fullStory,
+  title,
+  editorRef,
+}: EditorProps) {
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    autosize(textAreaRef.current as unknown as Element);
+    autosize(titleRef.current as unknown as Element);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    autosize(subtitleRef.current as unknown as Element);
   }, []);
 
   return (
@@ -128,12 +138,19 @@ export default function Editor({ markdown, editorRef }: EditorProps) {
       <div className="mt-[1.19em] flex flex-col items-center">
         <Textarea
           placeholder="Заголовок"
-          className="h-[42px] resize-none border-none text-[42px] shadow-none focus-visible:ring-0"
-          ref={textAreaRef}
+          className="h-[42px] resize-none border-none text-[42px] leading-[52px] shadow-none focus-visible:ring-0"
+          ref={titleRef}
+          defaultValue={title}
+        />
+        <Textarea
+          placeholder="Подзаголовок"
+          ref={subtitleRef}
+          defaultValue={subtitle}
+          className="h-[42px] resize-none border-none text-[28px] font-light leading-[34px] text-gray-600 shadow-none focus-visible:ring-0"
         />
         <MDXEditor
           ref={editorRef}
-          markdown={markdown}
+          markdown={fullStory}
           plugins={ALL_PLUGINS}
           className="editor-root mt-[1.19em] w-full"
           onChange={(val) => {
