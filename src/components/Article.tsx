@@ -10,7 +10,7 @@ export default function Article({
   first = false,
 }: {
   first?: boolean;
-  article: Article;
+  article: ArticleTable;
 }) {
   return (
     <article className="mx-6 flex flex-col justify-center pt-6">

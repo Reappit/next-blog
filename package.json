@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db-types": "supabase gen types typescript --project-id > src/lib/database.types.ts"
+    "db-types": "supabase gen types typescript --project-id > src/lib/supabase/database.types.ts"
   },
   "dependencies": {
     "@mdxeditor/editor": "^1.5.0",
