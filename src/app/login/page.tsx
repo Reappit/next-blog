@@ -77,7 +77,7 @@ export default function Login({
 
       <form
         className="flex w-full flex-1 flex-col justify-center gap-2 text-foreground animate-in"
-        action={signIn}
+        action={void signIn}
       >
         <label className="text-md" htmlFor="email">
           Email
@@ -102,7 +102,7 @@ export default function Login({
           Sign In
         </button>
         <button
-          formAction={signUp}
+          formAction={void signUp}
           className="mb-2 rounded-md border border-foreground/20 px-4 py-2 text-foreground"
         >
           Sign Up
