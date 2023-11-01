@@ -4,9 +4,28 @@ import { Space_Grotesk } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { PenSquare } from 'lucide-react';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@supabase/ssr';
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
-export default function Header() {
+export const runtime = 'edge';
+
+export default async function Header() {
+  const cookieStore = cookies();
+  const supabase = createServerClient<DB>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    },
+  );
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <div className="container flex h-14 items-center">
@@ -30,9 +49,13 @@ export default function Header() {
               <PenSquare className="mr-1" strokeWidth={0.5} size={17} /> Write
             </Link>
           </Button>
-          <Link href="/login">
-            <Button variant="link">Логин</Button>
-          </Link>
+          {user === null ? (
+            <Link href="/login">
+              <Button variant="link">Логин</Button>
+            </Link>
+          ) : (
+            <span>{user?.id}</span>
+          )}
         </div>
       </div>
     </header>
