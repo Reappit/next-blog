@@ -30,7 +30,9 @@ export default function Header() {
               <PenSquare className="mr-1" strokeWidth={0.5} size={17} /> Write
             </Link>
           </Button>
-          <Button variant="link">Логин</Button>
+          <Link href="/login">
+            <Button variant="link">Логин</Button>
+          </Link>
         </div>
       </div>
     </header>

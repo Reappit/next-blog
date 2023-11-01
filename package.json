@@ -14,6 +14,8 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
+    "@supabase/auth-ui-react": "^0.4.6",
+    "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/ssr": "^0.0.5",
     "@supabase/supabase-js": "^2.38.4",
     "autosize": "^6.0.1",
