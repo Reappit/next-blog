@@ -2,7 +2,7 @@ import '@mdxeditor/editor/style.css';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { cookies } from 'next/headers';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createServerClient } from '@supabase/ssr';
 
 const EditorComp = dynamic(() => import('../../components/Editor'), {
   ssr: false,
@@ -20,9 +20,17 @@ interface Props {
 
 export default async function Write({ searchParams: { id } }: Props) {
   const cookieStore = cookies();
-  const supabase = createServerComponentClient<DB>({
-    cookies: () => cookieStore,
-  });
+  const supabase = createServerClient<DB>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    },
+  );
   const article = { subtitle: '', fullStory: defaultMarkdown, title: '' };
   if (id) {
     const { data } = await supabase
@@ -30,7 +38,7 @@ export default async function Write({ searchParams: { id } }: Props) {
       .select('*, category(*)')
       .eq('short_id', id)
       .limit(1);
-    const dbArticle = data?.at(0) as Article;
+    const dbArticle = data?.at(0) as ArticleTable;
     article.fullStory = dbArticle.full_story ?? '';
     article.subtitle = dbArticle.subtitle ?? '';
     article.title = dbArticle.title ?? '';

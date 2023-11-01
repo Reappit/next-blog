@@ -1,14 +1,22 @@
 import { cookies } from 'next/headers';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import Article from '@/components/Article';
+import { createServerClient } from '@supabase/ssr';
 
 export const runtime = 'edge';
 
 export default async function Home() {
   const cookieStore = cookies();
-  const supabase = createServerComponentClient<DB>({
-    cookies: () => cookieStore,
-  });
+  const supabase = createServerClient<DB>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    },
+  );
   const { data: articles = [] } = await supabase
     .from('article')
     .select('*, category(*)');

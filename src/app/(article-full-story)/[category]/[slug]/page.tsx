@@ -1,9 +1,9 @@
 import { cookies } from 'next/headers';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { UserCircle } from 'lucide-react';
 import PublishedDate from '@/components/PublisedDate';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Suspense } from 'react';
+import { createServerClient } from '@supabase/ssr';
 
 export default async function ArticlePage({
   params: { slug },
@@ -11,9 +11,17 @@ export default async function ArticlePage({
   params: { slug: string };
 }) {
   const cookieStore = cookies();
-  const supabase = createServerComponentClient<DB>({
-    cookies: () => cookieStore,
-  });
+  const supabase = createServerClient<DB>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    },
+  );
   const articleShortId = slug.split('-').at(-1) ?? '';
   const { data } = await supabase
     .from('article')
@@ -21,7 +29,7 @@ export default async function ArticlePage({
     .eq('short_id', articleShortId)
     .limit(1);
 
-  const article = data?.at(0) as Article;
+  const article = data?.at(0) as ArticleTable;
   return (
     <Suspense fallback={<>Loading...</>}>
       <article>
