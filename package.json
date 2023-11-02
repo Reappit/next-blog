@@ -10,7 +10,7 @@
     "db-types": "supabase gen types typescript --project-id > src/lib/supabase/database.types.ts"
   },
   "dependencies": {
-    "@mdxeditor/editor": "^1.5.0",
+    "@mdxeditor/editor": "^1.6.0",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",

@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@mdxeditor/editor':
-    specifier: ^1.5.0
-    version: 1.5.0(@codemirror/language@6.9.2)(@lezer/common@1.1.0)(@lezer/highlight@1.1.6)(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.8)
+    specifier: ^1.6.0
+    version: 1.6.0(@codemirror/language@6.9.2)(@lezer/common@1.1.0)(@lezer/highlight@1.1.6)(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.8)
   '@radix-ui/react-separator':
     specifier: ^1.0.3
     version: 1.0.3(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)
@@ -728,8 +728,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@mdxeditor/editor@1.5.0(@codemirror/language@6.9.2)(@lezer/common@1.1.0)(@lezer/highlight@1.1.6)(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.8):
-    resolution: {integrity: sha512-e17OEozztxxXeLwEbvj8DAxPvDA9x+9UXjjwWTQgv058wfLWolOtxuy5OXJwMi0AF6Thx6r9b4JLRcooXMS5mw==}
+  /@mdxeditor/editor@1.6.0(@codemirror/language@6.9.2)(@lezer/common@1.1.0)(@lezer/highlight@1.1.6)(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.8):
+    resolution: {integrity: sha512-ysP2g9+XdWL4ZPqrk7gPn1/kpvo1ge1JW+eV+3MBqhy+0I22viMAyj9Gc+ZPEggz0R6yfECcNYesmSyqYzAWGg==}
     engines: {node: '>=16'}
     peerDependencies:
       react: ^18.2.0
