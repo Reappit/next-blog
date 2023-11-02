@@ -100,14 +100,14 @@ export const ALL_PLUGINS = [
   tablePlugin(),
   thematicBreakPlugin(),
   frontmatterPlugin(),
-  codeBlockPlugin({ defaultCodeBlockLanguage: 'typescript' }),
+  codeBlockPlugin({ defaultCodeBlockLanguage: 'ts' }),
   sandpackPlugin({ sandpackConfig: virtuosoSampleSandpackConfig }),
   codeMirrorPlugin({
     codeBlockLanguages: {
+      ts: 'TypeScript',
       js: 'JavaScript',
       css: 'CSS',
       txt: 'text',
-      tsx: 'TypeScript',
     },
   }),
   directivesPlugin({
@@ -138,7 +138,7 @@ export default function Editor({
       <div className="mt-[1.19em] flex flex-col items-center">
         <Textarea
           placeholder="Заголовок"
-          className="h-[42px] resize-none border-none text-[42px] leading-[52px] shadow-none focus-visible:ring-0"
+          className="h-[42px] resize-none border-none px-0 text-[42px] leading-[52px] shadow-none focus-visible:ring-0"
           ref={titleRef}
           defaultValue={title}
         />
@@ -146,12 +146,13 @@ export default function Editor({
           placeholder="Подзаголовок"
           ref={subtitleRef}
           defaultValue={subtitle}
-          className="h-[42px] resize-none border-none text-[28px] font-light leading-[34px] text-gray-600 shadow-none focus-visible:ring-0"
+          className="h-[42px] resize-none border-none px-0 text-[28px] font-light leading-[34px] text-gray-600 shadow-none focus-visible:ring-0"
         />
         <MDXEditor
           ref={editorRef}
           markdown={fullStory}
           plugins={ALL_PLUGINS}
+          contentEditableClassName="prose"
           className="editor-root mt-[1.19em] w-full"
           onChange={(val) => {
             console.log(val);

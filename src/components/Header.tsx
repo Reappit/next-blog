@@ -16,7 +16,6 @@ export default async function Header() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  console.log(user);
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <div className="container flex h-14 items-center">
