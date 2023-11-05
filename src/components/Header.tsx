@@ -4,15 +4,12 @@ import { Space_Grotesk } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { PenSquare } from 'lucide-react';
-import { cookies } from 'next/headers';
-import { getCurrentUser } from '@/repository/user-repository';
+import { Suspense } from 'react';
+import UserButton from '@/components/UserButton';
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
-export const runtime = 'edge';
 
-export default async function Header() {
-  const cookieStore = cookies();
-  const user = await getCurrentUser(cookieStore);
+export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <div className="container flex h-14 items-center">
@@ -36,13 +33,9 @@ export default async function Header() {
               <PenSquare className="mr-1" strokeWidth={0.5} size={17} /> Write
             </Link>
           </Button>
-          {user === null ? (
-            <Link href="/login">
-              <Button variant="link">Логин</Button>
-            </Link>
-          ) : (
-            <span>{user?.id}</span>
-          )}
+          <Suspense>
+            <UserButton />
+          </Suspense>
         </div>
       </div>
     </header>
