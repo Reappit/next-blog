@@ -19,21 +19,21 @@ import {
   AdmonitionDirectiveDescriptor,
   markdownShortcutPlugin,
 } from '@mdxeditor/editor';
-import React, { type MutableRefObject, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import autosize from 'autosize';
 import EditorToolbar from '@/components/EditorToolbar';
+// import { createClient } from '@/lib/supabase/client';
 
 interface EditorProps {
   subtitle: string;
   fullStory: string;
   title: string;
-  editorRef?: MutableRefObject<MDXEditorMethods | null>;
 }
 
-const editorPlugins = [
+const editorPlugins = (onSave: () => void) => [
   toolbarPlugin({
-    toolbarContents: () => <EditorToolbar />,
+    toolbarContents: () => <EditorToolbar onSave={onSave} />,
   }),
   headingsPlugin({ allowedHeadingLevels: [1, 2, 3] }),
   quotePlugin(),
@@ -64,14 +64,12 @@ const editorPlugins = [
   frontmatterPlugin(),
 ];
 
-export default function Editor({
-  subtitle,
-  fullStory,
-  title,
-  editorRef,
-}: EditorProps) {
+export default function Editor({ subtitle, fullStory, title }: EditorProps) {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
+  const editorRef = useRef<MDXEditorMethods>(null);
+
+  // const supabase = createClient();
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -98,12 +96,12 @@ export default function Editor({
         <MDXEditor
           ref={editorRef}
           markdown={fullStory}
-          plugins={editorPlugins}
+          plugins={editorPlugins(() => {
+            // supabase.from('article').upsert()
+            console.log(editorRef?.current?.getMarkdown().toString());
+          })}
           contentEditableClassName="prose"
           className="editor-root mt-[1.19em] w-full"
-          onChange={(val) => {
-            console.log(val);
-          }}
         />
       </div>
     </div>

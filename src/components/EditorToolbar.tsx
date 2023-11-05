@@ -35,7 +35,7 @@ function whenInAdmonition(editorInFocus: EditorInFocus | null) {
   );
 }
 
-export default function EditorToolbar() {
+export default function EditorToolbar({ onSave }: { onSave: () => void }) {
   return (
     <ConditionalContents
       options={[
@@ -50,7 +50,7 @@ export default function EditorToolbar() {
         {
           fallback: () => (
             <>
-              <Button>
+              <Button onClick={onSave}>
                 <SaveIcon strokeWidth={1.5} />
               </Button>
               <BoldItalicUnderlineToggles />
