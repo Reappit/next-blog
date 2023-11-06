@@ -8,7 +8,6 @@ import { Suspense } from 'react';
 import UserButton from '@/components/UserButton';
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
-
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
