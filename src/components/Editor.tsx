@@ -97,7 +97,7 @@ export default function Editor({ subtitle, fullStory, title }: EditorProps) {
           ref={editorRef}
           markdown={fullStory}
           plugins={editorPlugins(() => {
-            // supabase.from('article').upsert()
+            // supabase.from('post').upsert()
             console.log(editorRef?.current?.getMarkdown().toString());
           })}
           contentEditableClassName="prose"

@@ -1,4 +1,4 @@
-import Articles from '@/components/Articles';
+import Posts from '@/components/Posts';
 import { Suspense } from 'react';
 
 export default function Home() {
@@ -6,7 +6,7 @@ export default function Home() {
     <div className="flex flex-row justify-evenly">
       <main className="md:min-w-[728px] md:max-w-[728px] lg:min-w-[728px] lg:max-w-[728px]">
         <Suspense>
-          <Articles />
+          <Posts />
         </Suspense>
       </main>
       <div className="hidden min-h-[100vh] border-l md:min-w-[300px] md:max-w-[368px] lg:block">

@@ -1,13 +1,13 @@
 import { type cookies } from 'next/headers';
 import { createServClient } from '@/lib/supabase/server';
 
-export async function getArticleById(
+export async function getPostById(
   cookieStore: ReturnType<typeof cookies>,
   id: string,
-): Promise<ArticleTable | undefined> {
+): Promise<PostTable | undefined> {
   const supabase = createServClient(cookieStore);
   const { data } = await supabase
-    .from('article')
+    .from('post')
     .select('*, category(*)')
     .eq('short_id', id)
     .limit(1);
@@ -15,10 +15,10 @@ export async function getArticleById(
   return data?.[0];
 }
 
-export async function getArticles(
+export async function getPosts(
   cookieStore: ReturnType<typeof cookies>,
-): Promise<ArticleTable[] | []> {
+): Promise<PostTable[] | []> {
   const supabase = createServClient(cookieStore);
-  const { data } = await supabase.from('article').select('*, category(*)');
+  const { data } = await supabase.from('post').select('*, category(*)');
   return data ?? [];
 }

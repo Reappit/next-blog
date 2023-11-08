@@ -9,55 +9,6 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      article: {
-        Row: {
-          author: string;
-          category: number;
-          created_at: string;
-          full_story: string | null;
-          id: number;
-          meta_title: string;
-          short_id: string;
-          subtitle: string | null;
-          title: string;
-        };
-        Insert: {
-          author: string;
-          category: number;
-          created_at?: string;
-          full_story?: string | null;
-          id?: number;
-          meta_title: string;
-          short_id: string;
-          subtitle?: string | null;
-          title: string;
-        };
-        Update: {
-          author?: string;
-          category?: number;
-          created_at?: string;
-          full_story?: string | null;
-          id?: number;
-          meta_title?: string;
-          short_id?: string;
-          subtitle?: string | null;
-          title?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'article_author_fkey';
-            columns: ['author'];
-            referencedRelation: 'user';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'article_category_fkey';
-            columns: ['category'];
-            referencedRelation: 'category';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
       category: {
         Row: {
           id: number;
@@ -78,6 +29,60 @@ export interface Database {
           name?: string;
         };
         Relationships: [];
+      };
+      post: {
+        Row: {
+          author: string;
+          category: number;
+          created_at: string;
+          full_story: string | null;
+          id: number;
+          meta_title: string;
+          published: boolean;
+          short_id: string;
+          subtitle: string | null;
+          title: string;
+        };
+        Insert: {
+          author: string;
+          category: number;
+          created_at?: string;
+          full_story?: string | null;
+          id?: number;
+          meta_title: string;
+          published?: boolean;
+          short_id: string;
+          subtitle?: string | null;
+          title: string;
+        };
+        Update: {
+          author?: string;
+          category?: number;
+          created_at?: string;
+          full_story?: string | null;
+          id?: number;
+          meta_title?: string;
+          published?: boolean;
+          short_id?: string;
+          subtitle?: string | null;
+          title?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'post_author_fkey';
+            columns: ['author'];
+            isOneToOne: false;
+            referencedRelation: 'user';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'post_category_fkey';
+            columns: ['category'];
+            isOneToOne: false;
+            referencedRelation: 'category';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       tag: {
         Row: {
@@ -144,13 +149,13 @@ export interface Database {
       id_encode:
         | {
             Args: {
-              '': number;
+              '': number[];
             };
             Returns: string;
           }
         | {
             Args: {
-              '': number[];
+              '': number;
             };
             Returns: string;
           };

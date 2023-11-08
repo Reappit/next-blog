@@ -5,12 +5,12 @@ import { Bookmark, PenSquare, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
 import PublishedDate from '@/components/PublisedDate';
 
-export default function Article({
-  article: { title, created_at, subtitle, category, meta_title, short_id },
+export default function Post({
+  post: { title, created_at, subtitle, category, meta_title, short_id },
   first = false,
 }: {
   first?: boolean;
-  article: ArticleTable;
+  post: PostTable;
 }) {
   return (
     <article className="mx-6 flex flex-col justify-center pt-6">
