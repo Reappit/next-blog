@@ -1,12 +1,11 @@
 import Search from '@/components/Search';
 import { Button } from '@/components/ui/button';
-import { Space_Grotesk } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { PenSquare } from 'lucide-react';
 import { Suspense } from 'react';
 import UserButton from '@/components/UserButton';
-const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
 export default function Header() {
   return (
@@ -15,10 +14,7 @@ export default function Header() {
         <div className="mr-4 flex items-center">
           <Link
             href="/"
-            className={cn(
-              spaceGrotesk.className,
-              'mr-6 flex items-center space-x-2 text-3xl font-thin tracking-widest',
-            )}
+            className={`mr-6 flex items-center space-x-2 text-3xl font-thin tracking-widest ${GeistSans.variable}`}
           >
             DTT
           </Link>
