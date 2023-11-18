@@ -1,7 +1,6 @@
 import Search from '@/components/Search';
 import { Button } from '@/components/ui/button';
 import { GeistSans } from 'geist/font/sans';
-import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { PenSquare } from 'lucide-react';
 import { Suspense } from 'react';
@@ -14,7 +13,10 @@ export default function Header() {
         <div className="mr-4 flex items-center">
           <Link
             href="/"
-            className={`mr-6 flex items-center space-x-2 text-3xl font-thin tracking-widest ${GeistSans.variable}`}
+            className={`mr-6 flex items-center space-x-2 text-3xl font-thin tracking-widest ${
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+              GeistSans.variable
+            }`}
           >
             DTT
           </Link>

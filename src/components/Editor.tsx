@@ -77,7 +77,10 @@ export default function Editor({ subtitle, fullStory, title }: EditorProps) {
     autosize(subtitleRef.current as unknown as Element);
   }, []);
 
-  const savePostWithFullStory = savePost.bind(null, editorRef?.current?.getMarkdown().toString() ?? '');
+  const savePostWithFullStory = savePost.bind(
+    null,
+    editorRef?.current?.getMarkdown().toString() ?? '',
+  );
   return (
     <div className="m-auto max-w-[700px]">
       <div className="mt-[1.19em] flex flex-col items-center">
