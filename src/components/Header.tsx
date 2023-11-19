@@ -1,6 +1,5 @@
 import Search from '@/components/Search';
 import { Button } from '@/components/ui/button';
-import { GeistSans } from 'geist/font/sans';
 import Link from 'next/link';
 import { PenSquare } from 'lucide-react';
 import { Suspense } from 'react';
@@ -11,14 +10,9 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <div className="container flex h-14 items-center">
         <div className="mr-4 flex items-center">
-          <Link
-            href="/"
-            className={`mr-6 flex items-center space-x-2 text-3xl font-thin tracking-widest ${
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-              GeistSans.variable
-            }`}
-          >
-            DTT
+          <Link href="/" className={`mr-6 tracking-widest`}>
+            <span className="text-5xl">D</span>
+            <span className="text-xl">tt</span>
           </Link>
           <div className="flex w-auto items-center sm:w-72">
             <Search />
