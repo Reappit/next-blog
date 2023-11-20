@@ -6,7 +6,7 @@ import Link from 'next/link';
 import PublishedDate from '@/components/PublisedDate';
 
 export default function Post({
-  post: { title, created_at, subtitle, category, meta_title, short_id },
+  post: { title, created_at, subtitle, category, meta_title, short_id, id },
   first = false,
 }: {
   first?: boolean;
@@ -44,7 +44,7 @@ export default function Post({
             </div>
             <div className="flex">
               <div className="p-2">
-                <Link href={'/editor?id=' + short_id}>
+                <Link href={'/editor?id=' + id}>
                   <PenSquare strokeWidth={0.5} />
                 </Link>
               </div>

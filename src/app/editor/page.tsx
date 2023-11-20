@@ -30,7 +30,7 @@ export default async function Write({ searchParams: { id } }: Props) {
 
   return (
     <Suspense fallback={null}>
-      <EditorComp {...post} />
+      <EditorComp {...post} id={id} />
     </Suspense>
   );
 }

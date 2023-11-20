@@ -19,7 +19,7 @@ import {
   AdmonitionDirectiveDescriptor,
   markdownShortcutPlugin,
 } from '@mdxeditor/editor';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import autosize from 'autosize';
 import EditorToolbar from '@/components/EditorToolbar';
@@ -29,6 +29,7 @@ interface EditorProps {
   subtitle: string;
   fullStory: string;
   title: string;
+  id?: string;
 }
 
 const editorPlugins = (onSave: () => void) => [
@@ -64,27 +65,30 @@ const editorPlugins = (onSave: () => void) => [
   frontmatterPlugin(),
 ];
 
-export default function Editor({ subtitle, fullStory, title }: EditorProps) {
+export default function Editor({
+  subtitle,
+  fullStory,
+  title,
+  id,
+}: EditorProps) {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const editorRef = useRef<MDXEditorMethods>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const [markdow, setMarkdown] = useState(fullStory);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     autosize(titleRef.current as unknown as Element);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     autosize(subtitleRef.current as unknown as Element);
   }, []);
 
-  const savePostWithFullStory = savePost.bind(
-    null,
-    editorRef?.current?.getMarkdown().toString() ?? '',
-  );
   return (
     <div className="m-auto max-w-[700px]">
       <div className="mt-[1.19em] flex flex-col items-center">
-        <form action={savePostWithFullStory} ref={formRef}>
+        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+        <form action={savePost} ref={formRef}>
+          <input type="hidden" name="fullStory" value={markdow} />
+          <input type="hidden" name="id" value={id} />
           <Textarea
             name="title"
             placeholder="Заголовок"
@@ -93,7 +97,7 @@ export default function Editor({ subtitle, fullStory, title }: EditorProps) {
             defaultValue={title}
           />
           <Textarea
-            name="sub-title"
+            name="subTitle"
             placeholder="Подзаголовок"
             ref={subtitleRef}
             defaultValue={subtitle}
@@ -101,11 +105,11 @@ export default function Editor({ subtitle, fullStory, title }: EditorProps) {
           />
           <MDXEditor
             ref={editorRef}
-            markdown={fullStory}
+            markdown={markdow}
             plugins={editorPlugins(() => {
-              // supabase.from('post').upsert()
               formRef.current?.requestSubmit();
             })}
+            onChange={setMarkdown}
             contentEditableClassName="prose"
             className="editor-root mt-[1.19em] w-full"
           />
