@@ -51,7 +51,7 @@ export interface Database {
           id?: number;
           meta_title: string;
           published?: boolean;
-          short_id: string;
+          short_id?: string;
           subtitle?: string | null;
           title: string;
         };
