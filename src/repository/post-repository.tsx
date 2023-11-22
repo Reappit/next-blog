@@ -19,6 +19,20 @@ export async function getPostById(
   return data?.[0];
 }
 
+export async function getPostByShortId(
+  cookieStore: ReturnType<typeof cookies>,
+  id: string,
+): Promise<PostTable | undefined> {
+  const supabase = createServClient(cookieStore);
+  const { data } = await supabase
+    .from('post')
+    .select('*, category(*)')
+    .eq('short_id', id)
+    .limit(1);
+
+  return data?.[0];
+}
+
 export async function getPosts(
   cookieStore: ReturnType<typeof cookies>,
 ): Promise<PostTable[] | []> {
@@ -52,6 +66,7 @@ export async function savePost(formData: FormData) {
         ...(id ? { id } : {}),
       })
       .select();
+
     console.log(error);
     return Promise.resolve(data);
   } catch (e) {

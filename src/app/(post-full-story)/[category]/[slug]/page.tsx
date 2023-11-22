@@ -3,7 +3,7 @@ import { UserCircle } from 'lucide-react';
 import PublishedDate from '@/components/PublisedDate';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Suspense } from 'react';
-import { getPostById } from '@/repository/post-repository';
+import { getPostByShortId } from '@/repository/post-repository';
 
 export default async function PostPage({
   params: { slug },
@@ -12,7 +12,7 @@ export default async function PostPage({
 }) {
   const cookieStore = cookies();
   const postShortId = slug.split('-').at(-1) ?? '';
-  const post = await getPostById(cookieStore, postShortId);
+  const post = await getPostByShortId(cookieStore, postShortId);
   return (
     <Suspense fallback={<>Loading...</>}>
       <article>
