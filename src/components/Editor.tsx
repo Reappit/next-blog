@@ -24,6 +24,7 @@ import { Textarea } from '@/components/ui/textarea';
 import autosize from 'autosize';
 import EditorToolbar from '@/components/EditorToolbar';
 import { savePost } from '@/repository/post-repository';
+import CyrillicToTranslit from 'cyrillic-to-translit-js';
 
 interface EditorProps {
   subtitle: string;
@@ -31,6 +32,8 @@ interface EditorProps {
   title: string;
   id?: string;
 }
+
+const cyrillicToTranslit = CyrillicToTranslit();
 
 const editorPlugins = (onSave: () => void) => [
   toolbarPlugin({
@@ -89,6 +92,11 @@ export default function Editor({
         <form action={savePost} ref={formRef}>
           <input type="hidden" name="fullStory" value={markdow} />
           <input type="hidden" name="id" value={id} />
+          <input
+            type="hidden"
+            name="metaTitle"
+            value={cyrillicToTranslit.transform(title, '-').toLowerCase()}
+          />
           <Textarea
             name="title"
             placeholder="Заголовок"
