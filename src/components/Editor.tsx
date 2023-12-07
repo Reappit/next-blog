@@ -76,7 +76,7 @@ const editorPlugins = (onSave: () => void) => [
 ];
 
 export default function Editor({
-  post: { fullStory, id, title, subTitle },
+  post: { fullStory, id, title, subTitle, category },
   categories,
 }: EditorProps) {
   const titleRef = useRef(null);
@@ -84,6 +84,7 @@ export default function Editor({
   const editorRef = useRef<MDXEditorMethods>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [markdow, setMarkdown] = useState(fullStory ?? '');
+  const [categoryId, setCategory] = useState(category.id);
 
   useEffect(() => {
     autosize(titleRef.current as unknown as Element);
@@ -97,6 +98,7 @@ export default function Editor({
         <form action={savePost} ref={formRef}>
           <input type="hidden" name="fullStory" value={markdow} />
           <input type="hidden" name="id" value={id} />
+          <input type="hidden" name="category" value={categoryId} />
           <input
             type="hidden"
             name="metaTitle"
@@ -116,7 +118,10 @@ export default function Editor({
             defaultValue={subTitle ?? ''}
             className="h-[42px] resize-none border-none px-0 text-[28px] font-light leading-[34px] text-gray-600 shadow-none focus-visible:ring-0"
           />
-          <Select>
+          <Select
+            defaultValue={categoryId + ''}
+            onValueChange={(value) => setCategory(+value)}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Категория" />
             </SelectTrigger>

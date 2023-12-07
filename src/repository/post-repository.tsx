@@ -45,18 +45,19 @@ const formSchema = zfd.formData({
   subTitle: zfd.text(z.string().min(0).max(250)),
   fullStory: zfd.text(z.string().min(0).max(10_000)),
   metaTitle: zfd.text(z.string().min(0).max(250)),
+  category: zfd.numeric().optional(),
 });
 
 export async function savePost(formData: FormData) {
   try {
-    const { id, fullStory, subTitle, title, metaTitle } =
+    const { id, fullStory, subTitle, title, metaTitle, category } =
       formSchema.parse(formData);
     const cookieStore = cookies();
     const supabase = createServClient(cookieStore);
     const user = await getCurrentUser(cookieStore);
     const payload = {
       meta_title: metaTitle,
-      category: 1,
+      category: category ?? 1,
       author: user?.id ?? '',
       full_story: fullStory,
       subtitle: subTitle,
