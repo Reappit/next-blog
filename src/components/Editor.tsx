@@ -34,6 +34,7 @@ import {
 } from '@/components/ui/select';
 import { type PostDto } from '@/repository/dto/post';
 import { type CategoryDto } from '@/repository/dto/category';
+import { useToast } from '@/components/ui/use-toast';
 
 interface EditorProps {
   post: PostDto;
@@ -85,6 +86,7 @@ export default function Editor({
   const formRef = useRef<HTMLFormElement>(null);
   const [markdow, setMarkdown] = useState(fullStory ?? '');
   const [categoryId, setCategory] = useState(category.id);
+  const { toast } = useToast();
 
   useEffect(() => {
     autosize(titleRef.current as unknown as Element);
@@ -95,7 +97,19 @@ export default function Editor({
     <div className="m-auto max-w-[700px]">
       <div className="mt-[1.19em] flex flex-col items-center">
         {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-        <form action={savePost} ref={formRef}>
+        <form
+          action={(formData) =>
+            savePost(formData).then(
+              () => {
+                toast({ title: 'saved' });
+              },
+              (e) => {
+                toast({ title: 'not saved', description: '' + e });
+              },
+            )
+          }
+          ref={formRef}
+        >
           <input type="hidden" name="fullStory" value={markdow} />
           <input type="hidden" name="id" value={id} />
           <input type="hidden" name="category" value={categoryId} />
