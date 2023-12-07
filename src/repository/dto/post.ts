@@ -1,13 +1,7 @@
 import { type toZod } from 'tozod';
 
 import { z } from 'zod';
-
-export const CategorySchema: toZod<CategoryTable> = z.object({
-  id: z.number(),
-  keyword: z.string().nullable(),
-  meta_name: z.string(),
-  name: z.string(),
-});
+import { CategoryDto, CategorySchema } from '@/repository/dto/category';
 
 export const PostSchema: toZod<PostTable> = z.object({
   author: z.string(),
@@ -22,12 +16,6 @@ export const PostSchema: toZod<PostTable> = z.object({
   title: z.string(),
 });
 
-export const CategoryDto = CategorySchema.transform((data) => ({
-  id: data.id,
-  name: data.name,
-  metaName: data.meta_name,
-}));
-
 export const PostDto = PostSchema.transform((data) => ({
   id: data.id,
   title: data.title,
@@ -40,4 +28,3 @@ export const PostDto = PostSchema.transform((data) => ({
 }));
 
 export type PostDto = z.infer<typeof PostDto>;
-export type CategoryDto = z.infer<typeof CategoryDto>;

@@ -9,6 +9,6 @@ export default async function Posts() {
   const posts = await getPosts(cookieStore);
 
   return posts?.map((post, index) => (
-    <Post post={post} key={post.short_id} first={index === 0} />
+    <Post post={post} key={post.shortId} first={index === 0} />
   ));
 }

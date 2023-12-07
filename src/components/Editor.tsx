@@ -32,7 +32,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { type CategoryDto, type PostDto } from '@/repository/dto/post';
+import { type PostDto } from '@/repository/dto/post';
+import { type CategoryDto } from '@/repository/dto/category';
 
 interface EditorProps {
   post: PostDto;

@@ -4,7 +4,8 @@ import { Suspense } from 'react';
 import { cookies } from 'next/headers';
 import { getPostById } from '@/repository/post-repository';
 import { getAllCategories } from '@/repository/category-repository';
-import { type CategoryDto, PostDto } from '@/repository/dto/post';
+import { PostDto } from '@/repository/dto/post';
+import { type CategoryDto } from '@/repository/dto/category';
 
 const EditorComp = dynamic(() => import('../../components/Editor'), {
   ssr: false,
