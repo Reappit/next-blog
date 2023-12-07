@@ -9,7 +9,7 @@ import { PostDto } from '@/repository/dto/post';
 export async function getPostById(
   cookieStore: ReturnType<typeof cookies>,
   id: string,
-): Promise<PostTable | undefined> {
+): Promise<PostDto | undefined> {
   const supabase = createServClient(cookieStore);
   const { data } = await supabase
     .from('post')
@@ -17,7 +17,7 @@ export async function getPostById(
     .eq('id', id)
     .limit(1);
 
-  return data?.[0];
+  return PostDto.parse(data?.[0]);
 }
 
 export async function getPostByShortId(

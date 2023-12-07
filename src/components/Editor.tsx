@@ -25,12 +25,18 @@ import autosize from 'autosize';
 import EditorToolbar from '@/components/EditorToolbar';
 import { savePost } from '@/repository/post-repository';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { type CategoryDto, type PostDto } from '@/repository/dto/post';
 
 interface EditorProps {
-  subtitle: string;
-  fullStory: string;
-  title: string;
-  id?: string;
+  post: PostDto;
+  categories: CategoryDto[] | null;
 }
 
 const cyrillicToTranslit = CyrillicToTranslit();
@@ -69,16 +75,14 @@ const editorPlugins = (onSave: () => void) => [
 ];
 
 export default function Editor({
-  subtitle,
-  fullStory,
-  title,
-  id,
+  post: { fullStory, id, title, subTitle },
+  categories,
 }: EditorProps) {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const editorRef = useRef<MDXEditorMethods>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const [markdow, setMarkdown] = useState(fullStory);
+  const [markdow, setMarkdown] = useState(fullStory ?? '');
 
   useEffect(() => {
     autosize(titleRef.current as unknown as Element);
@@ -108,9 +112,21 @@ export default function Editor({
             name="subTitle"
             placeholder="Подзаголовок"
             ref={subtitleRef}
-            defaultValue={subtitle}
+            defaultValue={subTitle ?? ''}
             className="h-[42px] resize-none border-none px-0 text-[28px] font-light leading-[34px] text-gray-600 shadow-none focus-visible:ring-0"
           />
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Категория" />
+            </SelectTrigger>
+            <SelectContent>
+              {categories?.map((category) => (
+                <SelectItem value={category.id + ''}>
+                  {category.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <MDXEditor
             ref={editorRef}
             markdown={markdow}

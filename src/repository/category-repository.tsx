@@ -1,10 +1,11 @@
 import { type cookies } from 'next/headers';
 import { createServClient } from '@/lib/supabase/server';
+import { CategoryDto } from '@/repository/dto/post';
 
 export async function getAllCategories(
   cookieStore: ReturnType<typeof cookies>,
-): Promise<CategoryTable[] | null> {
+): Promise<CategoryDto[] | null> {
   const supabase = createServClient(cookieStore);
   const { data } = await supabase.from('category').select();
-  return data;
+  return data ? data.map((d) => CategoryDto.parse(d)) : null;
 }

@@ -22,12 +22,11 @@ export const PostSchema: toZod<PostTable> = z.object({
   title: z.string(),
 });
 
-export const CategoryDto = (data: CategoryTable) =>
-  CategorySchema.transform((data) => ({
-    id: data.id,
-    name: data.name,
-    metaName: data.meta_name,
-  })).parse(data);
+export const CategoryDto = CategorySchema.transform((data) => ({
+  id: data.id,
+  name: data.name,
+  metaName: data.meta_name,
+}));
 
 export const PostDto = PostSchema.transform((data) => ({
   id: data.id,
@@ -37,7 +36,8 @@ export const PostDto = PostSchema.transform((data) => ({
   createdAt: data.created_at,
   fullStory: data.full_story,
   shortId: data.short_id,
-  category: CategoryDto(data.category),
+  category: CategoryDto.parse(data.category),
 }));
 
 export type PostDto = z.infer<typeof PostDto>;
+export type CategoryDto = z.infer<typeof CategoryDto>;
