@@ -19,7 +19,7 @@ export default async function PostPage({
         <div className="flex justify-center">
           <section className="max-w-[680px]">
             <div className="mt-[1.19em]">
-              <h1 className="text-4xl font-bold">{post?.title}</h1>
+              <h1 className="text-4xl font-bold">{post.title}</h1>
             </div>
             <div className="mt-8 flex items-center">
               <div>
@@ -28,13 +28,13 @@ export default async function PostPage({
               <div className="ml-3">
                 <div>Admin</div>
                 <div>
-                  <PublishedDate date={post?.created_at ?? ''} />
+                  <PublishedDate date={post.createdAt ?? ''} />
                 </div>
               </div>
             </div>
             <div className="mt-10 border-y-[1px] px-2 py-[3px]">qqq</div>
             <div className="mt-10">
-              <MDXRemote source={post?.full_story ?? ''} />
+              <MDXRemote source={post.fullStory ?? ''} />
             </div>
           </section>
         </div>
