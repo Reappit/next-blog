@@ -4,29 +4,30 @@ import { Badge } from '@/components/ui/badge';
 import { Bookmark, PenSquare, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
 import PublishedDate from '@/components/PublisedDate';
+import { type PostDto } from '@/repository/dto/post';
 
 export default function Post({
-  post: { title, created_at, subtitle, category, meta_title, short_id, id },
+  post: { title, createdAt, subTitle, metaTitle, id, shortId, category },
   first = false,
 }: {
   first?: boolean;
-  post: PostTable;
+  post: PostDto;
 }) {
   return (
     <article className="mx-6 flex flex-col justify-center pt-6">
       {!first && <Separator />}
       <div className="pt-6">
         Admin<span className="mx-1">·</span>
-        <PublishedDate date={created_at} />
+        <PublishedDate date={createdAt} />
       </div>
       <div className="mt-3">
-        <Link href={`${category.meta_name}/${meta_title}-${short_id}`}>
+        <Link href={`${category.metaName}/${metaTitle}-${shortId}`}>
           <h2 className="line-clamp-3 max-h-[72px] text-xl font-bold leading-6">
             {title}
           </h2>
           <div className="pt-2">
             <p className="line-clamp-3 max-h-[72px] text-lg leading-6">
-              {subtitle}
+              {subTitle}
             </p>
           </div>
         </Link>

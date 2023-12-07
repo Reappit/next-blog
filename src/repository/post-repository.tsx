@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 import { getCurrentUser } from '@/repository/user-repository';
-import CyrillicToTranslit from 'cyrillic-to-translit-js';
+import { PostDto } from '@/repository/dto/post';
 
 export async function getPostById(
   cookieStore: ReturnType<typeof cookies>,
@@ -23,23 +23,20 @@ export async function getPostById(
 export async function getPostByShortId(
   cookieStore: ReturnType<typeof cookies>,
   id: string,
-): Promise<PostTable | undefined> {
+) {
   const supabase = createServClient(cookieStore);
   const { data } = await supabase
     .from('post')
     .select('*, category(*)')
     .eq('short_id', id)
     .limit(1);
-
-  return data?.[0];
+  return PostDto.parse(data?.[0]);
 }
 
-export async function getPosts(
-  cookieStore: ReturnType<typeof cookies>,
-): Promise<PostTable[] | []> {
+export async function getPosts(cookieStore: ReturnType<typeof cookies>) {
   const supabase = createServClient(cookieStore);
   const { data } = await supabase.from('post').select('*, category(*)');
-  return data ?? [];
+  return data?.map((d) => PostDto.parse(d));
 }
 
 const formSchema = zfd.formData({
@@ -71,7 +68,7 @@ export async function savePost(formData: FormData) {
         .update(payload)
         .eq('id', id)
         .select();
-      console.log(error);
+      console.error(error);
       return data;
     } else {
       const { data, error } = await supabase
@@ -79,11 +76,11 @@ export async function savePost(formData: FormData) {
         .update(payload)
         .eq('id', id)
         .select();
-      console.log(error);
+      console.error(error);
       return data;
     }
   } catch (e) {
-    console.error('123', e);
+    console.error(e);
     return Promise.reject('Check input data');
   }
 }
