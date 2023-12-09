@@ -69,7 +69,9 @@ export async function savePost(formData: FormData) {
         .update(payload)
         .eq('id', id)
         .select();
-      console.error(error);
+      if (error || data?.length === 0) {
+        throw error || 'Not allow to save';
+      }
       return data;
     } else {
       const { data, error } = await supabase
@@ -77,11 +79,16 @@ export async function savePost(formData: FormData) {
         .update(payload)
         .eq('id', id)
         .select();
-      console.error(error);
+      if (error || data?.length === 0) {
+        throw error || 'Not allow to save';
+      }
       return data;
     }
   } catch (e) {
     console.error(e);
-    return Promise.reject('Check input data');
+    if (e instanceof z.ZodError) {
+      return Promise.reject(e.issues.map((e) => e.message));
+    }
+    return Promise.reject(e);
   }
 }

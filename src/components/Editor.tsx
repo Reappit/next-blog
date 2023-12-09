@@ -98,16 +98,21 @@ export default function Editor({
       <div className="mt-[1.19em] flex flex-col items-center">
         {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <form
-          action={(formData) =>
+          action={(formData) => {
             savePost(formData).then(
               () => {
-                toast({ title: 'saved' });
+                toast({ title: 'Saved', description: '', duration: 3000 });
               },
               (e) => {
-                toast({ title: 'not saved', description: '' + e });
+                toast({
+                  title: 'Not saved',
+                  description: '' + e,
+                  variant: 'destructive',
+                  duration: 3000,
+                });
               },
-            )
-          }
+            );
+          }}
           ref={formRef}
         >
           <input type="hidden" name="fullStory" value={markdow} />
