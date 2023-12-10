@@ -4,6 +4,8 @@ import PublishedDate from '@/components/PublisedDate';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Suspense } from 'react';
 import { getPostByShortId } from '@/repository/post-repository';
+import remarkGfm from 'remark-gfm';
+// import plugin from 'remark-github-beta-blockquote-admonitions';
 
 export default async function PostPage({
   params: { slug },
@@ -33,8 +35,16 @@ export default async function PostPage({
               </div>
             </div>
             <div className="mt-10 border-y-[1px] px-2 py-[3px]">qqq</div>
-            <div className="mt-10">
-              <MDXRemote source={post.fullStory ?? ''} />
+            <div className="prose mt-10">
+              <MDXRemote
+                source={post.fullStory ?? ''}
+                options={{
+                  mdxOptions: {
+                    remarkPlugins: [remarkGfm],
+                    rehypePlugins: [],
+                  },
+                }}
+              />
             </div>
           </section>
         </div>
