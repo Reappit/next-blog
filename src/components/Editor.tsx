@@ -35,6 +35,7 @@ import {
 import { type PostDto } from '@/repository/dto/post';
 import { type CategoryDto } from '@/repository/dto/category';
 import { useToast } from '@/components/ui/use-toast';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface EditorProps {
   post: PostDto;
@@ -77,7 +78,7 @@ const editorPlugins = (onSave: () => void) => [
 ];
 
 export default function Editor({
-  post: { fullStory, id, title, subTitle, category },
+  post: { fullStory, id, title, subTitle, category, published: publishedPost },
   categories,
 }: EditorProps) {
   const titleRef = useRef(null);
@@ -87,11 +88,13 @@ export default function Editor({
   const [markdow, setMarkdown] = useState(fullStory ?? '');
   const [categoryId, setCategory] = useState(category.id);
   const { toast } = useToast();
+  const [published, setPublished] = useState(publishedPost);
 
   useEffect(() => {
     autosize(titleRef.current as unknown as Element);
     autosize(subtitleRef.current as unknown as Element);
   }, []);
+  console.log(published);
 
   return (
     <div className="m-auto max-w-[700px]">
@@ -118,6 +121,7 @@ export default function Editor({
           <input type="hidden" name="fullStory" value={markdow} />
           <input type="hidden" name="id" value={id} />
           <input type="hidden" name="category" value={categoryId} />
+          <input type="hidden" name="publised" />
           <input
             type="hidden"
             name="metaTitle"
@@ -137,21 +141,40 @@ export default function Editor({
             defaultValue={subTitle ?? ''}
             className="h-[42px] resize-none border-none px-0 text-[28px] font-light leading-[34px] text-gray-600 shadow-none focus-visible:ring-0"
           />
-          <Select
-            defaultValue={categoryId + ''}
-            onValueChange={(value) => setCategory(+value)}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Категория" />
-            </SelectTrigger>
-            <SelectContent>
-              {categories?.map((category) => (
-                <SelectItem value={category.id + ''}>
-                  {category.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="my-4">
+            <Select
+              defaultValue={categoryId + ''}
+              onValueChange={(value) => setCategory(+value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Категория" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories?.map((category) => (
+                  <SelectItem value={category.id + ''} key={category.id}>
+                    {category.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="my-4 flex">
+            <Checkbox
+              id="published"
+              checked={published}
+              onCheckedChange={function (value) {
+                setPublished(!!value);
+              }}
+            />
+            <div className="ml-2 flex items-center leading-none">
+              <label
+                htmlFor="published"
+                className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Опубликовать
+              </label>
+            </div>
+          </div>
           <MDXEditor
             ref={editorRef}
             markdown={markdow}

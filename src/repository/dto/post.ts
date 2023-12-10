@@ -25,6 +25,7 @@ export const PostDto = PostSchema.transform((data) => ({
   fullStory: data.full_story,
   shortId: data.short_id,
   category: CategoryDto.parse(data.category),
+  published: data.published,
 }));
 
 export type PostDto = z.infer<typeof PostDto>;
