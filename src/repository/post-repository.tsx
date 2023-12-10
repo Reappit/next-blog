@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 import { getCurrentUser } from '@/repository/user-repository';
 import { PostDto } from '@/repository/dto/post';
+import { type QueryError } from '@supabase/supabase-js';
 
 export async function getPostById(
   cookieStore: ReturnType<typeof cookies>,
@@ -46,11 +47,12 @@ const formSchema = zfd.formData({
   fullStory: zfd.text(z.string().min(0).max(10_000)),
   metaTitle: zfd.text(z.string().min(0).max(250)),
   category: zfd.numeric().optional(),
+  published: zfd.checkbox({ trueValue: 'true' }).optional(),
 });
 
 export async function savePost(formData: FormData) {
   try {
-    const { id, fullStory, subTitle, title, metaTitle, category } =
+    const { id, fullStory, subTitle, title, metaTitle, category, published } =
       formSchema.parse(formData);
     const cookieStore = cookies();
     const supabase = createServClient(cookieStore);
@@ -61,6 +63,7 @@ export async function savePost(formData: FormData) {
       author: user?.id ?? '',
       full_story: fullStory,
       subtitle: subTitle,
+      published: !!published,
       title,
     };
     if (id) {
@@ -84,8 +87,17 @@ export async function savePost(formData: FormData) {
       }
       return data;
     }
-  } catch (e) {
+  } catch (e: unknown) {
     console.error(e);
+    if (e instanceof Object && 'message' in e) {
+      const message = (e as QueryError).message.includes(
+        'row-level security policy',
+      )
+        ? 'Нет доступа'
+        : e.message;
+      return Promise.reject(message);
+    }
+
     if (e instanceof z.ZodError) {
       return Promise.reject(e.issues.map((e) => e.message));
     }

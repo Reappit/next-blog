@@ -94,14 +94,12 @@ export default function Editor({
     autosize(titleRef.current as unknown as Element);
     autosize(subtitleRef.current as unknown as Element);
   }, []);
-  console.log(published);
 
   return (
     <div className="m-auto max-w-[700px]">
       <div className="mt-[1.19em] flex flex-col items-center">
-        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <form
-          action={(formData) => {
+          action={(formData: FormData) => {
             savePost(formData).then(
               () => {
                 toast({ title: 'Saved', description: '', duration: 3000 });
@@ -121,7 +119,13 @@ export default function Editor({
           <input type="hidden" name="fullStory" value={markdow} />
           <input type="hidden" name="id" value={id} />
           <input type="hidden" name="category" value={categoryId} />
-          <input type="hidden" name="publised" />
+          {published && (
+            <input
+              type="hidden"
+              name="published"
+              value={published.toString()}
+            />
+          )}
           <input
             type="hidden"
             name="metaTitle"
