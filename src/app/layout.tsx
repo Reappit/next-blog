@@ -4,6 +4,7 @@ import { Mulish } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import Header from '@/components/Header';
 import { Toaster } from '@/components/ui/toaster';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const mulish = Mulish({ subsets: ['latin'] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <Header />
         <div className="m-auto max-w-[1336px]">{children}</div>
         <Toaster />
+        <SpeedInsights />
       </body>
     </html>
   );
