@@ -5,6 +5,8 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Suspense } from 'react';
 import { getPostByShortId } from '@/repository/post-repository';
 import remarkGfm from 'remark-gfm';
+import rehypeSlug from 'rehype-slug';
+import directive from 'remark-directive';
 
 export default async function PostPage({
   params: { slug },
@@ -40,8 +42,10 @@ export default async function PostPage({
                 options={{
                   mdxOptions: {
                     remarkPlugins: [remarkGfm],
-                    rehypePlugins: [],
+                    rehypePlugins: [rehypeSlug, directive],
+                    format: 'md',
                   },
+                  parseFrontmatter: true,
                 }}
               />
             </div>
