@@ -5,7 +5,6 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Suspense } from 'react';
 import { getPostByShortId } from '@/repository/post-repository';
 import remarkGfm from 'remark-gfm';
-// import plugin from 'remark-github-beta-blockquote-admonitions';
 
 export default async function PostPage({
   params: { slug },
