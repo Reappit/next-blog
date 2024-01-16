@@ -90,7 +90,7 @@ dependencies:
     specifier: ^3.0.0
     version: 3.0.0
   remark-gfm:
-    specifier: ^3.0.1
+    specifier: 3.0.1
     version: 3.0.1
   tailwind-merge:
     specifier: ^2.2.0
