@@ -1,5 +1,4 @@
 import {
-  type AdmonitionKind,
   BlockTypeSelect,
   BoldItalicUnderlineToggles,
   Button,
@@ -30,8 +29,7 @@ function whenInAdmonition(editorInFocus: EditorInFocus | null) {
   }
 
   return ['note', 'tip', 'danger', 'info', 'caution'].includes(
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
-    (node as DirectiveNode).getMdastNode().name as AdmonitionKind,
+    (node as DirectiveNode).getMdastNode().name,
   );
 }
 
