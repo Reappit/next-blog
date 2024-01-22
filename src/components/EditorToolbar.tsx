@@ -16,10 +16,8 @@ import {
   ListsToggle,
   Separator,
   ShowSandpackInfo,
+  type DirectiveNode,
 } from '@mdxeditor/editor';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { type DirectiveNode } from '@mdxeditor/editor/dist/plugins/directives/DirectiveNode';
 import { SaveIcon } from 'lucide-react';
 
 function whenInAdmonition(editorInFocus: EditorInFocus | null) {
@@ -48,7 +46,12 @@ export default function EditorToolbar({ onSave }: { onSave: () => void }) {
         {
           fallback: () => (
             <>
-              <Button onClick={onSave}>
+              <Button
+                onClick={(event) => {
+                  event.preventDefault();
+                  onSave();
+                }}
+              >
                 <SaveIcon strokeWidth={1.5} />
               </Button>
               <BoldItalicUnderlineToggles />

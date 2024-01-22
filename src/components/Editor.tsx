@@ -86,7 +86,7 @@ export default function Editor({
   const editorRef = useRef<MDXEditorMethods>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [markdow, setMarkdown] = useState(fullStory ?? '');
-  const [categoryId, setCategory] = useState(category.id);
+  const [categoryId, setCategory] = useState(category?.id ?? '');
   const { toast } = useToast();
   const [published, setPublished] = useState(publishedPost);
 
@@ -99,6 +99,7 @@ export default function Editor({
     <div className="m-auto max-w-[700px]">
       <div className="mt-[1.19em] flex flex-col items-center">
         <form
+          className="w-full"
           action={(formData: FormData) => {
             savePost(formData).then(
               () => {

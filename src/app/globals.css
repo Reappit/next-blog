@@ -79,3 +79,7 @@
   top: 62px;
   box-shadow: 0 0 0 5px white;
 }
+
+.editor-root > div .prose {
+  min-width: 100%;
+}
