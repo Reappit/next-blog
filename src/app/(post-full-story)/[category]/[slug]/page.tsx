@@ -20,7 +20,7 @@ export default async function PostPage({
     <Suspense fallback={<>Loading...</>}>
       <article>
         <div className="flex justify-center">
-          <section className="max-w-[680px]">
+          <section className="w-full max-w-[680px]">
             <div className="mt-[1.19em]">
               <h1 className="text-4xl font-bold">{post.title}</h1>
             </div>
