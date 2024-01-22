@@ -77,26 +77,17 @@ const editorPlugins = (onSave: () => void) => [
   frontmatterPlugin(),
 ];
 
-export default function Editor({
-  post: {
-    fullStory,
-    id,
-    title: titlePost,
-    subTitle,
-    category,
-    published: publishedPost,
-  },
-  categories,
-}: EditorProps) {
+export default function Editor({ post, categories }: EditorProps) {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const editorRef = useRef<MDXEditorMethods>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const [markdow, setMarkdown] = useState(fullStory ?? '');
-  const [categoryId, setCategory] = useState(category?.id ?? '');
+  const [markdow, setMarkdown] = useState(post.fullStory ?? '');
+  const [categoryId, setCategory] = useState(post.category?.id ?? '');
   const { toast } = useToast();
-  const [published, setPublished] = useState(publishedPost);
-  const [title, setTitle] = useState(titlePost);
+  const [published, setPublished] = useState(post.published);
+  const [title, setTitle] = useState(post.title);
+  const [id, setId] = useState(post.id);
 
   useEffect(() => {
     autosize(titleRef.current as unknown as Element);
@@ -110,8 +101,9 @@ export default function Editor({
           className="w-full"
           action={(formData: FormData) => {
             savePost(formData).then(
-              () => {
+              (r) => {
                 toast({ title: 'Saved', description: '', duration: 3000 });
+                setId(r[0].id);
               },
               (e) => {
                 toast({
@@ -152,7 +144,7 @@ export default function Editor({
             name="subTitle"
             placeholder="Подзаголовок"
             ref={subtitleRef}
-            defaultValue={subTitle ?? ''}
+            defaultValue={post.subTitle ?? ''}
             className="h-[42px] resize-none border-none px-0 text-[28px] font-light leading-[34px] text-gray-600 shadow-none focus-visible:ring-0"
           />
           <div className="my-4">
