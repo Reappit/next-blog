@@ -78,7 +78,14 @@ const editorPlugins = (onSave: () => void) => [
 ];
 
 export default function Editor({
-  post: { fullStory, id, title, subTitle, category, published: publishedPost },
+  post: {
+    fullStory,
+    id,
+    title: titlePost,
+    subTitle,
+    category,
+    published: publishedPost,
+  },
   categories,
 }: EditorProps) {
   const titleRef = useRef(null);
@@ -89,6 +96,7 @@ export default function Editor({
   const [categoryId, setCategory] = useState(category?.id ?? '');
   const { toast } = useToast();
   const [published, setPublished] = useState(publishedPost);
+  const [title, setTitle] = useState(titlePost);
 
   useEffect(() => {
     autosize(titleRef.current as unknown as Element);
@@ -137,7 +145,8 @@ export default function Editor({
             placeholder="Заголовок"
             className="h-[42px] resize-none border-none px-0 text-[42px] leading-[52px] shadow-none focus-visible:ring-0"
             ref={titleRef}
-            defaultValue={title}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
           <Textarea
             name="subTitle"

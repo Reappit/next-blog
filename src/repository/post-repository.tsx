@@ -41,12 +41,12 @@ export async function getPosts(cookieStore: ReturnType<typeof cookies>) {
 }
 
 const formSchema = zfd.formData({
-  id: zfd.numeric(),
+  id: zfd.numeric(z.number().optional()),
   title: zfd.text(z.string().min(20).max(250)),
   subTitle: zfd.text(z.string().min(0).max(250)),
   fullStory: zfd.text(z.string().min(0).max(10_000)),
   metaTitle: zfd.text(z.string().min(0).max(250)),
-  category: zfd.numeric().optional(),
+  category: zfd.numeric(z.number().optional()),
   published: zfd.checkbox({ trueValue: 'true' }).optional(),
 });
 
@@ -79,8 +79,7 @@ export async function savePost(formData: FormData) {
     } else {
       const { data, error } = await supabase
         .from('post')
-        .update(payload)
-        .eq('id', id)
+        .insert(payload)
         .select();
       if (error || data?.length === 0) {
         throw error || 'Not allow to save';
@@ -88,7 +87,6 @@ export async function savePost(formData: FormData) {
       return data;
     }
   } catch (e: unknown) {
-    console.error(e);
     if (e instanceof Object && 'message' in e) {
       const message = (e as QueryError).message.includes(
         'row-level security policy',
