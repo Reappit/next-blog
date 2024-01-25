@@ -22,15 +22,13 @@ export function admotionPlugin() {
           if (!nodeTypes.includes(node.name)) return;
 
           const data = node.data || (node.data = {} as never);
-          const tagName = node.type === 'textDirective' ? 'span' : 'div';
+          const tagName = node.name;
 
           data.hName = tagName;
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          data.hProperties = h(tagName, {
-            ...(node.attributes || {}),
-            class: 'border-l-4 border-green-600 p-l-4',
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          }).properties;
+          data.hProperties = h(
+            tagName,
+            (node.attributes || {}) as never,
+          ).properties;
         }
       },
     );
