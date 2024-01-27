@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { UserCircle, Lightbulb } from 'lucide-react';
 import PublishedDate from '@/components/PublisedDate';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { getPostByShortId } from '@/repository/post-repository';
 import remarkDirective from 'remark-directive';
 import { admotionPlugin } from '@/components/AdmotionPlugin';
@@ -18,7 +18,7 @@ const Tip: CustomComponent = ({ children }) => (
   <div className="min-w-full border-l-4 border-green-700">
     <div className="flex items-center bg-green-700/30 py-1 pl-2 font-bold text-black">
       <Lightbulb size={21} className="text-green-700" />
-      <span className="pl-1">Note</span>
+      <span className="pl-1">Лайфхак</span>
     </div>
     <div className="-mt-5 bg-green-800/10 pl-4">{children}</div>
   </div>
@@ -28,7 +28,7 @@ const Note: CustomComponent = ({ children }) => (
   <div className="min-w-full border-l-4 border-blue-700">
     <div className="flex items-center bg-blue-700/30 py-1 pl-2 font-bold text-black">
       <Lightbulb size={21} className="text-blue-700" />
-      <span className="pl-1">Note</span>
+      <span className="pl-1">На заметку</span>
     </div>
     <div className="-mt-5 bg-blue-800/10 pl-4">{children}</div>
   </div>
