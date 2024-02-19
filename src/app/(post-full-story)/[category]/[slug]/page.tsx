@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { UserCircle, Lightbulb } from 'lucide-react';
+import { UserCircle, Lightbulb, PencilIcon } from 'lucide-react';
 import PublishedDate from '@/components/PublisedDate';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import React, { Suspense } from 'react';
@@ -25,12 +25,14 @@ const Tip: CustomComponent = ({ children }) => (
 );
 
 const Note: CustomComponent = ({ children }) => (
-  <div className="min-w-full border-l-4 border-blue-700">
-    <div className="flex items-center bg-blue-700/30 py-1 pl-2 font-bold text-black">
-      <Lightbulb size={21} className="text-blue-700" />
-      <span className="pl-1">На заметку</span>
+  <div className="min-w-full rounded border-[1px] border-blue-500">
+    <div className="flex items-center bg-blue-200/30 py-1 pl-2 font-bold text-black">
+      <div className="rounded-full bg-blue-500 p-1.5">
+        <PencilIcon size={12} className="text-white" />
+      </div>
+      <span className="pl-2 font-normal">На заметку</span>
     </div>
-    <div className="-mt-5 bg-blue-800/10 pl-4">{children}</div>
+    <div className="-mt-5 pl-3">{children}</div>
   </div>
 );
 
