@@ -1,11 +1,12 @@
 import Posts from '@/components/Posts';
 import { Suspense } from 'react';
+import { PostListSkeleton } from '@/components/PostListSkeleton';
 
 export default function Home() {
   return (
     <div className="flex flex-row justify-evenly">
       <main className="md:min-w-[728px] md:max-w-[728px] lg:min-w-[728px] lg:max-w-[728px]">
-        <Suspense>
+        <Suspense fallback={<PostListSkeleton />}>
           <Posts />
         </Suspense>
       </main>

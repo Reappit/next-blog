@@ -21,10 +21,19 @@ export async function getPostById(
   return PostDto.parse(data?.[0]);
 }
 
+function waitForSeconds(seconds: number) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`Promise resolved after ${seconds} seconds`);
+    }, seconds * 1000);
+  });
+}
+
 export async function getPostByShortId(
   cookieStore: ReturnType<typeof cookies>,
   id: string,
 ) {
+  await waitForSeconds(10);
   const supabase = createServClient(cookieStore);
   const { data } = await supabase
     .from('post')

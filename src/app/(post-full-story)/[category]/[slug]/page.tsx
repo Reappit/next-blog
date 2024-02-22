@@ -6,6 +6,7 @@ import React, { Suspense } from 'react';
 import { getPostByShortId } from '@/repository/post-repository';
 import remarkDirective from 'remark-directive';
 import { admotionPlugin } from '@/components/AdmotionPlugin';
+import { FullPostSkeleton } from '@/components/FullPostSkeleton';
 
 interface CustomComponentProps {
   href: string;
@@ -53,10 +54,10 @@ export default async function PostPage({
   const postShortId = slug.split('-').at(-1) ?? '';
   const post = await getPostByShortId(cookieStore, postShortId);
   return (
-    <Suspense fallback={<>Loading...</>}>
-      <article>
-        <div className="flex justify-center">
-          <section className="w-full max-w-[680px]">
+    <article>
+      <div className="flex justify-center">
+        <section className="w-full max-w-[680px]">
+          <Suspense fallback={<FullPostSkeleton />}>
             <div className="mt-[1.19em]">
               <h1 className="text-4xl font-bold">{post.title}</h1>
             </div>
@@ -87,9 +88,9 @@ export default async function PostPage({
                 components={customComponents}
               />
             </div>
-          </section>
-        </div>
-      </article>
-    </Suspense>
+          </Suspense>
+        </section>
+      </div>
+    </article>
   );
 }
