@@ -1,12 +1,10 @@
-import { cookies } from 'next/headers';
+"use server"
+import { getPosts } from '@/repository/post-repository';
 import Post from '@/components/Post';
-// import { getPosts } from '@/repository/post-repository';
-
-export const runtime = 'edge';
 
 export default async function Posts() {
-  const cookieStore = cookies();
-  // const posts = await getPosts(cookieStore);
-
-  return <span> hello</span>;
+  const posts = await getPosts();
+  return posts?.map((post, index) => (
+    <Post post={post} key={post.id} first={index === 0} />
+  ));
 }

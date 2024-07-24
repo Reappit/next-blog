@@ -7,7 +7,7 @@ import PublishedDate from '@/components/PublisedDate';
 import { type PostDto } from '@/repository/dto/post';
 
 export default function Post({
-  post: { title, createdAt, subTitle, metaTitle, id, shortId, category },
+  post: { title, createdAt, subtitle, metaTitle, id },
   first = false,
 }: {
   first?: boolean;
@@ -21,13 +21,12 @@ export default function Post({
         <PublishedDate date={createdAt} />
       </div>
       <div className="mt-3">
-        <Link href={`${category.metaName}/${metaTitle}-${shortId}`}>
+        <Link href={`${metaTitle}`}>
           <h2 className="line-clamp-3 max-h-[72px] text-xl font-bold leading-6">
             {title}
           </h2>
           <div className="pt-2">
             <p className="line-clamp-3 max-h-[72px] text-lg leading-6">
-              {subTitle}
             </p>
           </div>
         </Link>
@@ -35,12 +34,12 @@ export default function Post({
         <div className="mb-4 mt-8">
           <div className="flex justify-between">
             <div className="flex items-center">
-              <Badge
-                variant="secondary"
-                className="mr-2 rounded-2xl px-2 py-1 font-normal"
-              >
-                {category.name}
-              </Badge>
+              {/*<Badge*/}
+              {/*  variant="secondary"*/}
+              {/*  className="mr-2 rounded-2xl px-2 py-1 font-normal"*/}
+              {/*>*/}
+              {/*  {category.name}*/}
+              {/*</Badge>*/}
               <span className="text-sm font-normal">5 min read</span>
             </div>
             <div className="flex">

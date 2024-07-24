@@ -1,9 +1,17 @@
-// 'use server';
-// import { cookies } from 'next/headers';
+'use server';
+
+import { PostDto } from '@/repository/dto/post';
+import { db } from '@/db';
+import { postTable } from '@/db/schema';
+
+export async function getPosts(): Promise<PostDto[]> {
+  const data = await db.select().from(postTable).all();
+  return data?.map(d => PostDto.parse(d));
+}
+
 // import { z } from 'zod';
 // import { zfd } from 'zod-form-data';
 // import { getCurrentUser } from '@/repository/user-repository';
-// import { PostDto } from '@/repository/dto/post';
 //
 // export async function getPostById(
 //   cookieStore: ReturnType<typeof cookies>,
@@ -41,11 +49,7 @@
 //   return PostDto.parse(data?.[0]);
 // }
 //
-// export async function getPosts(cookieStore: ReturnType<typeof cookies>) {
-//   const supabase = createServClient(cookieStore);
-//   const { data } = await supabase.from('post').select('*, category(*)');
-//   return data?.map((d) => PostDto.parse(d));
-// }
+
 //
 // const formSchema = zfd.formData({
 //   id: zfd.numeric(z.number().optional()),
