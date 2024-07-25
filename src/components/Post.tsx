@@ -34,12 +34,12 @@ export default function Post({
         <div className="mb-4 mt-8">
           <div className="flex justify-between">
             <div className="flex items-center">
-              {/*<Badge*/}
-              {/*  variant="secondary"*/}
-              {/*  className="mr-2 rounded-2xl px-2 py-1 font-normal"*/}
-              {/*>*/}
-              {/*  {category.name}*/}
-              {/*</Badge>*/}
+              <Badge
+                variant="secondary"
+                className="mr-2 rounded-2xl px-2 py-1 font-normal"
+              >
+                HA
+              </Badge>
               <span className="text-sm font-normal">5 min read</span>
             </div>
             <div className="flex">
