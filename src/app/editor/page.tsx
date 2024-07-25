@@ -2,10 +2,8 @@ import '@mdxeditor/editor/style.css';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { cookies } from 'next/headers';
-import { getPostById } from '@/repository/post-repository';
 import { getAllCategories } from '@/repository/category-repository';
 import { PostDto } from '@/repository/dto/post';
-import { type CategoryDto } from '@/repository/dto/category';
 
 const EditorComp = dynamic(() => import('../../components/Editor'), {
   ssr: false,
@@ -18,23 +16,23 @@ interface Props {
 }
 
 export default async function Write({ searchParams: { id } }: Props) {
-  const cookieStore = cookies();
-  let categories: CategoryDto[] | null;
-  let post: PostDto = {} as PostDto;
-  if (id) {
-    const [dbPost, dbCategories] = await Promise.all([
-      getPostById(cookieStore, id),
-      getAllCategories(cookieStore),
-    ]);
-    categories = dbCategories;
-    post = dbPost ?? PostDto.parse({});
-  } else {
-    categories = await getAllCategories(cookieStore);
-  }
+  // const cookieStore = cookies();
+  // let categories: CategoryDto[] | null;
+  // let post: PostDto = {} as PostDto;
+  // if (id) {
+  //   const [dbPost, dbCategories] = await Promise.all([
+  //     getPostById(cookieStore, id),
+  //     getAllCategories(cookieStore),
+  //   ]);
+  //   categories = dbCategories;
+  //   post = dbPost ?? PostDto.parse({});
+  // } else {
+  //   categories = await getAllCategories(cookieStore);
+  // }
 
   return (
     <Suspense fallback={null}>
-      <EditorComp post={post} categories={categories} />
+      {/*<EditorComp post={post} categories={categories} />*/}
     </Suspense>
   );
 }
