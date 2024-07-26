@@ -7,12 +7,13 @@ import PublishedDate from '@/components/PublisedDate';
 import { type PostDto } from '@/repository/dto/post';
 
 export default function Post({
-  post: { title, createdAt, subtitle, metaTitle, id },
+  post: { title, createdAt, subTitle, metaTitle, id , ...rest},
   first = false,
 }: {
   first?: boolean;
   post: PostDto;
 }) {
+  console.log(rest)
   return (
     <article className="mx-6 flex flex-col justify-center pt-6">
       {!first && <Separator />}
@@ -21,13 +22,12 @@ export default function Post({
         <PublishedDate date={createdAt} />
       </div>
       <div className="mt-3">
-        <Link href={`${metaTitle}`}>
+        <Link href={`-${metaTitle}-${id}`}>
           <h2 className="line-clamp-3 max-h-[72px] text-xl font-bold leading-6">
             {title}
           </h2>
           <div className="pt-2">
-            <p className="line-clamp-3 max-h-[72px] text-lg leading-6">
-            </p>
+            <p className="line-clamp-3 max-h-[72px] text-lg leading-6"></p>
           </div>
         </Link>
 

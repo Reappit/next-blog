@@ -1,7 +1,7 @@
 import * as schema from './schema';
 import { env } from '@/env';
-import { drizzle, LibSQLDatabase } from "drizzle-orm/libsql";
-import { createClient } from "@libsql/client/web";
+import { drizzle, LibSQLDatabase } from 'drizzle-orm/libsql';
+import { createClient } from '@libsql/client/web';
 
 declare global {
   // eslint-disable-next-line no-var -- only var works here
@@ -16,10 +16,10 @@ const turso = createClient({
 let db: LibSQLDatabase<typeof schema>;
 
 if (env.NODE_ENV === 'production') {
-  db = drizzle(turso);
+  db = drizzle(turso, { schema });
 } else {
   if (!global.db) {
-    global.db = drizzle(turso);
+    global.db = drizzle(turso, { schema });
   }
   db = global.db;
 }

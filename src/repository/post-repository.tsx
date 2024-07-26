@@ -2,11 +2,22 @@
 
 import { PostDto } from '@/repository/dto/post';
 import { db } from '@/db';
-import { postTable } from '@/db/schema';
+import { CategoryDto } from '@/repository/dto/category';
 
 export async function getPosts(): Promise<PostDto[]> {
-  const data = await db.select().from(postTable).all();
-  return data?.map(d => PostDto.parse(d));
+  const data = await db.query.postTable.findMany({
+    with: {
+      postToCategories: {
+        with: {
+          category: true
+        }
+      },
+    },
+  });
+  return data?.map(d => ({
+    ...PostDto.parse(d),
+    categories: d.postToCategories.map(c => CategoryDto.parse(c.category)),
+  }));
 }
 
 // import { z } from 'zod';

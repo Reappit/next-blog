@@ -20,7 +20,7 @@ export const postTable = sqliteTable('post', {
 });
 
 export const postRelations = relations(postTable, ({ many }) => ({
-  categories: many(postToCategoryTable),
+  postToCategories: many(postToCategoryTable),
 }));
 
 export const categoryTable = sqliteTable('category', {
@@ -31,7 +31,7 @@ export const categoryTable = sqliteTable('category', {
 });
 
 export const categoryRelations = relations(categoryTable, ({ many }) => ({
-  posts: many(postToCategoryTable),
+  postToCategories: many(postToCategoryTable),
 }));
 
 export const postToCategoryTable = sqliteTable(
@@ -48,6 +48,7 @@ export const postToCategoryTable = sqliteTable(
     pk: primaryKey({ columns: [t.postId, t.categoryId] }),
   })
 );
+
 
 export const postToCategoryRelations = relations(
   postToCategoryTable,
