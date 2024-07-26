@@ -1,9 +1,8 @@
-import { type cookies } from 'next/headers';
+import { CategoryDto } from '@/repository/dto/category';
+import { db } from '@/db';
+import { categoryTable } from '@/db/schema';
 
-export async function getAllCategories(
-  cookieStore: ReturnType<typeof cookies>,
-): Promise<any> {
-  // const supabase = createServClient(cookieStore);
-  // const { data } = await supabase.from('category').select();
-  // return data ? data.map((d) => CategoryDto.parse(d)) : null;
+export async function getAllCategories(): Promise<CategoryDto[]> {
+  const data = await db.select().from(categoryTable).all();
+  return data?.map(d => CategoryDto.parse(d));
 }

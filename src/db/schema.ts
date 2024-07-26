@@ -70,3 +70,4 @@ export const tagTable = sqliteTable('tag', {
 });
 
 export const selectPostSchema = createSelectSchema(postTable);
+export const selectCategorySchema = createSelectSchema(categoryTable);
