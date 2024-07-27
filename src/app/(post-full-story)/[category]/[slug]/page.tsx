@@ -7,6 +7,7 @@ import React, { Suspense } from 'react';
 import remarkDirective from 'remark-directive';
 import { admotionPlugin } from '@/components/AdmotionPlugin';
 import { FullPostSkeleton } from '@/components/FullPostSkeleton';
+import { getPostById } from '@/repository/post-repository';
 
 interface CustomComponentProps {
   href: string;
@@ -50,9 +51,8 @@ export default async function PostPage({
 }: {
   params: { slug: string };
 }) {
-  const cookieStore = cookies();
-  const postShortId = slug.split('-').at(-1) ?? '';
-  // const post = await getPostByShortId(cookieStore, postShortId);
+  const postId = slug.split('-').at(-1) ?? '';
+  const post = await getPostById(+postId);
   return (
     <article>
       <div className="flex justify-center">

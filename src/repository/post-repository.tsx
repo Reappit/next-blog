@@ -2,41 +2,27 @@
 
 import { PostDto } from '@/repository/dto/post';
 import { db } from '@/db';
-import { CategoryDto } from '@/repository/dto/category';
+import { eq } from 'drizzle-orm';
+import { postTable } from '@/db/schema';
 
-export async function getPosts(): Promise<PostDto[]> {
+export async function getPosts() {
   const data = await db.query.postTable.findMany({
     with: {
-      postToCategories: {
-        with: {
-          category: true
-        }
-      },
+      category: true,
     },
   });
-  return data?.map(d => ({
-    ...PostDto.parse(d),
-    categories: d.postToCategories.map(c => CategoryDto.parse(c.category)),
-  }));
+  return data?.map(d => PostDto.parse(d));
 }
 
-// import { z } from 'zod';
-// import { zfd } from 'zod-form-data';
-// import { getCurrentUser } from '@/repository/user-repository';
-//
-// export async function getPostById(
-//   cookieStore: ReturnType<typeof cookies>,
-//   id: string,
-// ): Promise<PostDto | undefined> {
-//   const supabase = createServClient(cookieStore);
-//   const { data } = await supabase
-//     .from('post')
-//     .select('*, category(*)')
-//     .eq('id', id)
-//     .limit(1);
-//
-//   return PostDto.parse(data?.[0]);
-// }
+export async function getPostById(id: number): Promise<PostDto | undefined> {
+  const data = await db.query.postTable.findFirst({
+    where: eq(postTable.id, id),
+    with: {
+      category: true,
+    },
+  });
+  return PostDto.parse(data);
+}
 //
 // function waitForSeconds(seconds: number) {
 //   return new Promise((resolve) => {

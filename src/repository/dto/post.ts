@@ -1,6 +1,10 @@
 import { z } from 'zod';
-import { selectPostSchema } from '@/db/schema';
+import { selectCategorySchema, selectPostSchema } from '@/db/schema';
 
-export const PostDto = selectPostSchema;
+export const PostDto = selectPostSchema.extend({
+  category: selectCategorySchema.optional(),
+});
 
 export type PostDto = z.infer<typeof PostDto>;
+
+
