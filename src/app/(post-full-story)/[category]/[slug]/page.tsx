@@ -1,9 +1,7 @@
-import { cookies } from 'next/headers';
 import { UserCircle, Lightbulb, PencilIcon } from 'lucide-react';
 import PublishedDate from '@/components/PublisedDate';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import React, { Suspense } from 'react';
-// import { getPostByShortId } from '@/repository/post-repository';
 import remarkDirective from 'remark-directive';
 import { admotionPlugin } from '@/components/AdmotionPlugin';
 import { FullPostSkeleton } from '@/components/FullPostSkeleton';
@@ -53,42 +51,45 @@ export default async function PostPage({
 }) {
   const postId = slug.split('-').at(-1) ?? '';
   const post = await getPostById(+postId);
+  if (!post) {
+    return null;
+  }
   return (
     <article>
       <div className="flex justify-center">
         <section className="w-full max-w-[680px]">
-          {/*<Suspense fallback={<FullPostSkeleton />}>*/}
-          {/*  <div className="mt-[1.19em]">*/}
-          {/*    <h1 className="text-4xl font-bold">{post.title}</h1>*/}
-          {/*  </div>*/}
-          {/*  <div className="mt-8 flex items-center">*/}
-          {/*    <div>*/}
-          {/*      <UserCircle size={50} strokeWidth={0.5} />*/}
-          {/*    </div>*/}
-          {/*    <div className="ml-3">*/}
-          {/*      <div>Admin</div>*/}
-          {/*      <div>*/}
-          {/*        <PublishedDate date={post.createdAt ?? ''} />*/}
-          {/*      </div>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*  <div className="mt-10 border-y-[1px] px-2 py-[3px]">*/}
-          {/*    what is here?*/}
-          {/*  </div>*/}
-          {/*  <div className="prose mt-10 min-w-full">*/}
-          {/*    <MDXRemote*/}
-          {/*      source={post.fullStory ?? ''}*/}
-          {/*      options={{*/}
-          {/*        mdxOptions: {*/}
-          {/*          format: 'md',*/}
-          {/*          remarkPlugins: [remarkDirective, admotionPlugin as never],*/}
-          {/*        },*/}
-          {/*        parseFrontmatter: true,*/}
-          {/*      }}*/}
-          {/*      components={customComponents}*/}
-          {/*    />*/}
-          {/*  </div>*/}
-          {/*</Suspense>*/}
+          <Suspense fallback={<FullPostSkeleton />}>
+            <div className="mt-[1.19em]">
+              <h1 className="text-4xl font-bold">{post.title}</h1>
+            </div>
+            <div className="mt-8 flex items-center">
+              <div>
+                <UserCircle size={50} strokeWidth={0.5} />
+              </div>
+              <div className="ml-3">
+                <div>Admin</div>
+                <div>
+                  <PublishedDate date={post.createdAt ?? ''} />
+                </div>
+              </div>
+            </div>
+            <div className="mt-10 border-y-[1px] px-2 py-[3px]">
+              what is here?
+            </div>
+            <div className="prose mt-10 min-w-full">
+              <MDXRemote
+                source={post.fullStory ?? ''}
+                options={{
+                  mdxOptions: {
+                    format: 'md',
+                    remarkPlugins: [remarkDirective, admotionPlugin as never],
+                  },
+                  parseFrontmatter: true,
+                }}
+                components={customComponents}
+              />
+            </div>
+          </Suspense>
         </section>
       </div>
     </article>

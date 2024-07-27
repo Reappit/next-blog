@@ -21,7 +21,7 @@ export default function Post({
         <PublishedDate date={createdAt} />
       </div>
       <div className="mt-3">
-        <Link href={`${category?.metaName}-${metaTitle}-${id}`}>
+        <Link href={`${category?.metaName}/${metaTitle}-${id}`}>
           <h2 className="line-clamp-3 max-h-[72px] text-xl font-bold leading-6">
             {title}
           </h2>
