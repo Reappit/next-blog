@@ -37,7 +37,9 @@ export const categoryTable = sqliteTable('category', {
 
 
 export const userTable = sqliteTable("user", {
-  id: text("id").notNull().primaryKey()
+  id: text("id").notNull().primaryKey(),
+  username: text("username").notNull().unique(),
+  password_hash: text("password_hash").notNull(),
 });
 
 export const sessionTable = sqliteTable("session", {
