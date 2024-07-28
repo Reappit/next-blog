@@ -35,6 +35,19 @@ export const categoryTable = sqliteTable('category', {
   keyword: text('keyword'),
 });
 
+
+export const userTable = sqliteTable("user", {
+  id: text("id").notNull().primaryKey()
+});
+
+export const sessionTable = sqliteTable("session", {
+  id: text("id").notNull().primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => userTable.id),
+  expiresAt: integer("expires_at").notNull()
+});
+
 // export const categoryRelations = relations(categoryTable, ({ many }) => ({
 //   postToCategories: many(postToCategoryTable),
 // }));
