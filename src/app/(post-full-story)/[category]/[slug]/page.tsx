@@ -5,7 +5,7 @@ import React, { Suspense } from 'react';
 import remarkDirective from 'remark-directive';
 import { admotionPlugin } from '@/components/AdmotionPlugin';
 import { FullPostSkeleton } from '@/components/FullPostSkeleton';
-import { getPostById } from '@/repository/post-repository';
+import postService from '@/services/post-service';
 
 interface CustomComponentProps {
   href: string;
@@ -50,7 +50,7 @@ export default async function PostPage({
   params: { slug: string };
 }) {
   const postId = slug.split('-').at(-1) ?? '';
-  const post = await getPostById(+postId);
+  const post = await postService.getPostById(+postId);
   if (!post) {
     return null;
   }

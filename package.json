@@ -1,5 +1,5 @@
 {
-  "name": "NextBlog",
+  "name": "next-blog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@types/autosize": "^4.0.3",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.14.12",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
@@ -56,8 +57,8 @@
     "eslint-config-next": "^14.2.5",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-no-relative-import-paths": "^1.5.3",
     "eslint-plugin-isaacscript": "^3.12.2",
+    "eslint-plugin-no-relative-import-paths": "^1.5.3",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
