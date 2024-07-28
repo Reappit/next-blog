@@ -4,10 +4,14 @@ export default {
     'plugin:prettier/recommended',
     'plugin:drizzle/recommended',
   ],
-  plugins: ['drizzle'],
+  plugins: ['drizzle', 'no-relative-import-paths'],
   rules: {
     // These off/not-configured-the-way-we-want lint rules we like & opt into
     '@typescript-eslint/no-explicit-any': 'error',
+    'no-relative-import-paths/no-relative-import-paths': [
+      'warn',
+      { allowSameFolder: true },
+    ],
     '@typescript-eslint/no-unused-vars': [
       'error',
       { argsIgnorePattern: '^_', destructuredArrayIgnorePattern: '^_' },

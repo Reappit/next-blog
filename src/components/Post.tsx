@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Bookmark, PenSquare, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
 import PublishedDate from '@/components/PublisedDate';
-import { type PostDto } from '@/repository/dto/post';
+import { type PostDto } from '@/dto/post';
 
 export default function Post({
   post: { title, createdAt, subTitle, metaTitle, id, category },

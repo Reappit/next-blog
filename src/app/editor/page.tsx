@@ -2,9 +2,9 @@ import '@mdxeditor/editor/style.css';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { getAllCategories } from '@/repository/category-repository';
-import { PostDto } from '@/repository/dto/post';
-import { CategoryDto } from '@/repository/dto/category';
-import { getPostById } from '@/repository/post-repository';
+import { PostDto } from '@/dto/post';
+import { CategoryDto } from '@/dto/category';
+import postService from '@/services/post-service';
 
 const EditorComp = dynamic(() => import('../../components/Editor'), {
   ssr: false,
@@ -21,7 +21,7 @@ export default async function Write({ searchParams: { id } }: Props) {
   let post: PostDto = {} as PostDto;
   if (id) {
     const [dbPost, dbCategories] = await Promise.all([
-      getPostById(+id),
+      postService.getPostById(+id),
       getAllCategories(),
     ]);
     categories = dbCategories;

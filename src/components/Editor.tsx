@@ -32,10 +32,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { type PostDto } from '@/repository/dto/post';
+import { type PostDto } from '@/dto/post';
 import { useToast } from '@/components/ui/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
-import { CategoryDto } from '@/repository/dto/category';
+import { CategoryDto } from '@/dto/category';
 
 interface EditorProps {
   post: PostDto;
