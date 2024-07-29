@@ -9,7 +9,7 @@ import { userTable } from '@/db/schema';
 
 export default async function Page() {}
 
-export async function signup(_: any, formData: FormData): Promise<ActionResult> {
+export async function signup(formData: FormData): Promise<ActionResult> {
   "use server";
   const username = formData.get("username");
   // username must be between 4 ~ 31 characters, and only consists of lowercase letters, 0-9, -, and _

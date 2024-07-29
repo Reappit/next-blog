@@ -3,6 +3,9 @@ const nextConfig = {
   // experimental: {
   //   ppr: true,
   // },
+  experimental: {
+    serverComponentsExternalPackages: ["@node-rs/argon2"]
+  }
 };
 
-module.exports = nextConfig;
+export default nextConfig;
