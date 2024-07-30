@@ -4,11 +4,11 @@ import { eq } from 'drizzle-orm';
 import { userTable } from '@/db/schema';
 
 const userRepository = {
-  async  getUserByUsername(userName: string) {
+  async getUserByEmail(email: string) {
     return db.query.userTable.findFirst({
-      where: eq(userTable.username, userName),
+      where: eq(userTable.email, email),
     });
-  }
-}
+  },
+};
 
 export default userRepository;

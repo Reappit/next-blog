@@ -2,8 +2,8 @@ import userRepository from '@/repository/user-repository';
 import { UserDto } from '@/dto/user';
 
 const userService = {
-  async getUserByUsername(username: string) {
-    const user = await userRepository.getUserByUsername(username);
+  async getUserByEmail(email: string) {
+    const user = await userRepository.getUserByEmail(email);
     return UserDto.parse(user);
   },
 };

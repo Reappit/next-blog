@@ -11,6 +11,7 @@
     "db-studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@auth/drizzle-adapter": "^1.4.2",
     "@libsql/client": "^0.7.0",
     "@lucia-auth/adapter-drizzle": "^1.0.7",
     "@mdxeditor/editor": "^3.10.0",
@@ -36,6 +37,7 @@
     "lucia": "^3.2.0",
     "lucide-react": "^0.414.0",
     "next": "14.2.5",
+    "next-auth": "^4.24.7",
     "next-mdx-remote": "5.0.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
