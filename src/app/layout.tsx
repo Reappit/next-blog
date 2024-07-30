@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import Header from '@/components/Header';
 import { Toaster } from '@/components/ui/toaster';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import Provider from '@/provider';
 
 const mulish = Mulish({ subsets: ['latin'] });
 
@@ -21,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(mulish.className, 'min-h-screen bg-background')}>
-        <Header />
-        <div className="m-auto max-w-[1336px]">{children}</div>
-        <Toaster />
+        <Provider>
+          <Header />
+          <div className="m-auto max-w-[1336px]">{children}</div>
+          <Toaster />
+        </Provider>
         <SpeedInsights />
       </body>
     </html>
