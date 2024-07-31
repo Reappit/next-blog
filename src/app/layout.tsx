@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import { Toaster } from '@/components/ui/toaster';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Provider from '@/provider';
+import { ReactNode } from 'react';
 
 const mulish = Mulish({ subsets: ['latin'] });
 
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <html lang="en">

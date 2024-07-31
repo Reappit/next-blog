@@ -6,7 +6,7 @@ import {
   primaryKey
 } from 'drizzle-orm/sqlite-core';
 import { createSelectSchema } from 'drizzle-zod';
-import type { AdapterAccount } from "next-auth/adapters"
+import type { AdapterAccountType } from "next-auth/adapters"
 
 export const userTable = sqliteTable("user", {
   id: text("id")
@@ -14,19 +14,19 @@ export const userTable = sqliteTable("user", {
     .$defaultFn(() => crypto.randomUUID()),
   name: text("name"),
   email: text("email").unique(),
-  emailVerified: integer("emailVerified", { mode: "timestamp_ms" }),
+  emailVerified: integer("email_verified", { mode: "timestamp_ms" }),
   image: text("image"),
 })
 
 export const accountTable = sqliteTable(
   "account",
   {
-    userId: text("userId")
+    userId: text("user_id")
       .notNull()
       .references(() => userTable.id, { onDelete: "cascade" }),
-    type: text("type").$type<AdapterAccount>().notNull(),
+    type: text("type").$type<AdapterAccountType>().notNull(),
     provider: text("provider").notNull(),
-    providerAccountId: text("providerAccountId").notNull(),
+    providerAccountId: text("provider_account_id").notNull(),
     refresh_token: text("refresh_token"),
     access_token: text("access_token"),
     expires_at: integer("expires_at"),
@@ -43,15 +43,15 @@ export const accountTable = sqliteTable(
 )
 
 export const sessionTable = sqliteTable("session", {
-  sessionToken: text("sessionToken").primaryKey(),
-  userId: text("userId")
+  sessionToken: text("session_token").primaryKey(),
+  userId: text("user_id")
     .notNull()
     .references(() => userTable.id, { onDelete: "cascade" }),
   expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
 })
 
 export const verificationTokenTable = sqliteTable(
-  "verificationToken",
+  "verification_token",
   {
     identifier: text("identifier").notNull(),
     token: text("token").notNull(),
@@ -67,15 +67,15 @@ export const verificationTokenTable = sqliteTable(
 export const authenticatorTable = sqliteTable(
   "authenticator",
   {
-    credentialID: text("credentialID").notNull().unique(),
-    userId: text("userId")
+    credentialID: text("credential_id").notNull().unique(),
+    userId: text("user_id")
       .notNull()
       .references(() => userTable.id, { onDelete: "cascade" }),
-    providerAccountId: text("providerAccountId").notNull(),
-    credentialPublicKey: text("credentialPublicKey").notNull(),
+    providerAccountId: text("provider_account_id").notNull(),
+    credentialPublicKey: text("credential_public_key").notNull(),
     counter: integer("counter").notNull(),
-    credentialDeviceType: text("credentialDeviceType").notNull(),
-    credentialBackedUp: integer("credentialBackedUp", {
+    credentialDeviceType: text("credential_device_type").notNull(),
+    credentialBackedUp: integer("credential_backed_up", {
       mode: "boolean",
     }).notNull(),
     transports: text("transports"),
