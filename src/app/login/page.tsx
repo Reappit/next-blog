@@ -1,4 +1,3 @@
-import { login } from '@/app/login/actions';
 
 export default function Login({
   searchParams,
@@ -7,7 +6,7 @@ export default function Login({
 }>) {
   return (
     <div className="m-auto flex w-full sm:max-w-md">
-      <form className="flex w-full flex-col" action={login}>
+      <form className="flex w-full flex-col">
         <label className="text-md" htmlFor="email">
           Email
         </label>

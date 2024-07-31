@@ -1,10 +1,9 @@
-import { signup } from '@/app/signup/actions';
 
 export default async function Page() {
   return (
     <>
       <h1>Create an account</h1>
-      <form action={signup}>
+      <form>
         <label htmlFor="username">Username</label>
         <input name="username" id="username" />
         <br />
@@ -15,9 +14,4 @@ export default async function Page() {
       </form>
     </>
   );
-}
-
-
-interface ActionResult {
-  error: string;
 }
