@@ -27,10 +27,10 @@ export function admotionPlugin() {
           data.hName = tagName;
           data.hProperties = h(
             tagName,
-            (node.attributes || {}) as never,
+            (node.attributes || {}) as never
           ).properties;
         }
-      },
+      }
     );
   };
 }

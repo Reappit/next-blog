@@ -27,7 +27,7 @@ function whenInAdmonition(editorInFocus: EditorInFocus | null) {
   }
 
   return ['note', 'tip', 'danger', 'info', 'caution'].includes(
-    (node as DirectiveNode).getMdastNode().name,
+    (node as DirectiveNode).getMdastNode().name
   );
 }
 
@@ -36,18 +36,18 @@ export default function EditorToolbar({ onSave }: { onSave: () => void }) {
     <ConditionalContents
       options={[
         {
-          when: (editor) => editor?.editorType === 'codeblock',
+          when: editor => editor?.editorType === 'codeblock',
           contents: () => <ChangeCodeMirrorLanguage />,
         },
         {
-          when: (editor) => editor?.editorType === 'sandpack',
+          when: editor => editor?.editorType === 'sandpack',
           contents: () => <ShowSandpackInfo />,
         },
         {
           fallback: () => (
             <>
               <Button
-                onClick={(event) => {
+                onClick={event => {
                   event.preventDefault();
                   onSave();
                 }}
@@ -79,7 +79,7 @@ export default function EditorToolbar({ onSave }: { onSave: () => void }) {
               <ConditionalContents
                 options={[
                   {
-                    when: (editorInFocus) => !whenInAdmonition(editorInFocus),
+                    when: editorInFocus => !whenInAdmonition(editorInFocus),
                     contents: () => (
                       <>
                         <Separator />

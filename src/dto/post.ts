@@ -6,5 +6,3 @@ export const PostDto = selectPostSchema.extend({
 });
 
 export type PostDto = z.infer<typeof PostDto>;
-
-
