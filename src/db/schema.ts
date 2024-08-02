@@ -13,6 +13,7 @@ export const userTable = sqliteTable('user', {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   name: text('name'),
+  role: text('role', { enum: ['user', 'admin'] }).default('user'),
   email: text('email').unique(),
   emailVerified: integer('emailVerified', { mode: 'timestamp_ms' }),
   image: text('image'),
