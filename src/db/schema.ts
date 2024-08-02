@@ -14,20 +14,19 @@ export const userTable = sqliteTable('user', {
     .$defaultFn(() => crypto.randomUUID()),
   name: text('name'),
   email: text('email').unique(),
-  emailVerified: integer('email_verified', { mode: 'timestamp_ms' }),
+  emailVerified: integer('emailVerified', { mode: 'timestamp_ms' }),
   image: text('image'),
-  role: text('role', { enum: ['admin', 'user'] }),
 });
 
 export const accountTable = sqliteTable(
   'account',
   {
-    userId: text('user_id')
+    userId: text('userId')
       .notNull()
       .references(() => userTable.id, { onDelete: 'cascade' }),
     type: text('type').$type<AdapterAccountType>().notNull(),
     provider: text('provider').notNull(),
-    providerAccountId: text('provider_account_id').notNull(),
+    providerAccountId: text('providerAccountId').notNull(),
     refresh_token: text('refresh_token'),
     access_token: text('access_token'),
     expires_at: integer('expires_at'),
@@ -44,15 +43,15 @@ export const accountTable = sqliteTable(
 );
 
 export const sessionTable = sqliteTable('session', {
-  sessionToken: text('session_token').primaryKey(),
-  userId: text('user_id')
+  sessionToken: text('sessionToken').primaryKey(),
+  userId: text('userId')
     .notNull()
     .references(() => userTable.id, { onDelete: 'cascade' }),
   expires: integer('expires', { mode: 'timestamp_ms' }).notNull(),
 });
 
 export const verificationTokenTable = sqliteTable(
-  'verification_token',
+  'verificationToken',
   {
     identifier: text('identifier').notNull(),
     token: text('token').notNull(),
@@ -68,15 +67,15 @@ export const verificationTokenTable = sqliteTable(
 export const authenticatorTable = sqliteTable(
   'authenticator',
   {
-    credentialID: text('credential_id').notNull().unique(),
-    userId: text('user_id')
+    credentialID: text('credentialID').notNull().unique(),
+    userId: text('userId')
       .notNull()
       .references(() => userTable.id, { onDelete: 'cascade' }),
-    providerAccountId: text('provider_account_id').notNull(),
-    credentialPublicKey: text('credential_public_key').notNull(),
+    providerAccountId: text('providerAccountId').notNull(),
+    credentialPublicKey: text('credentialPublicKey').notNull(),
     counter: integer('counter').notNull(),
-    credentialDeviceType: text('credential_device_type').notNull(),
-    credentialBackedUp: integer('credential_backed_up', {
+    credentialDeviceType: text('credentialDeviceType').notNull(),
+    credentialBackedUp: integer('credentialBackedUp', {
       mode: 'boolean',
     }).notNull(),
     transports: text('transports'),
@@ -87,6 +86,8 @@ export const authenticatorTable = sqliteTable(
     }),
   })
 );
+
+////////////////////////////////////////////////////
 
 export const postTable = sqliteTable('post', {
   id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
