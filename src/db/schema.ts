@@ -3,91 +3,90 @@ import {
   text,
   sqliteTable,
   integer,
-  primaryKey
+  primaryKey,
 } from 'drizzle-orm/sqlite-core';
 import { createSelectSchema } from 'drizzle-zod';
-import type { AdapterAccountType } from "next-auth/adapters"
+import type { AdapterAccountType } from 'next-auth/adapters';
 
-export const userTable = sqliteTable("user", {
-  id: text("id")
+export const userTable = sqliteTable('user', {
+  id: text('id')
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  name: text("name"),
-  email: text("email").unique(),
-  emailVerified: integer("email_verified", { mode: "timestamp_ms" }),
-  image: text("image"),
-})
+  name: text('name'),
+  email: text('email').unique(),
+  emailVerified: integer('email_verified', { mode: 'timestamp_ms' }),
+  image: text('image'),
+  role: text('role', { enum: ['admin', 'user'] }),
+});
 
 export const accountTable = sqliteTable(
-  "account",
+  'account',
   {
-    userId: text("user_id")
+    userId: text('user_id')
       .notNull()
-      .references(() => userTable.id, { onDelete: "cascade" }),
-    type: text("type").$type<AdapterAccountType>().notNull(),
-    provider: text("provider").notNull(),
-    providerAccountId: text("provider_account_id").notNull(),
-    refresh_token: text("refresh_token"),
-    access_token: text("access_token"),
-    expires_at: integer("expires_at"),
-    token_type: text("token_type"),
-    scope: text("scope"),
-    id_token: text("id_token"),
-    session_state: text("session_state"),
+      .references(() => userTable.id, { onDelete: 'cascade' }),
+    type: text('type').$type<AdapterAccountType>().notNull(),
+    provider: text('provider').notNull(),
+    providerAccountId: text('provider_account_id').notNull(),
+    refresh_token: text('refresh_token'),
+    access_token: text('access_token'),
+    expires_at: integer('expires_at'),
+    token_type: text('token_type'),
+    scope: text('scope'),
+    id_token: text('id_token'),
+    session_state: text('session_state'),
   },
-  (account) => ({
+  account => ({
     compoundKey: primaryKey({
       columns: [account.provider, account.providerAccountId],
     }),
   })
-)
+);
 
-export const sessionTable = sqliteTable("session", {
-  sessionToken: text("session_token").primaryKey(),
-  userId: text("user_id")
+export const sessionTable = sqliteTable('session', {
+  sessionToken: text('session_token').primaryKey(),
+  userId: text('user_id')
     .notNull()
-    .references(() => userTable.id, { onDelete: "cascade" }),
-  expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
-})
+    .references(() => userTable.id, { onDelete: 'cascade' }),
+  expires: integer('expires', { mode: 'timestamp_ms' }).notNull(),
+});
 
 export const verificationTokenTable = sqliteTable(
-  "verification_token",
+  'verification_token',
   {
-    identifier: text("identifier").notNull(),
-    token: text("token").notNull(),
-    expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
+    identifier: text('identifier').notNull(),
+    token: text('token').notNull(),
+    expires: integer('expires', { mode: 'timestamp_ms' }).notNull(),
   },
-  (verificationToken) => ({
+  verificationToken => ({
     compositePk: primaryKey({
       columns: [verificationToken.identifier, verificationToken.token],
     }),
   })
-)
+);
 
 export const authenticatorTable = sqliteTable(
-  "authenticator",
+  'authenticator',
   {
-    credentialID: text("credential_id").notNull().unique(),
-    userId: text("user_id")
+    credentialID: text('credential_id').notNull().unique(),
+    userId: text('user_id')
       .notNull()
-      .references(() => userTable.id, { onDelete: "cascade" }),
-    providerAccountId: text("provider_account_id").notNull(),
-    credentialPublicKey: text("credential_public_key").notNull(),
-    counter: integer("counter").notNull(),
-    credentialDeviceType: text("credential_device_type").notNull(),
-    credentialBackedUp: integer("credential_backed_up", {
-      mode: "boolean",
+      .references(() => userTable.id, { onDelete: 'cascade' }),
+    providerAccountId: text('provider_account_id').notNull(),
+    credentialPublicKey: text('credential_public_key').notNull(),
+    counter: integer('counter').notNull(),
+    credentialDeviceType: text('credential_device_type').notNull(),
+    credentialBackedUp: integer('credential_backed_up', {
+      mode: 'boolean',
     }).notNull(),
-    transports: text("transports"),
+    transports: text('transports'),
   },
-  (authenticator) => ({
+  authenticator => ({
     compositePK: primaryKey({
       columns: [authenticator.userId, authenticator.credentialID],
     }),
   })
-)
-
-
+);
 
 export const postTable = sqliteTable('post', {
   id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
@@ -107,7 +106,7 @@ export const postTable = sqliteTable('post', {
 export const postRelations = relations(postTable, ({ one }) => ({
   category: one(categoryTable, {
     fields: [postTable.category],
-    references: [categoryTable.id]
+    references: [categoryTable.id],
   }),
 }));
 
@@ -117,8 +116,6 @@ export const categoryTable = sqliteTable('category', {
   metaName: text('meta_name').notNull().unique(),
   keyword: text('keyword'),
 });
-
-
 
 // export const categoryRelations = relations(categoryTable, ({ many }) => ({
 //   postToCategories: many(postToCategoryTable),
