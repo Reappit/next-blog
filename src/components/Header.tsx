@@ -24,7 +24,7 @@ export default function Header() {
           <IsAdmin>
             <Button variant="link">
               <Link href="/editor" className="flex items-center">
-                <PenSquare className="mr-1" strokeWidth={0.5} size={17} /> Write
+                <PenSquare className="mr-1" strokeWidth={0.5} size={17} /> Write Story!
               </Link>
             </Button>
           </IsAdmin>
