@@ -31,7 +31,7 @@ export const authConfig = {
     async jwt({ token }) {
       const dbUser = await userService.getUserByEmail(token.email!);
       if (!dbUser) {
-        throw new Error('Bo user with email found');
+        throw new Error('No user with email found');
       }
       return {
         id: dbUser.id,
@@ -47,6 +47,7 @@ export const authConfig = {
         session.user.name = token.name;
         session.user.email = token.email as string;
         session.user.image = token.picture;
+        session.user.role = token.role as string;
       }
       return session;
     },
