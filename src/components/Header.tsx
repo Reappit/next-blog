@@ -1,9 +1,11 @@
+'use client';
 import Search from '@/components/Search';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { PenSquare } from 'lucide-react';
 import { Suspense } from 'react';
 import UserButton from '@/components/UserButton';
+import IsAdmin from '@/components/IsAdmin';
 
 export default function Header() {
   return (
@@ -19,11 +21,13 @@ export default function Header() {
           </div>
         </div>
         <div className="flex flex-1 items-center justify-end">
-          <Button variant="link">
-            <Link href="/editor" className="flex items-center">
-              <PenSquare className="mr-1" strokeWidth={0.5} size={17} /> Write
-            </Link>
-          </Button>
+          <IsAdmin>
+            <Button variant="link">
+              <Link href="/editor" className="flex items-center">
+                <PenSquare className="mr-1" strokeWidth={0.5} size={17} /> Write
+              </Link>
+            </Button>
+          </IsAdmin>
           <Suspense>
             <UserButton />
           </Suspense>
