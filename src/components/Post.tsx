@@ -5,6 +5,7 @@ import { Bookmark, PenSquare, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
 import PublishedDate from '@/components/PublisedDate';
 import { type PostDto } from '@/dto/post';
+import IsAdmin from '@/components/IsAdmin';
 
 export default function Post({
   post: { title, createdAt, subTitle, metaTitle, id, category },
@@ -44,11 +45,13 @@ export default function Post({
               <span className="text-sm font-normal">5 min read</span>
             </div>
             <div className="flex">
-              <div className="p-2">
-                <Link href={'/editor?id=' + id}>
-                  <PenSquare strokeWidth={0.5} />
-                </Link>
-              </div>
+              <IsAdmin>
+                <div className="p-2">
+                  <Link href={'/editor?id=' + id}>
+                    <PenSquare strokeWidth={0.5} />
+                  </Link>
+                </div>
+              </IsAdmin>
               <div className="p-2">
                 <Bookmark strokeWidth={0.5} />
               </div>
