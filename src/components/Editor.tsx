@@ -23,7 +23,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import autosize from 'autosize';
 import EditorToolbar from '@/components/EditorToolbar';
-// import { savePost } from '@/repository/post-repository';
+import postService from '@/services/post-service';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import {
   Select,
@@ -36,6 +36,8 @@ import { type PostDto } from '@/dto/post';
 import { useToast } from '@/components/ui/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CategoryDto } from '@/dto/category';
+import { useFormState } from 'react-dom';
+import savePostAction from '@/app/editor/_actions/save-post-action';
 
 interface EditorProps {
   post: PostDto;
@@ -94,29 +96,27 @@ export default function Editor({ post, categories }: EditorProps) {
     autosize(subtitleRef.current as unknown as Element);
   }, []);
 
+  const [savePostState, savePost] = useFormState(savePostAction, {});
+
+  useEffect(() => {
+    console.log(savePostState);
+    if (savePostState.error) {
+      toast({
+        title: 'Not saved',
+        description: '' + savePostState.error,
+        variant: 'destructive',
+        duration: 3000,
+      });
+    } else {
+      toast({ title: 'Saved', description: '', duration: 3000 });
+      setId(savePostState.id ?? -1);
+    }
+  }, [savePostState]);
+
   return (
     <div className="m-auto max-w-[700px]">
       <div className="mt-[1.19em] flex flex-col items-center">
-        <form
-          className="w-full"
-          action={(formData: FormData) => {
-            // savePost(formData).then(
-            //   r => {
-            //     toast({ title: 'Saved', description: '', duration: 3000 });
-            //     setId(r[0].id);
-            //   },
-            //   e => {
-            //     toast({
-            //       title: 'Not saved',
-            //       description: '' + e,
-            //       variant: 'destructive',
-            //       duration: 3000,
-            //     });
-            //   }
-            // );
-          }}
-          ref={formRef}
-        >
+        <form className="w-full" action={savePost} ref={formRef}>
           <input type="hidden" name="fullStory" value={markdow} />
           <input type="hidden" name="id" value={id} />
           <input type="hidden" name="category" value={categoryId} />

@@ -97,6 +97,9 @@ export const postTable = sqliteTable('post', {
   metaTitle: text('meta_title').unique(),
   fullStory: text('full_story'),
   published: integer('published', { mode: 'boolean' }).notNull().default(false),
+  author: text('author')
+    .notNull()
+    .references(() => userTable.id),
   category: integer('category_id')
     .notNull()
     .references(() => categoryTable.id),
