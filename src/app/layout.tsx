@@ -8,6 +8,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ReactNode } from 'react';
 import Providers from '@/app/providers';
 import PlausibleProvider from 'next-plausible';
+import { env } from '@/env';
 
 const mulish = Mulish({ subsets: ['latin'] });
 
@@ -25,9 +26,10 @@ export default async function RootLayout({
     <html lang="en">
       <head>
         <PlausibleProvider
-          domain="devtech.tips"
-          customDomain="in.andrnet.com"
-          selfHosted
+          domain={env.APP_URL}
+          enabled={true}
+          selfHosted={true}
+          scriptProps={{ 'data-api': env.PLAUSIBLE_URL } as any}
         />
       </head>
       <body className={cn(mulish.className, 'min-h-screen bg-background')}>

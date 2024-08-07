@@ -19,7 +19,7 @@ export const env = createEnv({
     // STRIPE_WEBHOOK_SECRET: z.string().min(1),
     // PRICE_ID: z.string().min(1),
     // HOSTNAME: z.string().min(1),
-    // PLAUSIBLE_URL: z.string().min(1),
+    PLAUSIBLE_URL: z.string().min(1),
     // MONGODB_URI: z.string().min(1),
     // S3_ENDPOINT: z.string(),
     // S3_PORT: z.string().optional(),
@@ -27,7 +27,7 @@ export const env = createEnv({
     // S3_SECRET_KEY: z.string(),
     // S3_BUCKET_NAME: z.string(),
     // S3_USE_SSL: z.string().optional(),
-    // APP_URL: z.string().min(1),
+    APP_URL: z.string().min(1),
   },
   /*
    * Environment variables available on the client (and server).
@@ -56,7 +56,7 @@ export const env = createEnv({
     // STRIPE_API_KEY: process.env.STRIPE_API_KEY,
     // STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     // PRICE_ID: process.env.PRICE_ID,
-    // PLAUSIBLE_URL: process.env.PLAUSIBLE_URL,
+    PLAUSIBLE_URL: process.env.PLAUSIBLE_URL,
     // HOSTNAME: process.env.HOSTNAME,
     // MONGODB_URI: process.env.MONGODB_URI,
     // S3_ENDPOINT: process.env.S3_ENDPOINT,
@@ -65,7 +65,7 @@ export const env = createEnv({
     // S3_SECRET_KEY: process.env.S3_SECRET_KEY,
     // S3_BUCKET_NAME: process.env.S3_BUCKET_NAME,
     // S3_USE_SSL: process.env.S3_USE_SSL,
-    // APP_URL: process.env.APP_URL,
+    APP_URL: process.env.APP_URL,
   },
 
   /**
