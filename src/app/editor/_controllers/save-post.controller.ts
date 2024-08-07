@@ -26,10 +26,9 @@ export default async function (
 ): Promise<State> {
   try {
     const session = await auth();
-    console.log(session?.user);
-    // if (session?.user?.role.includes('admin')) {
-    //   throw 'Unauthorised';
-    // }
+    if (session?.user?.role !== 'admin') {
+      throw 'Unauthorised';
+    }
     const schemaData = formSchema.parse(formData);
     const postDto = PostInsertDto.parse({
       ...schemaData,
