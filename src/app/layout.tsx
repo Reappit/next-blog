@@ -6,7 +6,8 @@ import Header from '@/components/Header';
 import { Toaster } from '@/components/ui/toaster';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ReactNode } from 'react';
-import Provider from '@/provider';
+import Providers from '@/app/providers';
+import PlausibleProvider from 'next-plausible';
 
 const mulish = Mulish({ subsets: ['latin'] });
 
@@ -22,12 +23,19 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <PlausibleProvider
+          domain="devtech.tips"
+          customDomain="in.andrnet.com"
+          selfHosted
+        />
+      </head>
       <body className={cn(mulish.className, 'min-h-screen bg-background')}>
-        <Provider>
+        <Providers>
           <Header />
           <div className="m-auto max-w-[1336px]">{children}</div>
           <Toaster />
-        </Provider>
+        </Providers>
         <SpeedInsights />
       </body>
     </html>

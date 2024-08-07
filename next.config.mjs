@@ -1,3 +1,5 @@
+import { withPlausibleProxy } from 'next-plausible';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -6,4 +8,10 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const withPlausible = withPlausibleProxy({
+  subdirectory: '',
+  scriptName: 'scriptName',
+  customDomain: 'https://in.andrnet.com',
+})(nextConfig);
+
+export default withPlausible;
