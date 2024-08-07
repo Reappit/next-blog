@@ -1,7 +1,7 @@
 import { db } from '@/db';
 import { eq } from 'drizzle-orm';
 import { postTable } from '@/db/schema';
-import { PostDto } from '@/dto/post';
+import { PostInsertDto } from '@/dto/post';
 
 const postRepository = {
   getPosts() {
@@ -20,17 +20,14 @@ const postRepository = {
     });
   },
 
-  savePost(post: PostDto) {
+  savePost(post: PostInsertDto) {
     return db
       .insert(postTable)
-      .values({ ...post, category: post.category?.id ?? -1 });
+      .values(post);
   },
 
-  updatePost(post: PostDto) {
-    return db
-      .update(postTable)
-      .set({ ...post, category: post.category?.id ?? -1 })
-      .where(eq(postTable.id, post.id));
+  updatePost(post: PostInsertDto) {
+    return db.update(postTable).set(post).where(eq(postTable.id, post.id!));
   },
 };
 

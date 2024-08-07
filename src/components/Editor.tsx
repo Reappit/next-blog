@@ -23,7 +23,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import autosize from 'autosize';
 import EditorToolbar from '@/components/EditorToolbar';
-import postService from '@/services/post-service';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import {
   Select,
@@ -37,7 +36,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CategoryDto } from '@/dto/category';
 import { useFormState } from 'react-dom';
-import savePostAction from '@/app/editor/_actions/save-post-action';
+import savePostController from '@/app/editor/_controllers/save-post.controller';
 
 interface EditorProps {
   post: PostDto;
@@ -96,7 +95,7 @@ export default function Editor({ post, categories }: EditorProps) {
     autosize(subtitleRef.current as unknown as Element);
   }, []);
 
-  const [savePostState, savePost] = useFormState(savePostAction, {});
+  const [savePostState, savePost] = useFormState(savePostController, {});
 
   useEffect(() => {
     console.log(savePostState);

@@ -5,7 +5,7 @@ import {
   integer,
   primaryKey,
 } from 'drizzle-orm/sqlite-core';
-import { createSelectSchema } from 'drizzle-zod';
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import type { AdapterAccountType } from 'next-auth/adapters';
 
 export const userTable = sqliteTable('user', {
@@ -162,5 +162,6 @@ export const tagTable = sqliteTable('tag', {
 });
 
 export const selectPostSchema = createSelectSchema(postTable);
+export const insertPostSchema = createInsertSchema(postTable);
 export const selectCategorySchema = createSelectSchema(categoryTable);
 export const selectUserSchema = createSelectSchema(userTable);
