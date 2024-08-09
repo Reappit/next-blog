@@ -1,5 +1,5 @@
 import { db } from '@/db';
-import { eq } from 'drizzle-orm';
+import { asc, desc, eq } from 'drizzle-orm';
 import { postTable } from '@/db/schema';
 import { PostInsertDto } from '@/dto/post';
 
@@ -9,8 +9,10 @@ const postRepository = {
       with: {
         category: true,
       },
+      orderBy: [desc(postTable.createdAt)],
     });
   },
+
   getPostById(id: number) {
     return db.query.postTable.findFirst({
       where: eq(postTable.id, id),
@@ -21,9 +23,7 @@ const postRepository = {
   },
 
   savePost(post: PostInsertDto) {
-    return db
-      .insert(postTable)
-      .values(post);
+    return db.insert(postTable).values(post);
   },
 
   updatePost(post: PostInsertDto) {
