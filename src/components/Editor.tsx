@@ -53,11 +53,11 @@ export default function Editor({ post, categories }: EditorProps) {
         variant: 'destructive',
         duration: 3000,
       });
-    } else {
+    } else if (savePostState.id) {
       toast({ title: 'Saved', description: savePostState.id, duration: 3000 });
-      setId(
-        savePostState.id === undefined ? undefined : parseInt(savePostState.id)
-      );
+      setId(parseInt(savePostState.id));
+    } else {
+      toast({ title: 'Id is not changed', description: savePostState.id, duration: 3000 });
     }
   }, [savePostState]);
 
