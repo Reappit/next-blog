@@ -86,6 +86,8 @@ export default function Editor({ post, categories }: EditorProps) {
   const [markdow, setMarkdown] = useState(post.fullStory ?? '');
   const { toast } = useToast();
 
+  const [id, setId] = useState<number | undefined>(post.id);
+
   useEffect(() => {
     autosize(titleRef.current as unknown as Element);
     autosize(subtitleRef.current as unknown as Element);
@@ -97,7 +99,6 @@ export default function Editor({ post, categories }: EditorProps) {
   );
 
   useEffect(() => {
-    console.log(savePostState);
     if (savePostState.error) {
       toast({
         title: 'Not saved',
@@ -106,24 +107,22 @@ export default function Editor({ post, categories }: EditorProps) {
         duration: 3000,
       });
     } else {
-      toast({ title: 'Saved', description: '', duration: 3000 });
-      console.log('1', savePostState.id);
-      // post.id = savePostState.id;
+      toast({ title: 'Saved', description: savePostState.id, duration: 3000 });
+      setId(savePostState.id as number | undefined);
     }
   }, [savePostState]);
 
-  console.log(post);
   return (
     <div className="m-auto max-w-[700px]">
       <div className="mt-[1.19em] flex flex-col items-center">
         <form className="w-full" action={savePost} ref={formRef}>
           <input type="hidden" name="fullStory" value={markdow} />
-          <input type="hidden" name="id" value={post.id} />
+          {id && <input type="hidden" name="id" value={id} />}
           <input
             type="hidden"
             name="metaTitle"
             value={cyrillicToTranslit
-              .transform(post.title ?? '', '-')
+              .transform((titleRef.current as any)?.value ?? '', '-')
               .toLowerCase()}
           />
           <Textarea
@@ -131,7 +130,7 @@ export default function Editor({ post, categories }: EditorProps) {
             placeholder="Заголовок"
             className="h-[42px] resize-none border-none px-0 text-[42px] leading-[52px] shadow-none focus-visible:ring-0"
             ref={titleRef}
-            value={post.title ?? ''}
+            defaultValue={post.title ?? ''}
           />
           <Textarea
             name="subTitle"
@@ -141,7 +140,7 @@ export default function Editor({ post, categories }: EditorProps) {
             className="h-[42px] resize-none border-none px-0 text-[28px] font-light leading-[34px] text-gray-600 shadow-none focus-visible:ring-0"
           />
           <div className="my-4">
-            <Select defaultValue={post.category + ''}>
+            <Select defaultValue={post.category?.id + ''} name="category">
               <SelectTrigger>
                 <SelectValue placeholder="Категория" />
               </SelectTrigger>
@@ -155,7 +154,11 @@ export default function Editor({ post, categories }: EditorProps) {
             </Select>
           </div>
           <div className="my-4 flex">
-            <Checkbox id="published" name="published" checked={post.published} />
+            <Checkbox
+              id="published"
+              name="published"
+              defaultChecked={post.published}
+            />
             <div className="ml-2 flex items-center leading-none">
               <label
                 htmlFor="published"
