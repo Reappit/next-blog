@@ -14,7 +14,7 @@ const postService = {
 
   async saveOrUpdatePost(postDto: PostInsertDto) {
     try {
-      if (postDto.id) {
+      if (!postDto.id) {
         return postRepository.savePost(postDto);
       } else {
         return postRepository.updatePost(postDto);

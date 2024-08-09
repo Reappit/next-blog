@@ -1,18 +1,17 @@
 'use server';
 import postService from '@/services/post-service';
-import { zfd } from 'zod-form-data';
 import { z } from 'zod';
 import { auth } from '@/lib/auth';
 import { PostInsertDto } from '@/dto/post';
 
-const formSchema = zfd.formData({
-  id: zfd.numeric(z.number().optional()),
-  title: zfd.text(z.string().min(20).max(250)),
-  subTitle: zfd.text(z.string().min(0).max(250)),
-  fullStory: zfd.text(z.string().min(0).max(10_000)),
-  metaTitle: zfd.text(z.string().min(0).max(250)),
-  category: zfd.numeric(z.number().optional()),
-  published: zfd.checkbox({ trueValue: 'true' }).optional(),
+const formSchema = z.object({
+  id: z.coerce.number().optional(),
+  title: z.string().min(20).max(250),
+  subTitle: z.string().min(0).max(250),
+  fullStory: z.string().min(0).max(10_000),
+  metaTitle: z.string().min(0).max(250),
+  category: z.coerce.number().optional(),
+  published: z.boolean(),
 });
 
 type State = {
@@ -20,7 +19,7 @@ type State = {
   error?: string;
 };
 
-export default async function (
+export async function savePost(
   state: State,
   formData: FormData
 ): Promise<State> {
@@ -29,7 +28,15 @@ export default async function (
     if (session?.user?.role !== 'admin') {
       throw 'Unauthorised';
     }
-    const schemaData = formSchema.parse(formData);
+    const schemaData = formSchema.parse({
+      id: formData.get('id'),
+      title: formData.get('title'),
+      subTitle: formData.get('subTitle'),
+      fullStory: formData.get('fullStory'),
+      metaTitle: formData.get('metaTitle'),
+      category: formData.get('category'),
+      published: formData.get('published'),
+    });
     const postDto = PostInsertDto.parse({
       ...schemaData,
       author: session?.user.id ?? '',

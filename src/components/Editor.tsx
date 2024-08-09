@@ -36,7 +36,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CategoryDto } from '@/dto/category';
 import { useFormState } from 'react-dom';
-import savePostController from '@/app/editor/_controllers/save-post.controller';
+import { savePostController } from '@/controllers/post';
 
 interface EditorProps {
   post: PostDto;
@@ -84,18 +84,17 @@ export default function Editor({ post, categories }: EditorProps) {
   const editorRef = useRef<MDXEditorMethods>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [markdow, setMarkdown] = useState(post.fullStory ?? '');
-  const [categoryId, setCategory] = useState(post.category?.id ?? '');
   const { toast } = useToast();
-  const [published, setPublished] = useState(post.published);
-  const [title, setTitle] = useState(post.title ?? '');
-  const [id, setId] = useState(post.id);
 
   useEffect(() => {
     autosize(titleRef.current as unknown as Element);
     autosize(subtitleRef.current as unknown as Element);
   }, []);
 
-  const [savePostState, savePost] = useFormState(savePostController, {});
+  const [savePostState, savePost] = useFormState(
+    savePostController.savePost,
+    {}
+  );
 
   useEffect(() => {
     console.log(savePostState);
@@ -108,36 +107,31 @@ export default function Editor({ post, categories }: EditorProps) {
       });
     } else {
       toast({ title: 'Saved', description: '', duration: 3000 });
-      setId(savePostState.id ?? -1);
+      console.log('1', savePostState.id);
+      // post.id = savePostState.id;
     }
   }, [savePostState]);
 
+  console.log(post);
   return (
     <div className="m-auto max-w-[700px]">
       <div className="mt-[1.19em] flex flex-col items-center">
         <form className="w-full" action={savePost} ref={formRef}>
           <input type="hidden" name="fullStory" value={markdow} />
-          <input type="hidden" name="id" value={id} />
-          <input type="hidden" name="category" value={categoryId} />
-          {published && (
-            <input
-              type="hidden"
-              name="published"
-              value={published.toString()}
-            />
-          )}
+          <input type="hidden" name="id" value={post.id} />
           <input
             type="hidden"
             name="metaTitle"
-            value={cyrillicToTranslit.transform(title, '-').toLowerCase()}
+            value={cyrillicToTranslit
+              .transform(post.title ?? '', '-')
+              .toLowerCase()}
           />
           <Textarea
             name="title"
             placeholder="Заголовок"
             className="h-[42px] resize-none border-none px-0 text-[42px] leading-[52px] shadow-none focus-visible:ring-0"
             ref={titleRef}
-            value={title}
-            onChange={e => setTitle(e.target.value)}
+            value={post.title ?? ''}
           />
           <Textarea
             name="subTitle"
@@ -147,10 +141,7 @@ export default function Editor({ post, categories }: EditorProps) {
             className="h-[42px] resize-none border-none px-0 text-[28px] font-light leading-[34px] text-gray-600 shadow-none focus-visible:ring-0"
           />
           <div className="my-4">
-            <Select
-              defaultValue={categoryId + ''}
-              onValueChange={value => setCategory(+value)}
-            >
+            <Select defaultValue={post.category + ''}>
               <SelectTrigger>
                 <SelectValue placeholder="Категория" />
               </SelectTrigger>
@@ -164,13 +155,7 @@ export default function Editor({ post, categories }: EditorProps) {
             </Select>
           </div>
           <div className="my-4 flex">
-            <Checkbox
-              id="published"
-              checked={published}
-              onCheckedChange={function (value) {
-                setPublished(!!value);
-              }}
-            />
+            <Checkbox id="published" name="published" checked={post.published} />
             <div className="ml-2 flex items-center leading-none">
               <label
                 htmlFor="published"
