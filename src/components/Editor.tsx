@@ -1,28 +1,8 @@
 'use client';
 
-import {
-  MDXEditor,
-  type MDXEditorMethods,
-  headingsPlugin,
-  listsPlugin,
-  quotePlugin,
-  thematicBreakPlugin,
-  toolbarPlugin,
-  linkDialogPlugin,
-  linkPlugin,
-  codeBlockPlugin,
-  codeMirrorPlugin,
-  imagePlugin,
-  tablePlugin,
-  frontmatterPlugin,
-  directivesPlugin,
-  AdmonitionDirectiveDescriptor,
-  markdownShortcutPlugin,
-} from '@mdxeditor/editor';
 import React, { useEffect, useRef, useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import autosize from 'autosize';
-import EditorToolbar from '@/components/EditorToolbar';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import {
   Select,
@@ -37,6 +17,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { CategoryDto } from '@/dto/category';
 import { useFormState } from 'react-dom';
 import { savePostController } from '@/controllers/post';
+import { CustomMdxEditor } from '@/components/mdx-editor';
 
 interface EditorProps {
   post: PostDto;
@@ -45,45 +26,11 @@ interface EditorProps {
 
 const cyrillicToTranslit = CyrillicToTranslit();
 
-const editorPlugins = (onSave: () => void) => [
-  toolbarPlugin({
-    toolbarContents: () => <EditorToolbar onSave={onSave} />,
-  }),
-  headingsPlugin({ allowedHeadingLevels: [1, 2, 3] }),
-  quotePlugin(),
-  listsPlugin(),
-  thematicBreakPlugin(),
-  linkPlugin(),
-  linkDialogPlugin(),
-  imagePlugin({
-    imageAutocompleteSuggestions: [
-      'https://via.placeholder.com/150',
-      'https://via.placeholder.com/150',
-    ],
-  }),
-  tablePlugin(),
-  codeBlockPlugin({ defaultCodeBlockLanguage: 'ts' }),
-  codeMirrorPlugin({
-    codeBlockLanguages: {
-      ts: 'TypeScript',
-      js: 'JavaScript',
-      css: 'CSS',
-      txt: 'text',
-    },
-  }),
-  directivesPlugin({
-    directiveDescriptors: [AdmonitionDirectiveDescriptor],
-  }),
-  markdownShortcutPlugin(),
-  frontmatterPlugin(),
-];
-
 export default function Editor({ post, categories }: EditorProps) {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
-  const editorRef = useRef<MDXEditorMethods>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const [markdow, setMarkdown] = useState(post.fullStory ?? '');
+  const [markdown, setMarkdown] = useState(post.fullStory ?? '');
   const { toast } = useToast();
 
   const [id, setId] = useState<number | undefined>(post.id);
@@ -116,7 +63,7 @@ export default function Editor({ post, categories }: EditorProps) {
     <div className="m-auto max-w-[700px]">
       <div className="mt-[1.19em] flex flex-col items-center">
         <form className="w-full" action={savePost} ref={formRef}>
-          <input type="hidden" name="fullStory" value={markdow} />
+          <input type="hidden" name="fullStory" value={markdown} />
           {id && <input type="hidden" name="id" value={id} />}
           <input
             type="hidden"
@@ -168,15 +115,10 @@ export default function Editor({ post, categories }: EditorProps) {
               </label>
             </div>
           </div>
-          <MDXEditor
-            ref={editorRef}
-            markdown={markdow}
-            plugins={editorPlugins(() => {
-              formRef.current?.requestSubmit();
-            })}
+          <CustomMdxEditor
+            markdown={markdown}
             onChange={setMarkdown}
-            contentEditableClassName="prose"
-            className="editor-root mt-[1.19em] w-full"
+            onSubmit={() => formRef.current?.requestSubmit()}
           />
         </form>
       </div>
