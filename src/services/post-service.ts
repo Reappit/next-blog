@@ -14,10 +14,10 @@ const postService = {
 
   async saveOrUpdatePost(postDto: PostInsertDto) {
     try {
-      if (!postDto.id) {
-        return postRepository.savePost(postDto);
-      } else {
+      if (Number.isInteger(postDto.id)) {
         return postRepository.updatePost(postDto);
+      } else {
+        return postRepository.savePost(postDto);
       }
     } catch (e: unknown) {
       return Promise.reject(e);

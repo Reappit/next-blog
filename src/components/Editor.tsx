@@ -55,7 +55,9 @@ export default function Editor({ post, categories }: EditorProps) {
       });
     } else {
       toast({ title: 'Saved', description: savePostState.id, duration: 3000 });
-      setId(savePostState.id as number | undefined);
+      setId(
+        savePostState.id === undefined ? undefined : parseInt(savePostState.id)
+      );
     }
   }, [savePostState]);
 
@@ -64,7 +66,7 @@ export default function Editor({ post, categories }: EditorProps) {
       <div className="mt-[1.19em] flex flex-col items-center">
         <form className="w-full" action={savePost} ref={formRef}>
           <input type="hidden" name="fullStory" value={markdown} />
-          {id && <input type="hidden" name="id" value={id} />}
+          {Number.isInteger(id) && <input type="hidden" name="id" value={id} />}
           <input
             type="hidden"
             name="metaTitle"

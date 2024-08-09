@@ -20,7 +20,7 @@ const formSchema = z.object({
 });
 
 type State = {
-  id?: number;
+  id?: string;
   error?: string;
 };
 
@@ -51,9 +51,9 @@ export async function savePost(
     revalidatePath('/');
     return {
       id:
-        (data.lastInsertRowid?.toString() as unknown as number) ??
-        postDto.id ??
-        -1,
+        (data.lastInsertRowid?.toString() as unknown as string) ??
+        postDto.id?.toString() ??
+        '-1',
     };
   } catch (e: unknown) {
     return { error: e?.toString() };

@@ -13,7 +13,6 @@ import {
   listsPlugin,
   markdownShortcutPlugin,
   MDXEditor,
-  MDXEditorProps,
   quotePlugin,
   tablePlugin,
   thematicBreakPlugin,
