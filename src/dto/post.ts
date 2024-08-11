@@ -2,11 +2,12 @@ import { z } from 'zod';
 import {
   insertPostSchema,
   selectCategorySchema,
-  selectPostSchema,
+  selectPostSchema, selectUserSchema,
 } from '@/db/schema';
 
 export const PostDto = selectPostSchema.extend({
   category: selectCategorySchema.optional(),
+  author: selectUserSchema.optional(),
 });
 
 export const PostInsertDto = insertPostSchema;

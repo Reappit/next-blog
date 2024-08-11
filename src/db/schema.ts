@@ -113,6 +113,10 @@ export const postRelations = relations(postTable, ({ one }) => ({
     fields: [postTable.category],
     references: [categoryTable.id],
   }),
+  author: one(userTable, {
+    fields: [postTable.author],
+    references: [userTable.id],
+  }),
 }));
 
 export const categoryTable = sqliteTable('category', {

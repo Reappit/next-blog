@@ -8,7 +8,7 @@ import { type PostDto } from '@/dto/post';
 import IsAdmin from '@/components/IsAdmin';
 
 export default function Post({
-  post: { title, createdAt, subTitle, metaTitle, id, category },
+  post: { title, createdAt, subTitle, metaTitle, id, category, author },
   first = false,
 }: {
   first?: boolean;
@@ -18,7 +18,8 @@ export default function Post({
     <article className="mx-6 flex flex-col justify-center pt-6">
       {!first && <Separator />}
       <div className="pt-6">
-        Admin<span className="mx-1">·</span>
+        <span>{author?.name}</span>
+        <span className="mx-1">·</span>
         <PublishedDate date={createdAt} />
       </div>
       <div className="mt-3">

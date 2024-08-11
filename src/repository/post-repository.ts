@@ -8,6 +8,7 @@ const postRepository = {
     return db.query.postTable.findMany({
       with: {
         category: true,
+        author: true,
       },
       orderBy: [desc(postTable.createdAt)],
     });
@@ -18,6 +19,7 @@ const postRepository = {
       where: eq(postTable.id, id),
       with: {
         category: true,
+        author: true,
       },
     });
   },
