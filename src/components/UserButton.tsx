@@ -15,7 +15,6 @@ import {
 export default function UserButton() {
   const session = useSession();
   const isAuthenticated = session.data;
-  console.log(session);
   if (session.status === 'loading') {
     return null;
   }

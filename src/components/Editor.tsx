@@ -57,7 +57,11 @@ export default function Editor({ post, categories }: EditorProps) {
       toast({ title: 'Saved', description: savePostState.id, duration: 3000 });
       setId(parseInt(savePostState.id));
     } else {
-      toast({ title: 'Id is not changed', description: savePostState.id, duration: 3000 });
+      toast({
+        title: 'Id is not changed',
+        description: savePostState.id,
+        duration: 3000,
+      });
     }
   }, [savePostState]);
 
@@ -72,6 +76,7 @@ export default function Editor({ post, categories }: EditorProps) {
             name="metaTitle"
             value={cyrillicToTranslit
               .transform((titleRef.current as any)?.value ?? '', '-')
+              .replaceAll(/-{2,}/g, '-')
               .toLowerCase()}
           />
           <Textarea
