@@ -18,7 +18,7 @@ export default function Post({
     <article className="mx-6 flex flex-col justify-center pt-6">
       {!first && <Separator />}
       <div className="pt-6">
-        <span>{author?.name}</span>
+        <span>{author.name}</span>
         <span className="mx-1">·</span>
         <PublishedDate date={createdAt} />
       </div>
