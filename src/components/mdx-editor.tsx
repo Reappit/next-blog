@@ -21,7 +21,13 @@ import {
 import React from 'react';
 import EditorToolbar from '@/components/EditorToolbar';
 
-const editorPlugins = (onSave: () => void) => [
+const editorPlugins = ({
+  onSave,
+  imageUploadHandler,
+}: {
+  onSave: () => void;
+  imageUploadHandler: (file: File) => Promise<string>;
+}) => [
   toolbarPlugin({
     toolbarContents: () => <EditorToolbar onSave={onSave} />,
   }),
@@ -32,10 +38,7 @@ const editorPlugins = (onSave: () => void) => [
   linkPlugin(),
   linkDialogPlugin(),
   imagePlugin({
-    imageAutocompleteSuggestions: [
-      'https://via.placeholder.com/150',
-      'https://via.placeholder.com/150',
-    ],
+    imageUploadHandler,
   }),
   tablePlugin(),
   codeBlockPlugin({ defaultCodeBlockLanguage: 'ts' }),
@@ -59,12 +62,18 @@ export function CustomMdxEditor(props: {
   onSubmit?: () => void;
   onChange: (val: string) => void;
 }) {
+  const imageUploadHandler = async (image: File) => {
+    return '';
+  };
+
   return (
     <MDXEditor
       markdown={props.markdown}
-      plugins={editorPlugins(() => {
-        console.log(props)
-        props.onSubmit?.();
+      plugins={editorPlugins({
+        onSave: () => {
+          props.onSubmit?.();
+        },
+        imageUploadHandler,
       })}
       onChange={props.onChange}
       contentEditableClassName="prose"
