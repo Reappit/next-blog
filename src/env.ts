@@ -71,7 +71,7 @@ export const env = createEnv({
     R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
     R2_S3_URL: process.env.R2_S3_URL,
     R2_BUCKET_NAME: process.env.R2_BUCKET_NAME,
-    IMAGE_BASE_URL: process.env.IMAGE_BASE_URL,
+    IMAGE_BASE_URL: process.env.NEXT_PUBLIC_IMAGE_BASE_URL,
     NEXT_PUBLIC_IMAGE_BASE_URL: process.env.NEXT_PUBLIC_IMAGE_BASE_URL,
   },
 
