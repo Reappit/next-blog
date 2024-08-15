@@ -33,6 +33,8 @@ export const env = createEnv({
     R2_ACCESS_KEY_ID: z.string().min(1),
     R2_SECRET_ACCESS_KEY: z.string().min(1),
     R2_S3_URL: z.string().min(1),
+    R2_BUCKET_NAME: z.string().min(1),
+    IMAGE_BASE_URL: z.string().min(1),
   },
   /*
    * Environment variables available on the client (and server).
@@ -40,6 +42,7 @@ export const env = createEnv({
    * 💡 You'll get type errors if these are not prefixed with NEXT_PUBLIC_.
    */
   client: {
+    NEXT_PUBLIC_IMAGE_BASE_URL: z.string().min(1),
     // NEXT_PUBLIC_STRIPE_KEY: z.string().min(1),
     // NEXT_PUBLIC_PROJECT_PLANNER_ID: z.string().min(1),
     // NEXT_PUBLIC_SKIP_EVENTS: z.string().optional(),
@@ -54,7 +57,6 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL,
     TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN,
-    // DATABASE_URL: process.env.DATABASE_URL,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     // NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
@@ -62,20 +64,15 @@ export const env = createEnv({
     // STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     // PRICE_ID: process.env.PRICE_ID,
     PLAUSIBLE_URL: process.env.PLAUSIBLE_URL,
-    // HOSTNAME: process.env.HOSTNAME,
-    // MONGODB_URI: process.env.MONGODB_URI,
-    // S3_ENDPOINT: process.env.S3_ENDPOINT,
-    // S3_PORT: process.env.S3_PORT,
-    // S3_ACCESS_KEY: process.env.S3_ACCESS_KEY,
-    // S3_SECRET_KEY: process.env.S3_SECRET_KEY,
-    // S3_BUCKET_NAME: process.env.S3_BUCKET_NAME,
-    // S3_USE_SSL: process.env.S3_USE_SSL,
     APP_URL: process.env.APP_URL,
     // R2_ACCOUNT_ID: process.env.R2_ACCOUNT_ID,
     R2_TOKEN_VALUE: process.env.R2_TOKEN_VALUE,
     R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID,
     R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
     R2_S3_URL: process.env.R2_S3_URL,
+    R2_BUCKET_NAME: process.env.R2_BUCKET_NAME,
+    IMAGE_BASE_URL: process.env.IMAGE_BASE_URL,
+    NEXT_PUBLIC_IMAGE_BASE_URL: process.env.NEXT_PUBLIC_IMAGE_BASE_URL,
   },
 
   /**

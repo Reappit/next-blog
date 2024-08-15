@@ -20,6 +20,9 @@ import {
 } from '@mdxeditor/editor';
 import React from 'react';
 import EditorToolbar from '@/components/EditorToolbar';
+import { uploadImageController } from '@/controllers/post';
+import axios from 'axios';
+import { env } from '@/env';
 
 const editorPlugins = ({
   onSave,
@@ -63,7 +66,20 @@ export function CustomMdxEditor(props: {
   onChange: (val: string) => void;
 }) {
   const imageUploadHandler = async (image: File) => {
-    return '';
+    if (!image) return '';
+    const data = await uploadImageController.uploadImage({
+      size: image.size,
+      type: image.type,
+    });
+    await axios.put(data.presignedUrl, image, {
+      headers: {
+        'Content-Type': image.type,
+      },
+      onUploadProgress: progress => {
+        console.log(progress);
+      },
+    });
+    return `${env.NEXT_PUBLIC_IMAGE_BASE_URL}${data.fileId}`;
   };
 
   return (
