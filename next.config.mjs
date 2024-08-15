@@ -4,7 +4,7 @@ import { withPlausibleProxy } from 'next-plausible';
 const nextConfig = {
   experimental: {
     ppr: true,
-    serverComponentsExternalPackages: ['@node-rs/argon2'],
+    serverComponentsExternalPackages: ['@node-rs/argon2', '@aws-sdk/client-s3'],
   },
 };
 
