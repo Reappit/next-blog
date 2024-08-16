@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1723815603271,
+      "tag": "0000_groovy_medusa",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1723815633220,
+      "tag": "0001_same_doctor_spectrum",
+      "breakpoints": true
+    }
+  ]
+}
