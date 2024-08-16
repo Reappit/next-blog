@@ -15,9 +15,9 @@ export default function Header() {
             <span className="text-5xl">D</span>
             <span className="text-xl">tt</span>
           </Link>
-          <div className="flex w-auto items-center sm:w-72">
-            <Search />
-          </div>
+          {/*<div className="flex w-auto items-center sm:w-72">*/}
+          {/*  <Search />*/}
+          {/*</div>*/}
         </div>
         <div className="flex flex-1 items-center justify-end">
           <IsAdmin>

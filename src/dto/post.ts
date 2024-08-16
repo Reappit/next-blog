@@ -8,7 +8,7 @@ import {
 
 export const PostDto = selectPostSchema.extend({
   category: selectCategorySchema.optional(),
-  author: selectUserSchema.pick({ name: true }),
+  author: selectUserSchema.pick({ login: true }),
 });
 
 export const PostInsertDto = insertPostSchema;

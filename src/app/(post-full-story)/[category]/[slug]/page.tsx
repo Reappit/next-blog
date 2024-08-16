@@ -4,6 +4,7 @@ import React, { Suspense } from 'react';
 import { FullPostSkeleton } from '@/components/FullPostSkeleton';
 import postService from '@/services/post-service';
 import { CustomMdx } from '@/components/mdx';
+import TimeToRead from '@/components/time-to-read';
 
 export default async function PostPage({
   params: { slug },
@@ -28,14 +29,16 @@ export default async function PostPage({
                 <UserCircle size={50} strokeWidth={0.5} />
               </div>
               <div className="ml-3">
-                <div>Admin</div>
+                <div>{post.author.login}</div>
                 <div>
+                  <TimeToRead symbols={post.fullStory?.length ?? 0} />
+                  <span className="mx-2">·</span>
                   <PublishedDate date={post.createdAt ?? ''} />
                 </div>
               </div>
             </div>
-            <div className="mt-10 border-y-[1px] px-2 py-[3px]">
-              what is here?
+            <div className="mt-10 border-y-[1px] px-2 py-[10px]">
+              Here will be likes and comments
             </div>
             <div className="prose mt-10 min-w-full">
               <CustomMdx source={post.fullStory ?? ''} />

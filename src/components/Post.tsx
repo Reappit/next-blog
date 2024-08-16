@@ -6,9 +6,19 @@ import Link from 'next/link';
 import PublishedDate from '@/components/PublisedDate';
 import { type PostDto } from '@/dto/post';
 import IsAdmin from '@/components/IsAdmin';
+import TimeToRead from '@/components/time-to-read';
 
 export default function Post({
-  post: { title, createdAt, subTitle, metaTitle, id, category, author },
+  post: {
+    title,
+    createdAt,
+    subTitle,
+    metaTitle,
+    id,
+    category,
+    author,
+    fullStory,
+  },
   first = false,
 }: {
   first?: boolean;
@@ -18,7 +28,7 @@ export default function Post({
     <article className="mx-6 flex flex-col justify-center pt-6">
       {!first && <Separator />}
       <div className="pt-6">
-        <span>{author.name}</span>
+        <span>{author.login}</span>
         <span className="mx-1">·</span>
         <PublishedDate date={createdAt} />
       </div>
@@ -43,7 +53,7 @@ export default function Post({
               >
                 {category?.name}
               </Badge>
-              <span className="text-sm font-normal">5 min read</span>
+              <TimeToRead symbols={fullStory?.length ?? 0} />
             </div>
             <div className="flex">
               <IsAdmin>
