@@ -111,6 +111,7 @@ export const postTable = sqliteTable('post', {
   createdAt: text('created_at')
     .notNull()
     .default(sql`(CURRENT_TIMESTAMP)`),
+  posterId: text('poster_id'),
 });
 
 export const postRelations = relations(postTable, ({ one }) => ({
