@@ -7,6 +7,7 @@ import {
 } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import type { AdapterAccountType } from 'next-auth/adapters';
+import { v4 } from 'uuid';
 
 export const userTable = sqliteTable('user', {
   id: text('id')
@@ -17,6 +18,10 @@ export const userTable = sqliteTable('user', {
   email: text('email').unique(),
   emailVerified: integer('emailVerified', { mode: 'timestamp_ms' }),
   image: text('image'),
+  login: text('login')
+    .notNull()
+    .unique()
+    .$defaultFn(() => v4()),
 });
 
 export const accountTable = sqliteTable(

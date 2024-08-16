@@ -38,9 +38,7 @@ export default async function PostPage({
               what is here?
             </div>
             <div className="prose mt-10 min-w-full">
-              <CustomMdx
-                source={post.fullStory ?? ''}
-              />
+              <CustomMdx source={post.fullStory ?? ''} />
             </div>
           </Suspense>
         </section>

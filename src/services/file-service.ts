@@ -13,7 +13,7 @@ const s3Client = new S3Client({
 });
 
 const fileService = {
-  async getPresignedUploadURL({size, type}: {size: number, type: string}) {
+  async getPresignedUploadURL({ size, type }: { size: number; type: string }) {
     const fileId = v4();
     const cmd = new PutObjectCommand({
       Bucket: env.R2_BUCKET_NAME,
@@ -22,7 +22,7 @@ const fileService = {
       ContentType: type,
     });
     const presignedUrl = await getSignedUrl(s3Client, cmd, { expiresIn: 3600 });
-    return {presignedUrl, fileId};
+    return { presignedUrl, fileId };
   },
 };
 

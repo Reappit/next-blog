@@ -5,6 +5,12 @@ import type { Adapter } from 'next-auth/adapters';
 import GoogleProvider from 'next-auth/providers/google';
 import { env } from '@/env';
 import userService from '@/services/user-service';
+import {
+  accountTable,
+  sessionTable,
+  userTable,
+  verificationTokenTable,
+} from '@/db/schema';
 
 declare module 'next-auth' {
   interface Session extends DefaultSession {
@@ -19,7 +25,12 @@ declare module 'next-auth' {
 }
 
 export const authConfig = {
-  adapter: DrizzleAdapter(db) as Adapter,
+  adapter: DrizzleAdapter(db, {
+    usersTable: userTable,
+    accountsTable: accountTable,
+    sessionsTable: sessionTable,
+    verificationTokensTable: verificationTokenTable,
+  }) as Adapter,
   session: { strategy: 'jwt' },
   providers: [
     GoogleProvider({
