@@ -1,4 +1,7 @@
 import { withPlausibleProxy } from 'next-plausible';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const nextIntlPlugin = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,10 +11,13 @@ const nextConfig = {
   },
 };
 
+const withNextIntlPlugin = nextIntlPlugin(nextConfig)
+
 const withPlausible = withPlausibleProxy({
   subdirectory: '',
   scriptName: 'scriptName',
   customDomain: 'https://in.andrnet.com',
-})(nextConfig);
+})(withNextIntlPlugin);
+
 
 export default withPlausible;
