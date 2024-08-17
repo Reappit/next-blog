@@ -1,5 +1,8 @@
 {
-  "HomePage": {
-    "title": "Привет!"
+  "Post": {
+    "timeToRead": "{time} мин читать"
+  },
+  "Header" : {
+    "write": "Новый пост"
   }
 }
