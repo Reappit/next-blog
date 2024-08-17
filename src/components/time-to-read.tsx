@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-const amountSymbolsPerMin = 1350;
+const amountSymbolsPerMin = 900;
 
 export default function TimeToRead({ symbols }: { symbols: number }) {
   const t = useTranslations('Post');
