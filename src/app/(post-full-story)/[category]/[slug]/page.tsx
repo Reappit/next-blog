@@ -1,10 +1,12 @@
-import { UserCircle } from 'lucide-react';
+import { PenSquare, UserCircle } from 'lucide-react';
 import PublishedDate from '@/components/PublisedDate';
 import React, { Suspense } from 'react';
 import { FullPostSkeleton } from '@/components/FullPostSkeleton';
 import postService from '@/services/post-service';
 import { CustomMdx } from '@/components/mdx';
 import TimeToRead from '@/components/time-to-read';
+import IsAdmin from '@/components/IsAdmin';
+import Link from 'next/link';
 
 export default async function PostPage({
   params: { slug },
@@ -29,7 +31,7 @@ export default async function PostPage({
                 <UserCircle size={50} strokeWidth={0.5} />
               </div>
               <div className="ml-3">
-                <div>{post.author.login}</div>
+                <div>@{post.author.login}</div>
                 <div>
                   <TimeToRead symbols={post.fullStory?.length ?? 0} />
                   <span className="mx-2">·</span>
@@ -37,9 +39,16 @@ export default async function PostPage({
                 </div>
               </div>
             </div>
-            <div className="mt-10 border-y-[1px] px-2 py-[10px]">
-              Here will be likes and comments
-            </div>
+            <IsAdmin>
+              <div className="mt-10 flex items-center border-y-[1px] px-2 py-[10px]">
+                <div className="p-2">
+                  <Link href={'/editor?id=' + postId}>
+                    <PenSquare strokeWidth={0.5} />
+                  </Link>
+                </div>
+              </div>
+            </IsAdmin>
+
             <div className="prose mt-10 min-w-full">
               <CustomMdx source={post.fullStory ?? ''} />
             </div>
