@@ -11,6 +11,7 @@ import {
   // DropdownMenuGroup,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export default function UserButton() {
   const session = useSession();
@@ -21,9 +22,10 @@ export default function UserButton() {
   return isAuthenticated ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="rounded-3xl">
-          <User2Icon />
-        </Button>
+        <Avatar>
+          <AvatarImage src={session.data.user.image ?? ''} />
+          <AvatarFallback>{session.data.user.name}</AvatarFallback>
+        </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>
