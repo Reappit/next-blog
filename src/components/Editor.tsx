@@ -18,6 +18,7 @@ import { CategoryDto } from '@/dto/category';
 import { useFormState } from 'react-dom';
 import { savePostController } from '@/controllers/post';
 import { CustomMdxEditor } from '@/components/mdx-editor';
+import FileUpload from '@/components/custom/file-upload';
 
 interface EditorProps {
   post: PostDto;
@@ -106,6 +107,9 @@ export default function Editor({ post, categories }: EditorProps) {
                 ))}
               </SelectContent>
             </Select>
+          </div>
+          <div className="my-4" >
+            {/*<FileUpload />*/}
           </div>
           <div className="my-4 flex">
             <Checkbox

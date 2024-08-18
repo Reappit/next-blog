@@ -15,6 +15,9 @@ import { useDropzone } from 'react-dropzone';
 import { Input } from '../ui/input';
 import { Progress } from '../ui/progress';
 import { ScrollArea } from '../ui/scroll-area';
+import useTranslation from 'next-translate/useTranslation';
+const { t } = useTranslation('common');
+
 interface FileUploadProgress {
   progress: number;
   File: File;
@@ -54,9 +57,11 @@ const OtherColor = {
   fillColor: 'fill-gray-400',
 };
 
-export default function ImageUpload() {
+export default function FileUpload() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [filesToUpload, setFilesToUpload] = useState<FileUploadProgress[]>([]);
+
+  const { t } = useTranslation('common');
 
   const getFileIconAndColor = (file: File) => {
     if (file.type.includes(FileTypes.Image)) {
@@ -186,10 +191,12 @@ export default function ImageUpload() {
             </div>
 
             <p className="mt-2 text-sm text-gray-600">
-              <span className="font-semibold">Drag files</span>
+              <span className="font-semibold">
+                {t('FileUploadComponent.dragFiles')}
+              </span>
             </p>
             <p className="text-xs text-gray-500">
-              Click to upload files &#40;files should be under 10 MB &#41;
+              {t('maxFileSize', { maxFileSize: 5 })}
             </p>
           </div>
         </label>

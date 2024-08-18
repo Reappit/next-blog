@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useTranslation } from '@/app/i18n/client';
 
 export default function UserButton() {
   const session = useSession();
@@ -19,6 +20,8 @@ export default function UserButton() {
   if (session.status === 'loading') {
     return null;
   }
+  const { t } = useTranslation('ru', 'common');
+
   return isAuthenticated ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -33,7 +36,7 @@ export default function UserButton() {
             {session.data.user.role === 'admin' ? (
               <ShieldPlus className="mr-2" strokeWidth={1.5} size={17} />
             ) : null}
-            Hello, {session.data.user.name}
+            {t('Header.helloMessage', { user: session.data.user.name })}
           </div>
         </DropdownMenuLabel>
         {/*<DropdownMenuSeparator />*/}
@@ -50,11 +53,11 @@ export default function UserButton() {
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => signOut()}>
           <LogOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
+          <span>{t('Header.logOut')}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ) : (
-    <Button onClick={() => signIn()}>Signin with Google</Button>
+    <Button onClick={() => signIn()}>{t('Header.signInWithGoogle')}</Button>
   );
 }

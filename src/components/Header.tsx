@@ -1,14 +1,14 @@
-import Search from '@/components/Search';
+// import Search from '@/components/Search';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { PenSquare } from 'lucide-react';
-import { Suspense } from 'react';
+
 import UserButton from '@/components/UserButton';
 import IsAdmin from '@/components/IsAdmin';
-import { useTranslations } from 'next-intl';
+import { useTranslation } from '@/app/i18n';
 
-export default function Header() {
-  const t = useTranslations('Header');
+export default async function Header() {
+  const { t } = await useTranslation('ru', 'common');
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
@@ -31,9 +31,7 @@ export default function Header() {
               </Link>
             </Button>
           </IsAdmin>
-          <Suspense>
-            <UserButton />
-          </Suspense>
+          <UserButton />
         </div>
       </div>
     </header>

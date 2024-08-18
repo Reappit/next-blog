@@ -9,8 +9,6 @@ import { ReactNode } from 'react';
 import Providers from '@/app/providers';
 import PlausibleProvider from 'next-plausible';
 import { env } from '@/env';
-import { NextIntlClientProvider } from 'next-intl';
-import { getLocale, getMessages } from 'next-intl/server';
 
 const mulish = Mulish({ subsets: ['latin'] });
 
@@ -24,13 +22,8 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  const locale = await getLocale();
-  // Providing all messages to the client
-  // side is the easiest way to get started
-  const messages = await getMessages();
-
   return (
-    <html lang={locale}>
+    <html>
       <head>
         <PlausibleProvider
           domain={env.APP_URL}
@@ -40,13 +33,11 @@ export default async function RootLayout({
         />
       </head>
       <body className={cn(mulish.className, 'min-h-screen bg-background')}>
-        <NextIntlClientProvider messages={messages}>
-          <Providers>
-            <Header />
-            <div className="m-auto max-w-[1336px]">{children}</div>
-            <Toaster />
-          </Providers>
-        </NextIntlClientProvider>
+        <Providers>
+          <Header />
+          <div className="m-auto max-w-[1336px]">{children}</div>
+          <Toaster />
+        </Providers>
         <SpeedInsights />
       </body>
     </html>
