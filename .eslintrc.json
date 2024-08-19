@@ -1,0 +1,75 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "next",
+    "next/core-web-vitals",
+    "next/core-web-vitals",
+    "plugin:prettier/recommended",
+    "plugin:drizzle/all",
+    "next",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
+  ],
+  "plugins": [
+    "drizzle",
+    "no-relative-import-paths",
+    "@typescript-eslint",
+    "no-relative-import-paths",
+    "import"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": true,
+    "tsconfigRootDir": "."
+  },
+  "rules": {
+    // These off/not-configured-the-way-we-want lint rules we like & opt into
+    "@typescript-eslint/no-explicit-any": "error",
+    "no-relative-import-paths/no-relative-import-paths": [
+      "warn",
+      { "allowSameFolder": true, "prefix": "@" }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_", "destructuredArrayIgnorePattern": "^_" }
+    ],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      { "prefer": "type-imports", "fixStyle": "inline-type-imports" }
+    ],
+    "import/consistent-type-specifier-style": ["error", "prefer-inline"],
+
+//    // For educational purposes we format our comments/jsdoc nicely
+//    "isaacscript/complete-sentences-jsdoc": "warn",
+//    "isaacscript/format-jsdoc-comments": "warn",
+
+    // These lint rules don"t make sense for us but are enabled in the preset configs
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+
+    // This rule doesn"t seem to be working properly
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/no-misused-promises": "warn",
+    "@typescript-eslint/array-type": ["error", { "default": "generic" }],
+    "import/namespace": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["sibling", "parent"],
+          "index",
+          "unknown"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  }
+}
