@@ -1,9 +1,9 @@
-import { useTranslation } from '@/app/i18n';
+import { getTranslations } from 'next-intl/server';
 
 const amountSymbolsPerMin = 900;
 
 export default async function TimeToRead({ symbols }: { symbols: number }) {
-  const { t } = await useTranslation('ru');
+  const t= await getTranslations('Post');
 
   const parsedTime = Number.parseInt('' + symbols / amountSymbolsPerMin);
   const time = parsedTime ? parsedTime : 1;

@@ -1,6 +1,9 @@
 'use client';
-import { signIn, useSession, signOut } from 'next-auth/react';
 import { LogOut, ShieldPlus, User2Icon } from 'lucide-react';
+import { signIn, useSession, signOut } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -11,17 +14,14 @@ import {
   // DropdownMenuGroup,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useTranslation } from '@/app/i18n/client';
 
 export default function UserButton() {
   const session = useSession();
   const isAuthenticated = session.data;
+  const t = useTranslations('HomePage');
   if (session.status === 'loading') {
     return null;
   }
-  const { t } = useTranslation('ru', 'common');
-
   return isAuthenticated ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

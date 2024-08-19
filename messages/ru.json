@@ -1,0 +1,12 @@
+{
+  "HomePage": {
+    "title": "Hello world!"
+  },
+  "Header": {
+    "signInWithGoogle": "hello",
+    "write": "Write!"
+  },
+  "Post": {
+    "timeToRead": "time to read"
+  }
+}

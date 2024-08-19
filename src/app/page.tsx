@@ -1,7 +1,8 @@
-import Posts from '@/components/Posts';
 import { Suspense } from 'react';
-import { PostListSkeleton } from '@/components/PostListSkeleton';
+
 import Categories from '@/components/Categories';
+import { PostListSkeleton } from '@/components/PostListSkeleton';
+import Posts from '@/components/Posts';
 
 export default function Home() {
   return (

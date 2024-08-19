@@ -1,23 +1,23 @@
 import { withPlausibleProxy } from 'next-plausible';
 
+import createNextIntlPlugin from 'next-intl/plugin';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     ppr: true,
     serverComponentsExternalPackages: ['@node-rs/argon2', '@aws-sdk/client-s3'],
   },
-  i18n: {
-    locales: ['ru', 'en'],
-    defaultLocale: 'ru',
-    localeDetection: false,
-  },
 };
 
+const nextIntlPlugin = createNextIntlPlugin();
+
+const withNextIntl = nextIntlPlugin(nextConfig);
 
 const withPlausible = withPlausibleProxy({
   subdirectory: '',
   scriptName: 'scriptName',
   customDomain: 'https://in.andrnet.com',
-})(nextConfig);
+})(withNextIntl);
 
 export default withPlausible;

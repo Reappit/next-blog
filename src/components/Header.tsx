@@ -1,14 +1,14 @@
 // import Search from '@/components/Search';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { PenSquare } from 'lucide-react';
+import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 
-import UserButton from '@/components/UserButton';
 import IsAdmin from '@/components/IsAdmin';
-import { useTranslation } from '@/app/i18n';
+import { Button } from '@/components/ui/button';
+import UserButton from '@/components/UserButton';
 
 export default async function Header() {
-  const { t } = await useTranslation('ru', 'common');
+  const t = await getTranslations('Header');
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">

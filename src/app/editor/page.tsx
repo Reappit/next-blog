@@ -6,7 +6,7 @@ import { CategoryDto } from '@/dto/category';
 import postService from '@/services/post-service';
 import categoryService from '@/services/category-service';
 
-const EditorComp = dynamic(() => import('../../../components/Editor'), {
+const EditorComp = dynamic(() => import('../../components/Editor'), {
   ssr: false,
 });
 

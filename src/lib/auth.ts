@@ -1,16 +1,17 @@
-import NextAuth, { DefaultSession, NextAuthConfig } from 'next-auth';
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
-import { db } from '@/db';
-import type { Adapter } from 'next-auth/adapters';
+import NextAuth, { type DefaultSession, type NextAuthConfig } from 'next-auth';
+import { type Adapter } from 'next-auth/adapters';
 import GoogleProvider from 'next-auth/providers/google';
-import { env } from '@/env';
-import userService from '@/services/user-service';
+
+import { db } from '@/db';
 import {
   accountTable,
   sessionTable,
   userTable,
   verificationTokenTable,
 } from '@/db/schema';
+import { env } from '@/env';
+import userService from '@/services/user-service';
 
 declare module 'next-auth' {
   interface Session extends DefaultSession {
