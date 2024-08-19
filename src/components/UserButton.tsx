@@ -36,7 +36,7 @@ export default function UserButton() {
             {session.data.user.role === 'admin' ? (
               <ShieldPlus className="mr-2" strokeWidth={1.5} size={17} />
             ) : null}
-            {t('Header.helloMessage', { user: session.data.user.name })}
+            {t('helloMessage', { user: session.data.user.name })}
           </div>
         </DropdownMenuLabel>
         {/*<DropdownMenuSeparator />*/}
@@ -53,11 +53,11 @@ export default function UserButton() {
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => signOut()}>
           <LogOut className="mr-2 h-4 w-4" />
-          <span>{t('Header.logOut')}</span>
+          <span>{t('logOut')}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ) : (
-    <Button onClick={() => signIn()}>{t('Header.signInWithGoogle')}</Button>
+    <Button onClick={() => signIn()}>{t('signInWithGoogle')}</Button>
   );
 }

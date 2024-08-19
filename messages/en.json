@@ -1,5 +1,11 @@
 {
-  "HomePage": {
-    "title": "Hello world!"
+  "Header": {
+    "helloMessage": "Привет, {user}",
+    "signInWithGoogle": "Войти с помощью Google",
+    "write": "Новый пост",
+    "logout": "Выйти"
+  },
+  "Post": {
+    "timeToRead": "{time} мин читать"
   }
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import axios, { AxiosProgressEvent, CancelTokenSource } from 'axios';
+import { type CancelTokenSource } from 'axios';
 import {
   AudioWaveform,
   File,
@@ -10,13 +10,13 @@ import {
   Video,
   X,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Input } from '../ui/input';
-import { Progress } from '../ui/progress';
-import { ScrollArea } from '../ui/scroll-area';
-import useTranslation from 'next-translate/useTranslation';
-const { t } = useTranslation('common');
+
+import { Input } from '@/components/ui/input';
+import { Progress } from '@/components/ui/progress';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface FileUploadProgress {
   progress: number;
@@ -58,10 +58,12 @@ const OtherColor = {
 };
 
 export default function FileUpload() {
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  const [filesToUpload, setFilesToUpload] = useState<FileUploadProgress[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<Array<File>>([]);
+  const [filesToUpload, setFilesToUpload] = useState<Array<FileUploadProgress>>(
+    []
+  );
 
-  const { t } = useTranslation('common');
+  const t = useTranslations('FileUpload');
 
   const getFileIconAndColor = (file: File) => {
     if (file.type.includes(FileTypes.Image)) {
@@ -100,41 +102,41 @@ export default function FileUpload() {
 
   // feel free to mode all these functions to separate utils
   // here is just for simplicity
-  const onUploadProgress = (
-    progressEvent: AxiosProgressEvent,
-    file: File,
-    cancelSource: CancelTokenSource
-  ) => {
-    const progress = Math.round(
-      (progressEvent.loaded / (progressEvent.total ?? 0)) * 100
-    );
-
-    if (progress === 100) {
-      setUploadedFiles(prevUploadedFiles => {
-        return [...prevUploadedFiles, file];
-      });
-
-      setFilesToUpload(prevUploadProgress => {
-        return prevUploadProgress.filter(item => item.File !== file);
-      });
-
-      return;
-    }
-
-    setFilesToUpload(prevUploadProgress => {
-      return prevUploadProgress.map(item => {
-        if (item.File.name === file.name) {
-          return {
-            ...item,
-            progress,
-            source: cancelSource,
-          };
-        } else {
-          return item;
-        }
-      });
-    });
-  };
+  // const onUploadProgress = (
+  //   progressEvent: AxiosProgressEvent,
+  //   file: File,
+  //   cancelSource: CancelTokenSource
+  // ) => {
+  //   const progress = Math.round(
+  //     (progressEvent.loaded / (progressEvent.total ?? 0)) * 100
+  //   );
+  //
+  //   if (progress === 100) {
+  //     setUploadedFiles(prevUploadedFiles => {
+  //       return [...prevUploadedFiles, file];
+  //     });
+  //
+  //     setFilesToUpload(prevUploadProgress => {
+  //       return prevUploadProgress.filter(item => item.File !== file);
+  //     });
+  //
+  //     return;
+  //   }
+  //
+  //   setFilesToUpload(prevUploadProgress => {
+  //     return prevUploadProgress.map(item => {
+  //       if (item.File.name === file.name) {
+  //         return {
+  //           ...item,
+  //           progress,
+  //           source: cancelSource,
+  //         };
+  //       } else {
+  //         return item;
+  //       }
+  //     });
+  //   });
+  // };
 
   // const uploadImageToCloudinary = async (
   //   formData: FormData,
@@ -161,7 +163,7 @@ export default function FileUpload() {
     });
   };
 
-  const onDrop = useCallback(async (acceptedFiles: File[]) => {
+  const onDrop = useCallback(async (acceptedFiles: Array<File>) => {
     setFilesToUpload(prevUploadProgress => {
       return [
         ...prevUploadProgress,
@@ -191,9 +193,7 @@ export default function FileUpload() {
             </div>
 
             <p className="mt-2 text-sm text-gray-600">
-              <span className="font-semibold">
-                {t('FileUploadComponent.dragFiles')}
-              </span>
+              <span className="font-semibold">{t('dragFiles')}</span>
             </p>
             <p className="text-xs text-gray-500">
               {t('maxFileSize', { maxFileSize: 5 })}

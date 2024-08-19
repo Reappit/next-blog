@@ -1,12 +1,15 @@
 {
-  "HomePage": {
-    "title": "Hello world!"
-  },
   "Header": {
-    "signInWithGoogle": "hello",
-    "write": "Write!"
+    "helloMessage": "Привет, {user}",
+    "signInWithGoogle": "Войти с помощью Google",
+    "write": "Новый пост",
+    "logout": "Выйти"
   },
   "Post": {
-    "timeToRead": "time to read"
+    "timeToRead": "{time} мин читать"
+  },
+  "FileUpload": {
+    "dragFiles": "",
+    "maxFileSize": ""
   }
 }
