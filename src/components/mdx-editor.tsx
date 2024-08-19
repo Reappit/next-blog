@@ -1,5 +1,4 @@
 'use client';
-
 import {
   AdmonitionDirectiveDescriptor,
   codeBlockPlugin,
@@ -18,10 +17,11 @@ import {
   thematicBreakPlugin,
   toolbarPlugin,
 } from '@mdxeditor/editor';
+import axios from 'axios';
 import React from 'react';
+
 import EditorToolbar from '@/components/EditorToolbar';
 import { uploadImageController } from '@/controllers/post';
-import axios from 'axios';
 import { env } from '@/env';
 
 const editorPlugins = ({
@@ -66,6 +66,7 @@ export function CustomMdxEditor(props: {
   onChange: (val: string) => void;
 }) {
   const imageUploadHandler = async (image: File) => {
+    // todo: replace upload image component on input-file
     if (!image) return '';
     const data = await uploadImageController.uploadImage({
       size: image.size,

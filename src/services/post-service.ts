@@ -1,5 +1,5 @@
+import { PostDto, type PostInsertDto } from '@/dto/post';
 import postRepository from '@/repository/post-repository';
-import { PostDto, PostInsertDto } from '@/dto/post';
 
 const postService = {
   async getPostById(id: string | number) {

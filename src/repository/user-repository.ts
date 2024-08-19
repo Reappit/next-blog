@@ -1,6 +1,6 @@
-import { db } from '@/db';
 import { eq } from 'drizzle-orm';
 
+import { db } from '@/db';
 import { userTable } from '@/db/schema';
 
 const userRepository = {

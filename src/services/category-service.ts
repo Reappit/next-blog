@@ -1,5 +1,5 @@
-import categoryRepository from '@/repository/category-repository';
 import { CategoryDto } from '@/dto/category';
+import categoryRepository from '@/repository/category-repository';
 
 const categoryService = {
   async getAllCategories() {

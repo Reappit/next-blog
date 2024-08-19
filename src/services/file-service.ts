@@ -1,7 +1,8 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import { env } from '@/env';
-import { v4 } from 'uuid';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { v4 } from 'uuid';
+
+import { env } from '@/env';
 
 const s3Client = new S3Client({
   region: 'auto',

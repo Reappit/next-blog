@@ -6,7 +6,7 @@ import {
   primaryKey,
 } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
-import type { AdapterAccountType } from 'next-auth/adapters';
+import { type AdapterAccountType } from 'next-auth/adapters';
 import { v4 } from 'uuid';
 
 export const userTable = sqliteTable('user', {

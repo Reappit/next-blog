@@ -1,5 +1,5 @@
-import userRepository from '@/repository/user-repository';
 import { UserDto } from '@/dto/user';
+import userRepository from '@/repository/user-repository';
 
 const userService = {
   async getUserByEmail(email: string) {

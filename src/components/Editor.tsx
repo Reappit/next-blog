@@ -1,6 +1,7 @@
 'use client';
 
 import autosize from 'autosize';
+import axios from 'axios';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import { useTranslations } from 'next-intl';
 import React, { useEffect, useRef, useState } from 'react';
@@ -18,9 +19,10 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
-import { savePostController } from '@/controllers/post';
+import { savePostController, uploadImageController } from '@/controllers/post';
 import { type CategoryDto } from '@/dto/category';
 import { type PostDto } from '@/dto/post';
+import { env } from '@/env';
 
 interface EditorProps {
   post: PostDto;
@@ -28,6 +30,23 @@ interface EditorProps {
 }
 
 const cyrillicToTranslit = CyrillicToTranslit();
+
+async function imageUploadHandler(image?: File) {
+  if (!image) return '';
+  const data = await uploadImageController.uploadImage({
+    size: image.size,
+    type: image.type,
+  });
+  await axios.put(data.presignedUrl, image, {
+    headers: {
+      'Content-Type': image.type,
+    },
+    onUploadProgress: progress => {
+      console.log(progress);
+    },
+  });
+  return `${env.NEXT_PUBLIC_IMAGE_BASE_URL}${data.fileId}`;
+}
 
 export default function Editor({ post, categories }: EditorProps) {
   const titleRef = useRef(null);
@@ -130,7 +149,7 @@ export default function Editor({ post, categories }: EditorProps) {
           <div className="my-4">
             <InputFile
               label="Постер"
-              onUpload={(file?: File) => {}}
+              onUpload={imageUploadHandler}
               loading={false}
             />
           </div>

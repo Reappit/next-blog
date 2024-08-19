@@ -28,7 +28,7 @@ export function InputFile({
           disabled={loading}
         />
         <Button
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault();
             onUpload(inputFileRef.current?.files?.[0]);
           }}
