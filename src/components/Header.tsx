@@ -3,9 +3,9 @@ import { PenSquare } from 'lucide-react';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
-import IsAdmin from '@/components/IsAdmin';
+import IsAdmin from '@/components/custom/is-admin';
+import UserButton from '@/components/custom/user-button';
 import { Button } from '@/components/ui/button';
-import UserButton from '@/components/UserButton';
 
 export default async function Header() {
   const t = await getTranslations('Header');

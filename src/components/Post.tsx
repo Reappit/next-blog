@@ -1,12 +1,16 @@
-import { Separator } from '@/components/ui/separator';
-
-import { Badge } from '@/components/ui/badge';
-import { Bookmark, PenSquare, ThumbsUp } from 'lucide-react';
+import {
+  // Bookmark,
+  PenSquare,
+  // ThumbsUp
+} from 'lucide-react';
 import Link from 'next/link';
+
+import IsAdmin from '@/components/custom/is-admin';
 import PublishedDate from '@/components/PublisedDate';
-import { type PostDto } from '@/dto/post';
-import IsAdmin from '@/components/IsAdmin';
 import TimeToRead from '@/components/time-to-read';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import { type PostDto } from '@/dto/post';
 
 export default function Post({
   post: {

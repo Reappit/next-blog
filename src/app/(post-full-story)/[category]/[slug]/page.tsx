@@ -1,12 +1,13 @@
 import { PenSquare, UserCircle } from 'lucide-react';
-import PublishedDate from '@/components/PublisedDate';
-import React, { Suspense } from 'react';
-import { FullPostSkeleton } from '@/components/FullPostSkeleton';
-import postService from '@/services/post-service';
-import { CustomMdx } from '@/components/mdx';
-import TimeToRead from '@/components/time-to-read';
-import IsAdmin from '@/components/IsAdmin';
 import Link from 'next/link';
+import React, { Suspense } from 'react';
+
+import IsAdmin from '@/components/custom/is-admin';
+import { FullPostSkeleton } from '@/components/FullPostSkeleton';
+import { CustomMdx } from '@/components/mdx';
+import PublishedDate from '@/components/PublisedDate';
+import TimeToRead from '@/components/time-to-read';
+import postService from '@/services/post-service';
 
 export default async function PostPage({
   params: { slug },

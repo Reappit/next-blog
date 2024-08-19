@@ -3,13 +3,20 @@
     "helloMessage": "Привет, {user}",
     "signInWithGoogle": "Войти с помощью Google",
     "write": "Новый пост",
-    "logout": "Выйти"
+    "logOut": "Выйти"
   },
   "Post": {
     "timeToRead": "{time} мин читать"
   },
   "FileUpload": {
-    "dragFiles": "",
-    "maxFileSize": ""
+    "dragFiles": "Перетащите файлы",
+    "maxFileSize": "Нажмите сюда чтобы загрузить файлы (до {maxFileSize} MB файл)"
+  },
+  "InputFile": {
+    "upload": "Загрузить"
+  },
+  "EditPostPage": {
+    "publish": "Опубликовать",
+    "coverImage": "Постер"
   }
 }

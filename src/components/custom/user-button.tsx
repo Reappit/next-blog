@@ -1,5 +1,10 @@
 'use client';
-import { LogOut, ShieldPlus, User2Icon } from 'lucide-react';
+
+import {
+  LogOut,
+  ShieldPlus,
+  //User2Icon
+} from 'lucide-react';
 import { signIn, useSession, signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
@@ -18,7 +23,7 @@ import {
 export default function UserButton() {
   const session = useSession();
   const isAuthenticated = session.data;
-  const t = useTranslations('HomePage');
+  const t = useTranslations('Header');
   if (session.status === 'loading') {
     return null;
   }

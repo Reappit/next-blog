@@ -1,9 +1,14 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import { Textarea } from '@/components/ui/textarea';
 import autosize from 'autosize';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
+import { useTranslations } from 'next-intl';
+import React, { useEffect, useRef, useState } from 'react';
+import { useFormState } from 'react-dom';
+
+import { InputFile } from '@/components/custom/input-file';
+import { CustomMdxEditor } from '@/components/mdx-editor';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
   SelectContent,
@@ -11,18 +16,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { type PostDto } from '@/dto/post';
+import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
-import { Checkbox } from '@/components/ui/checkbox';
-import { CategoryDto } from '@/dto/category';
-import { useFormState } from 'react-dom';
 import { savePostController } from '@/controllers/post';
-import { CustomMdxEditor } from '@/components/mdx-editor';
-import FileUpload from '@/components/custom/file-upload';
+import { type CategoryDto } from '@/dto/category';
+import { type PostDto } from '@/dto/post';
 
 interface EditorProps {
   post: PostDto;
-  categories: CategoryDto[] | null;
+  categories: Array<CategoryDto> | null;
 }
 
 const cyrillicToTranslit = CyrillicToTranslit();
@@ -33,6 +35,8 @@ export default function Editor({ post, categories }: EditorProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const [markdown, setMarkdown] = useState(post.fullStory ?? '');
   const { toast } = useToast();
+
+  const t = useTranslations('EditPostPage');
 
   const [id, setId] = useState<number | undefined>(post.id);
 
@@ -108,9 +112,6 @@ export default function Editor({ post, categories }: EditorProps) {
               </SelectContent>
             </Select>
           </div>
-          <div className="my-4" >
-            {/*<FileUpload />*/}
-          </div>
           <div className="my-4 flex">
             <Checkbox
               id="published"
@@ -122,9 +123,16 @@ export default function Editor({ post, categories }: EditorProps) {
                 htmlFor="published"
                 className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                Опубликовать
+                {t('publish')}
               </label>
             </div>
+          </div>
+          <div className="my-4">
+            <InputFile
+              label="Постер"
+              onUpload={(file?: File) => {}}
+              loading={false}
+            />
           </div>
           <CustomMdxEditor
             markdown={markdown}
