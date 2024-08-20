@@ -1,7 +1,8 @@
+import { desc, eq } from 'drizzle-orm';
+
 import { db } from '@/db';
-import { asc, desc, eq } from 'drizzle-orm';
 import { postTable } from '@/db/schema';
-import { PostInsertDto } from '@/dto/post';
+import { type PostInsertDto } from '@/dto/post';
 
 const postRepository = {
   getPosts() {
