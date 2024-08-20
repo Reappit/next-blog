@@ -69,7 +69,9 @@ export default function Editor({ post, categories }: EditorProps) {
   const [id, setId] = useState<number | undefined>(post.id);
 
   const [posterUploadProgress, setPosterUploadProgress] = useState(-1);
-  const [posterId, setPosterId] = useState<string | undefined>();
+  const [posterId, setPosterId] = useState<string | undefined>(
+    post.posterId ?? undefined
+  );
 
   useEffect(() => {
     autosize(titleRef.current as unknown as Element);
@@ -116,7 +118,7 @@ export default function Editor({ post, categories }: EditorProps) {
               .replaceAll(/-{2,}/g, '-')
               .toLowerCase()}
           />
-          <input type="hidden" name="posterId" value={posterId} />
+          {posterId && <input type="hidden" name="posterId" value={posterId} />}
           <Textarea
             name="title"
             placeholder="Заголовок"
@@ -161,7 +163,26 @@ export default function Editor({ post, categories }: EditorProps) {
             </div>
           </div>
           <div className="my-4">
-            {posterUploadProgress !== 1 ? (
+            {posterId && (
+              <div className="flex items-center space-x-10">
+                <Image
+                  src={env.NEXT_PUBLIC_IMAGE_BASE_URL + posterId}
+                  width={200}
+                  height={200}
+                  alt="poster"
+                />
+                <Button
+                  onClick={() => {
+                    setPosterUploadProgress(-1);
+                    setPosterId(undefined);
+                  }}
+                  variant="destructive"
+                >
+                  Delete <X />
+                </Button>
+              </div>
+            )}
+            {!posterId && (
               <InputFile
                 label="Постер"
                 onUpload={(image?: File) => {
@@ -174,25 +195,6 @@ export default function Editor({ post, categories }: EditorProps) {
                 }}
                 loading={posterUploadProgress >= 0}
               />
-            ) : (
-              posterId && (
-                <div className="flex items-center space-x-2">
-                  <Image
-                    src={env.NEXT_PUBLIC_IMAGE_BASE_URL + posterId}
-                    width={200}
-                    alt="poster"
-                  />
-                  <Button
-                    onClick={() => {
-                      setPosterUploadProgress(-1);
-                      setPosterId(undefined);
-                    }}
-                    variant="destructive"
-                  >
-                    Delete <X />
-                  </Button>
-                </div>
-              )
             )}
           </div>
           <CustomMdxEditor

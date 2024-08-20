@@ -18,6 +18,7 @@ const formSchema = z.object({
     .string()
     .nullish()
     .transform(value => value === 'on'),
+  posterId: z.string().optional().nullable(),
 });
 
 type State = {
@@ -42,6 +43,7 @@ export async function savePost(
       metaTitle: formData.get('metaTitle'),
       category: formData.get('category'),
       published: formData.get('published'),
+      posterId: formData.get('posterId'),
     });
     const postDto = PostInsertDto.parse({
       ...schemaData,
