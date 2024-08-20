@@ -8,6 +8,8 @@ import { CustomMdx } from '@/components/mdx';
 import PublishedDate from '@/components/PublisedDate';
 import TimeToRead from '@/components/time-to-read';
 import postService from '@/services/post-service';
+import Image from 'next/image';
+import { env } from '@/env';
 
 export default async function PostPage({
   params: { slug },
@@ -50,6 +52,18 @@ export default async function PostPage({
               </div>
             </IsAdmin>
 
+            <div className="mt-10">
+              {post.posterId && (
+                <Image
+                  src={env.NEXT_PUBLIC_IMAGE_BASE_URL + post.posterId}
+                  alt="poster"
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{ width: '100%', height: '100%' }}
+                />
+              )}
+            </div>
             <div className="prose mt-10 min-w-full">
               <CustomMdx source={post.fullStory ?? ''} />
             </div>
