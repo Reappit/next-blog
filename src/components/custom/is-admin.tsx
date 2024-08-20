@@ -1,7 +1,7 @@
 'use client';
 
-import { ReactNode } from 'react';
 import { useSession } from 'next-auth/react';
+import { type ReactNode } from 'react';
 
 export default function IsAdmin({ children }: { children: ReactNode }) {
   const session = useSession();

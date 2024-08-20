@@ -1,16 +1,17 @@
 import './globals.css';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { type Metadata } from 'next';
 import { Mulish } from 'next/font/google';
-import { cn } from '@/lib/utils';
-import Header from '@/components/Header';
-import { Toaster } from '@/components/ui/toaster';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { ReactNode } from 'react';
-import Providers from '@/app/providers';
-import PlausibleProvider from 'next-plausible';
-import { env } from '@/env';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
+import PlausibleProvider from 'next-plausible';
+import { type ReactNode } from 'react';
+
+import Providers from '@/app/providers';
+import Header from '@/components/Header';
+import { Toaster } from '@/components/ui/toaster';
+import { env } from '@/env';
+import { cn } from '@/lib/utils';
 
 const mulish = Mulish({ subsets: ['latin'] });
 

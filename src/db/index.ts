@@ -1,7 +1,9 @@
-import * as schema from './schema';
-import { env } from '@/env';
-import { drizzle, LibSQLDatabase } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client/web';
+import { drizzle, type LibSQLDatabase } from 'drizzle-orm/libsql';
+
+import { env } from '@/env';
+
+import * as schema from './schema';
 
 declare global {
   // eslint-disable-next-line no-var -- only var works here

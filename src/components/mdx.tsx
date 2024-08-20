@@ -1,6 +1,6 @@
+import { Lightbulb, PencilIcon } from 'lucide-react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import React from 'react';
-import { Lightbulb, PencilIcon } from 'lucide-react';
 
 interface CustomComponentProps {
   href: string;

@@ -1,10 +1,11 @@
 import '@mdxeditor/editor/style.css';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+
+import { type CategoryDto } from '@/dto/category';
 import { PostDto } from '@/dto/post';
-import { CategoryDto } from '@/dto/category';
-import postService from '@/services/post-service';
 import categoryService from '@/services/category-service';
+import postService from '@/services/post-service';
 
 const EditorComp = dynamic(() => import('../../components/Editor'), {
   ssr: false,
@@ -17,7 +18,7 @@ interface Props {
 }
 
 export default async function Write({ searchParams: { id } }: Props) {
-  let categories: CategoryDto[] | null;
+  let categories: Array<CategoryDto> | null;
   let post: PostDto = {} as PostDto;
   if (id) {
     const [dbPost, dbCategories] = await Promise.all([

@@ -1,9 +1,10 @@
 'use server';
-import postService from '@/services/post-service';
-import { z } from 'zod';
-import { auth } from '@/lib/auth';
-import { PostInsertDto } from '@/dto/post';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
+
+import { PostInsertDto } from '@/dto/post';
+import { auth } from '@/lib/auth';
+import postService from '@/services/post-service';
 
 const formSchema = z.object({
   id: z.coerce.number().optional(),
