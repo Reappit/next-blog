@@ -8,6 +8,16 @@ const nextConfig = {
     ppr: true,
     serverComponentsExternalPackages: ['@node-rs/argon2', '@aws-sdk/client-s3'],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: process.env.IMAGE_HOST,
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
 };
 
 const nextIntlPlugin = createNextIntlPlugin();

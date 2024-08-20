@@ -3,12 +3,15 @@
 import autosize from 'autosize';
 import axios from 'axios';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
+import { X } from 'lucide-react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormState } from 'react-dom';
 
 import { InputFile } from '@/components/custom/input-file';
 import { CustomMdxEditor } from '@/components/mdx-editor';
+import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
@@ -31,8 +34,14 @@ interface EditorProps {
 
 const cyrillicToTranslit = CyrillicToTranslit();
 
-async function imageUploadHandler(image?: File) {
-  if (!image) return '';
+async function imageUploadHandler({
+  image,
+  onUploadProgress,
+}: {
+  image?: File;
+  onUploadProgress: (progress: number) => void;
+}) {
+  if (!image) return {};
   const data = await uploadImageController.uploadImage({
     size: image.size,
     type: image.type,
@@ -42,10 +51,10 @@ async function imageUploadHandler(image?: File) {
       'Content-Type': image.type,
     },
     onUploadProgress: progress => {
-      console.log(progress);
+      onUploadProgress(progress.progress ?? 0);
     },
   });
-  return `${env.NEXT_PUBLIC_IMAGE_BASE_URL}${data.fileId}`;
+  return { imageId: data.fileId };
 }
 
 export default function Editor({ post, categories }: EditorProps) {
@@ -58,6 +67,9 @@ export default function Editor({ post, categories }: EditorProps) {
   const t = useTranslations('EditPostPage');
 
   const [id, setId] = useState<number | undefined>(post.id);
+
+  const [posterUploadProgress, setPosterUploadProgress] = useState(-1);
+  const [posterId, setPosterId] = useState<string | undefined>();
 
   useEffect(() => {
     autosize(titleRef.current as unknown as Element);
@@ -89,6 +101,7 @@ export default function Editor({ post, categories }: EditorProps) {
     }
   }, [savePostState]);
 
+  console.log(posterId);
   return (
     <div className="m-auto max-w-[700px]">
       <div className="mt-[1.19em] flex flex-col items-center">
@@ -103,6 +116,7 @@ export default function Editor({ post, categories }: EditorProps) {
               .replaceAll(/-{2,}/g, '-')
               .toLowerCase()}
           />
+          <input type="hidden" name="posterId" value={posterId} />
           <Textarea
             name="title"
             placeholder="Заголовок"
@@ -147,11 +161,39 @@ export default function Editor({ post, categories }: EditorProps) {
             </div>
           </div>
           <div className="my-4">
-            <InputFile
-              label="Постер"
-              onUpload={imageUploadHandler}
-              loading={false}
-            />
+            {posterUploadProgress !== 1 ? (
+              <InputFile
+                label="Постер"
+                onUpload={(image?: File) => {
+                  imageUploadHandler({
+                    image,
+                    onUploadProgress: setPosterUploadProgress,
+                  }).then(r => {
+                    setPosterId(r.imageId);
+                  });
+                }}
+                loading={posterUploadProgress >= 0}
+              />
+            ) : (
+              posterId && (
+                <div className="flex items-center space-x-2">
+                  <Image
+                    src={env.NEXT_PUBLIC_IMAGE_BASE_URL + posterId}
+                    width={200}
+                    alt="poster"
+                  />
+                  <Button
+                    onClick={() => {
+                      setPosterUploadProgress(-1);
+                      setPosterId(undefined);
+                    }}
+                    variant="destructive"
+                  >
+                    Delete <X />
+                  </Button>
+                </div>
+              )
+            )}
           </div>
           <CustomMdxEditor
             markdown={markdown}
