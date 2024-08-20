@@ -3,6 +3,7 @@ import {
   PenSquare,
   // ThumbsUp
 } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import IsAdmin from '@/components/custom/is-admin';
@@ -11,6 +12,7 @@ import TimeToRead from '@/components/time-to-read';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { type PostDto } from '@/dto/post';
+import { env } from '@/env';
 
 export default function Post({
   post: {
@@ -22,6 +24,7 @@ export default function Post({
     category,
     author,
     fullStory,
+    posterId,
   },
   first = false,
 }: {
@@ -37,16 +40,30 @@ export default function Post({
         <PublishedDate date={createdAt} />
       </div>
       <div className="mt-3">
-        <Link href={`${category?.metaName}/${metaTitle}-${id}`}>
-          <h2 className="line-clamp-3 max-h-[72px] text-xl font-bold leading-6">
-            {title}
-          </h2>
-          <div className="pt-2">
-            <p className="line-clamp-3 max-h-[72px] text-lg leading-6">
-              {subTitle}
-            </p>
+        <div className="flex justify-between">
+          <Link href={`${category?.metaName}/${metaTitle}-${id}`}>
+            <h2 className="line-clamp-3 max-h-[72px] text-xl font-bold leading-6">
+              {title}
+            </h2>
+            <div className="pt-2">
+              <p className="line-clamp-3 max-h-[72px] text-lg leading-6">
+                {subTitle}
+              </p>
+            </div>
+          </Link>
+          <div>
+            {posterId && (
+              <Image
+                src={env.NEXT_PUBLIC_IMAGE_BASE_URL + posterId}
+                alt="poster"
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: '100%', height: '107px' }}
+              />
+            )}
           </div>
-        </Link>
+        </div>
 
         <div className="mb-4 mt-8">
           <div className="flex justify-between">
