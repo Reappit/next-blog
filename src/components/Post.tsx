@@ -65,7 +65,7 @@ export default function Post({
           </div>
         </div>
 
-        <div className="mb-4 mt-8">
+        <div className="mb-4">
           <div className="flex justify-between">
             <div className="flex items-center">
               <Badge
