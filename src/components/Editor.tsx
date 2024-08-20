@@ -49,7 +49,7 @@ async function imageUploadHandler(image?: File) {
 }
 
 export default function Editor({ post, categories }: EditorProps) {
-  const titleRef = useRef(null);
+  const titleRef = useRef<HTMLTextAreaElement>(null);
   const subtitleRef = useRef(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [markdown, setMarkdown] = useState(post.fullStory ?? '');
@@ -99,7 +99,7 @@ export default function Editor({ post, categories }: EditorProps) {
             type="hidden"
             name="metaTitle"
             value={cyrillicToTranslit
-              .transform((titleRef.current as any)?.value ?? '', '-')
+              .transform(titleRef.current?.value ?? '', '-')
               .replaceAll(/-{2,}/g, '-')
               .toLowerCase()}
           />

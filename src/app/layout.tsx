@@ -5,7 +5,7 @@ import { Mulish } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import PlausibleProvider from 'next-plausible';
-import { type ReactNode } from 'react';
+import { type ReactNode, type ScriptHTMLAttributes } from 'react';
 
 import Providers from '@/app/providers';
 import Header from '@/components/Header';
@@ -38,7 +38,11 @@ export default async function RootLayout({
           domain={env.APP_URL}
           enabled={true}
           selfHosted={true}
-          scriptProps={{ 'data-api': env.PLAUSIBLE_URL } as any}
+          scriptProps={
+            {
+              'data-api': env.PLAUSIBLE_URL,
+            } as ScriptHTMLAttributes<HTMLScriptElement>
+          }
         />
       </head>
       <body className={cn(mulish.className, 'min-h-screen bg-background')}>

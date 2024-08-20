@@ -5,14 +5,14 @@
     "next/core-web-vitals",
     "next/core-web-vitals",
     "plugin:prettier/recommended",
-    "plugin:drizzle/all",
+//    "plugin:drizzle/all",
     "next",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript"
   ],
   "plugins": [
-    "drizzle",
+//    "drizzle",
     "no-relative-import-paths",
     "@typescript-eslint",
     "no-relative-import-paths",
