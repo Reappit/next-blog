@@ -1,4 +1,5 @@
 import { PenSquare, UserCircle } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { Suspense } from 'react';
 
@@ -7,9 +8,8 @@ import { FullPostSkeleton } from '@/components/FullPostSkeleton';
 import { CustomMdx } from '@/components/mdx';
 import PublishedDate from '@/components/PublisedDate';
 import TimeToRead from '@/components/time-to-read';
-import postService from '@/services/post-service';
-import Image from 'next/image';
 import { env } from '@/env';
+import postService from '@/services/post-service';
 
 export default async function PostPage({
   params: { slug },

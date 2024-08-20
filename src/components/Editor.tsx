@@ -103,7 +103,6 @@ export default function Editor({ post, categories }: EditorProps) {
     }
   }, [savePostState]);
 
-  console.log(posterId);
   return (
     <div className="m-auto max-w-[700px]">
       <div className="mt-[1.19em] flex flex-col items-center">
