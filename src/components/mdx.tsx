@@ -1,4 +1,5 @@
 import { Lightbulb, PencilIcon } from 'lucide-react';
+import { type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import React from 'react';
 
@@ -39,7 +40,7 @@ const customComponents = {
   caution: Note,
 };
 
-export function CustomMdx(props: any) {
+export function CustomMdx(props: MDXRemoteProps) {
   return (
     <MDXRemote
       {...props}
