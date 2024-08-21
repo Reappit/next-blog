@@ -15,8 +15,7 @@ export default async function Header() {
       <div className="container flex h-14 items-center">
         <div className="mr-4 flex items-center">
           <Link href="/" className={`mr-6 tracking-widest`}>
-            <span className="text-5xl">D</span>
-            <span className="text-xl">tt</span>
+            <span className="text-5xl">Dtt</span>
           </Link>
           {/*<div className="flex w-auto items-center sm:w-72">*/}
           {/*  <Search />*/}
