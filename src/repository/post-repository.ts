@@ -5,13 +5,18 @@ import { postTable } from '@/db/schema';
 import { type PostInsertDto } from '@/dto/post';
 
 const postRepository = {
-  getPosts() {
+  getPosts({ allPosts = false }: { allPosts: boolean }) {
     return db.query.postTable.findMany({
       with: {
         category: true,
         author: true,
       },
       orderBy: [desc(postTable.createdAt)],
+      ...(!allPosts
+        ? {
+            where: eq(postTable.published, true),
+          }
+        : {}),
     });
   },
 

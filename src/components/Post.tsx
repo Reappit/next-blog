@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 import IsAdmin from '@/components/custom/is-admin';
 import PublishedDate from '@/components/PublisedDate';
@@ -25,12 +26,14 @@ export default function Post({
     author,
     fullStory,
     posterId,
+    published,
   },
   first = false,
 }: {
   first?: boolean;
   post: PostDto;
 }) {
+  const t = useTranslations('Post');
   return (
     <article className="mx-6 flex flex-col justify-center pt-6">
       {!first && <Separator />}
@@ -38,6 +41,11 @@ export default function Post({
         <span>@{author.login}</span>
         <span className="mx-1">·</span>
         <PublishedDate date={createdAt} />
+        {!published && (
+          <span className="bold ml-4 bg-red-200 text-red-600">
+            {t('notPublished')}
+          </span>
+        )}
       </div>
       <div className="mt-3">
         <div className="flex justify-between">

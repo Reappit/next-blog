@@ -7,8 +7,8 @@ const postService = {
     return PostDto.parse(post);
   },
 
-  async getPosts() {
-    const posts = await postRepository.getPosts();
+  async getPosts({ allPosts = false }: { allPosts: boolean }) {
+    const posts = await postRepository.getPosts({ allPosts });
     return posts.map(post => PostDto.parse(post));
   },
 

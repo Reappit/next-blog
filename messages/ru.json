@@ -6,7 +6,8 @@
     "logOut": "Выйти"
   },
   "Post": {
-    "timeToRead": "{time} мин читать"
+    "timeToRead": "{time} мин читать",
+    "notPublished": "Не опубликован!"
   },
   "FileUpload": {
     "dragFiles": "Перетащите файлы",
