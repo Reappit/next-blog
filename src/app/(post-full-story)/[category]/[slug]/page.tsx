@@ -57,10 +57,9 @@ export default async function PostPage({
                 <Image
                   src={env.NEXT_PUBLIC_IMAGE_BASE_URL + post.posterId}
                   alt="poster"
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{ width: '100%', height: '100%' }}
+                  sizes="680px"
+                  width={680}
+                  height={453}
                 />
               )}
             </div>
