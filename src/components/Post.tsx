@@ -59,7 +59,7 @@ export default function Post({
               </p>
             </div>
           </Link>
-          <div className="relative h-[106,7px] w-[160px]">
+          <div className="relative h-[107px] w-[160px]">
             <Image
               className="object-cover"
               src={env.NEXT_PUBLIC_IMAGE_BASE_URL + posterId}
