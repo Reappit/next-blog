@@ -59,14 +59,15 @@ export default function Post({
               </p>
             </div>
           </Link>
-          <Image
-            className="h-[107px]"
-            src={env.NEXT_PUBLIC_IMAGE_BASE_URL + posterId}
-            alt="poster"
-            width={160}
-            height={107}
-            style={{ objectFit: 'cover' }}
-          />
+          <div className="relative h-[106,7px] w-[160px]">
+            <Image
+              className="object-cover"
+              src={env.NEXT_PUBLIC_IMAGE_BASE_URL + posterId}
+              alt="poster"
+              fill
+              sizes="160px"
+            />
+          </div>
         </div>
 
         <div className="mb-4">
