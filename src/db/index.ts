@@ -10,9 +10,17 @@ declare global {
   var db: LibSQLDatabase<typeof schema> | undefined;
 }
 
+function noCacheFetch(
+  input: string | URL | globalThis.Request,
+  init?: RequestInit
+): Promise<Response> {
+  return fetch(input, { ...init, cache: 'no-store' });
+}
+
 const turso = createClient({
   url: env.TURSO_DATABASE_URL!,
   authToken: env.TURSO_AUTH_TOKEN,
+  fetch: noCacheFetch,
 });
 
 let db: LibSQLDatabase<typeof schema>;

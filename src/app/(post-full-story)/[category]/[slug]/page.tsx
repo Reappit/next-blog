@@ -17,7 +17,6 @@ export default async function PostPage({
   params: { slug: string };
 }) {
   const postId = slug.split('-').at(-1) ?? '';
-  console.log('slug/page', postId);
   const post = await postService.getPostById(+postId);
   if (!post) {
     return null;
