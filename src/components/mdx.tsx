@@ -1,7 +1,8 @@
 import { Lightbulb, PencilIcon } from 'lucide-react';
+import Image from 'next/image';
 import { type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import React from 'react';
+import React, { type DetailedHTMLProps, type ImgHTMLAttributes } from 'react';
 
 interface CustomComponentProps {
   href: string;
@@ -32,6 +33,27 @@ const Note: CustomComponent = ({ children }) => (
   </div>
 );
 
+const RoundedImage = (
+  props: DetailedHTMLProps<
+    ImgHTMLAttributes<HTMLImageElement>,
+    HTMLImageElement
+  > & { imgWidth: number }
+) => {
+  const { imgWidth } = props;
+  return (
+    <span className="flex flex-col items-center">
+      <Image
+        width={imgWidth}
+        height={imgWidth / 1.5}
+        src={props.src ?? ''}
+        alt={props.alt ?? ''}
+        className="my-0"
+      />
+      <span>{props.title}</span>
+    </span>
+  );
+};
+
 const customComponents = {
   note: Note,
   tip: Tip,
@@ -40,11 +62,16 @@ const customComponents = {
   caution: Note,
 };
 
-export function CustomMdx(props: MDXRemoteProps) {
+export function CustomMdx(props: MDXRemoteProps & { imgWidth: number }) {
+  const { imgWidth, ...restProps } = props;
   return (
     <MDXRemote
-      {...props}
-      components={{ ...customComponents, ...(props.components || {}) }}
+      {...restProps}
+      components={{
+        ...customComponents,
+        ...(restProps.components || {}),
+        img: props => <RoundedImage {...props} imgWidth={imgWidth} />,
+      }}
     />
   );
 }

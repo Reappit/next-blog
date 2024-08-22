@@ -11,6 +11,8 @@ import TimeToRead from '@/components/time-to-read';
 import { env } from '@/env';
 import postService from '@/services/post-service';
 
+const postWidth = 680;
+
 export default async function PostPage({
   params: { slug },
 }: {
@@ -24,7 +26,7 @@ export default async function PostPage({
   return (
     <article>
       <div className="flex justify-center">
-        <section className="w-full max-w-[680px]">
+        <section className={`w-full max-w-[${postWidth}px]`}>
           <Suspense fallback={<FullPostSkeleton />}>
             <div className="mt-[1.19em]">
               <h1 className="text-4xl font-bold">{post.title}</h1>
@@ -57,14 +59,14 @@ export default async function PostPage({
                 <Image
                   src={env.NEXT_PUBLIC_IMAGE_BASE_URL + post.posterId}
                   alt="poster"
-                  sizes="680px"
-                  width={680}
-                  height={453}
+                  sizes={postWidth + 'px'}
+                  width={postWidth}
+                  height={postWidth / 1.5}
                 />
               )}
             </div>
             <div className="prose mt-10 min-w-full">
-              <CustomMdx source={post.fullStory ?? ''} />
+              <CustomMdx source={post.fullStory ?? ''} imgWidth={postWidth} />
             </div>
           </Suspense>
         </section>
