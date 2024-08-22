@@ -9,6 +9,7 @@ const nextConfig = {
     serverComponentsExternalPackages: ['@node-rs/argon2', '@aws-sdk/client-s3'],
   },
   images: {
+    formats: ['image/webp', 'image/avif'],
     remotePatterns: [
       {
         protocol: 'https',

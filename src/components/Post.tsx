@@ -59,18 +59,14 @@ export default function Post({
               </p>
             </div>
           </Link>
-          <div>
-            {posterId && (
-              <Image
-                src={env.NEXT_PUBLIC_IMAGE_BASE_URL + posterId}
-                alt="poster"
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{ width: '100%', height: '107px' }}
-              />
-            )}
-          </div>
+          <Image
+            className="h-[107px]"
+            src={env.NEXT_PUBLIC_IMAGE_BASE_URL + posterId}
+            alt="poster"
+            width={160}
+            height={107}
+            style={{ objectFit: 'cover' }}
+          />
         </div>
 
         <div className="mb-4">
