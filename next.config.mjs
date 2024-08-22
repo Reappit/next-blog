@@ -7,7 +7,7 @@ const nextConfig = {
   experimental: {
     ppr: true,
   },
-  serverExternalPackages: ['@node-rs/argon2', '@aws-sdk/client-s3'],
+  // serverExternalPackages: ['@node-rs/argon2', '@aws-sdk/client-s3'],
   transpilePackages: ['next-mdx-remote'],
   images: {
     formats: ['image/webp', 'image/avif'],
