@@ -26,7 +26,7 @@ export default async function PostPage({
   return (
     <article>
       <div className="flex justify-center">
-        <section className={`w-full max-w-[${postWidth}px]`}>
+        <section className={`w-full max-w-[680px]`}>
           <Suspense fallback={<FullPostSkeleton />}>
             <div className="mt-[1.19em]">
               <h1 className="text-4xl font-bold">{post.title}</h1>
