@@ -3,6 +3,7 @@ import postRepository from '@/repository/post-repository';
 
 const postService = {
   async getPostById(id: string | number) {
+    console.log('getPostById', id);
     const post = await postRepository.getPostById(+id);
     return PostDto.parse(post);
   },
