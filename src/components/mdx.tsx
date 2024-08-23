@@ -9,7 +9,7 @@ import React, {
   type ReactNode,
 } from 'react';
 
-import { cyrillicStrSlugify } from '@/lib/utils';
+import { convertChildrenToString, cyrillicStrSlugify } from '@/lib/utils';
 
 const Tip = ({ children }: { children: ReactNode }) => (
   <div className="min-w-full border-l-4 border-green-700">
@@ -61,7 +61,8 @@ const HeaderN = ({
   children?: ReactNode;
   level: number;
 }) => {
-  const slug = cyrillicStrSlugify(children as string);
+  const slugFromChildren = convertChildrenToString(children);
+  const slug = cyrillicStrSlugify(slugFromChildren as string);
   return React.createElement(`h${level}`, { id: slug, className: 'my-5 ' }, [
     React.createElement('a', {
       href: `#${slug}`,

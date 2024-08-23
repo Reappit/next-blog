@@ -10,6 +10,7 @@ import { useTranslations } from 'next-intl';
 import IsAdmin from '@/components/custom/is-admin';
 import PublishedDate from '@/components/PublisedDate';
 import TimeToRead from '@/components/time-to-read';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { type PostDto } from '@/dto/post';
@@ -59,14 +60,16 @@ export default function Post({
               </p>
             </div>
           </Link>
-          <div className="relative h-[107px] w-[160px]">
-            <Image
-              className="object-cover"
-              src={env.NEXT_PUBLIC_IMAGE_BASE_URL + posterId}
-              alt="poster"
-              fill
-              sizes="160px"
-            />
+          <div className="w-[160px]">
+            <AspectRatio ratio={1.5}>
+              <Image
+                className="object-cover"
+                src={env.NEXT_PUBLIC_IMAGE_BASE_URL + posterId}
+                alt="poster"
+                fill
+                sizes="160px"
+              />
+            </AspectRatio>
           </div>
         </div>
 
