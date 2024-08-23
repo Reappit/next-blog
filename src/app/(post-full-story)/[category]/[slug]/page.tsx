@@ -58,7 +58,7 @@ export default async function PostPage({
 
             <div>
               {post.posterId && (
-                <AspectRatio ratio={1.5} className="bg-muted">
+                <AspectRatio ratio={1.5} className="mt-5 bg-muted">
                   <Image
                     className={cn(
                       'h-full w-full object-cover'
