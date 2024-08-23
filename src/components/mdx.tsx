@@ -2,16 +2,16 @@ import { Lightbulb, PencilIcon } from 'lucide-react';
 import Image from 'next/image';
 import { type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import React, { type DetailedHTMLProps, type ImgHTMLAttributes } from 'react';
+import React, {
+  type ComponentProps,
+  type DetailedHTMLProps,
+  type ImgHTMLAttributes,
+  type ReactNode,
+} from 'react';
 
-interface CustomComponentProps {
-  href: string;
-  children: React.ReactNode;
-}
+import { cyrillicStrSlugify } from '@/lib/utils';
 
-type CustomComponent = React.ComponentType<CustomComponentProps>;
-
-const Tip: CustomComponent = ({ children }) => (
+const Tip = ({ children }: { children: ReactNode }) => (
   <div className="min-w-full border-l-4 border-green-700">
     <div className="flex items-center bg-green-700/30 py-1 pl-2 font-bold text-black">
       <Lightbulb size={21} className="text-green-700" />
@@ -21,7 +21,7 @@ const Tip: CustomComponent = ({ children }) => (
   </div>
 );
 
-const Note: CustomComponent = ({ children }) => (
+const Note = ({ children }: { children: ReactNode }) => (
   <div className="min-w-full rounded border-[1px] border-blue-500">
     <div className="flex items-center bg-blue-200/30 py-1 pl-2 font-bold text-black">
       <div className="rounded-full bg-blue-500 p-1.5">
@@ -54,12 +54,33 @@ const RoundedImage = (
   );
 };
 
+const HeaderN = ({
+  children,
+  level,
+}: {
+  children?: ReactNode;
+  level: number;
+}) => {
+  const slug = cyrillicStrSlugify(children as string);
+  return React.createElement(`h${level}`, { id: slug, className: 'my-5 ' }, [
+    React.createElement('a', {
+      href: `#${slug}`,
+      key: `link-${slug}`,
+      className: 'anchor',
+    }),
+    children,
+  ]);
+};
+
 const customComponents = {
   note: Note,
   tip: Tip,
   danger: Note,
   info: Note,
   caution: Note,
+  h1: (props: ComponentProps<'h1'>) => <HeaderN level={1} {...props} />,
+  h2: (props: ComponentProps<'h2'>) => <HeaderN level={2} {...props} />,
+  h3: (props: ComponentProps<'h3'>) => <HeaderN level={3} {...props} />,
 };
 
 export function CustomMdx(props: MDXRemoteProps & { imgWidth: number }) {

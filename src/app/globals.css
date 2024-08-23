@@ -64,6 +64,28 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
   }
+  .prose .anchor {
+    @apply invisible absolute no-underline;
+
+    margin-left: -1em;
+    padding-right: 0.5em;
+    width: 80%;
+    max-width: 700px;
+    cursor: pointer;
+  }
+
+  .anchor:hover {
+    @apply visible;
+  }
+
+  .prose .anchor:after {
+    @apply text-neutral-300 dark:text-neutral-700;
+    content: '#';
+  }
+
+  .prose *:hover > .anchor {
+    @apply visible;
+  }
 }
 
 @layer base {

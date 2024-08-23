@@ -2,7 +2,6 @@
 
 import autosize from 'autosize';
 import axios from 'axios';
-import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
@@ -26,13 +25,12 @@ import { savePostController, uploadImageController } from '@/controllers/post';
 import { type CategoryDto } from '@/dto/category';
 import { type PostDto } from '@/dto/post';
 import { env } from '@/env';
+import { cyrillicStrSlugify } from '@/lib/utils';
 
 interface EditorProps {
   post: PostDto;
   categories: Array<CategoryDto> | null;
 }
-
-const cyrillicToTranslit = CyrillicToTranslit();
 
 async function imageUploadHandler({
   image,
@@ -112,10 +110,7 @@ export default function Editor({ post, categories }: EditorProps) {
           <input
             type="hidden"
             name="metaTitle"
-            value={cyrillicToTranslit
-              .transform(titleRef.current?.value ?? '', '-')
-              .replaceAll(/-{2,}/g, '-')
-              .toLowerCase()}
+            value={cyrillicStrSlugify(titleRef.current?.value)}
           />
           {posterId && <input type="hidden" name="posterId" value={posterId} />}
           <Textarea
