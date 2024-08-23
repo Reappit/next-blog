@@ -41,7 +41,7 @@ const RoundedImage = (
 ) => {
   const { imgWidth } = props;
   return (
-    <span className="flex flex-col items-center">
+    <span className="flex flex-col items-center pb-[20px]">
       <Image
         width={imgWidth}
         height={imgWidth / 1.5}
