@@ -8,10 +8,10 @@ import { FullPostSkeleton } from '@/components/FullPostSkeleton';
 import { CustomMdx } from '@/components/mdx';
 import PublishedDate from '@/components/PublisedDate';
 import TimeToRead from '@/components/time-to-read';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { env } from '@/env';
 import { cn } from '@/lib/utils';
 import postService from '@/services/post-service';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const postWidth = 680;
 
