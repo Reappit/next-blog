@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import Categories from '@/components/Categories';
 import { PostListSkeleton } from '@/components/PostListSkeleton';
 import Posts from '@/components/Posts';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function Home() {
   return (
@@ -14,7 +15,15 @@ export default function Home() {
       </main>
       <div className="hidden min-h-[100vh] border-l md:min-w-[300px] md:max-w-[368px] lg:block">
         <div className="mt-10 pl-10">
-          <Suspense fallback={<PostListSkeleton />}>
+          <Suspense
+            fallback={
+              <div>
+                {Array.from({ length: 6 }).map((e, i) => (
+                  <Skeleton key={i} className="mb-2 h-4" />
+                ))}
+              </div>
+            }
+          >
             <Categories />
           </Suspense>
         </div>
