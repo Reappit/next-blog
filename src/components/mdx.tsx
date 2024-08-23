@@ -39,15 +39,14 @@ const RoundedImage = (
     HTMLImageElement
   > & { imgWidth: number }
 ) => {
-  const { imgWidth } = props;
   return (
-    <span className="flex flex-col items-center pb-[20px]">
+    <span className="relative flex h-[700px] w-full flex-col items-center pb-[20px]">
       <Image
-        width={imgWidth}
-        height={imgWidth / 1.5}
         src={props.src ?? ''}
         alt={props.alt ?? ''}
-        className="my-0"
+        className="my-0 object-cover"
+        sizes="680px"
+        fill
       />
       <span>{props.title}</span>
     </span>
